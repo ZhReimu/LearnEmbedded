@@ -1,0 +1,88 @@
+=================显示图片====================
+一、虚拟共享内存映射
+屏幕下半区域会有延时
+文件操作函数的延时
+显存延时
+将显存映射到应用层中，调用一次，
+
+速度比直接操作IO快50~100倍，数据量越大，操作越简单
+lcdmem +x +800*y
+
+#include <sys/mman.h>
+
+void *mmap(void *addr, size_t len, int prot, int flags,int fildes, off_t off);
+
+参数一：void *addr  ，一般设置为NULL，由系统进行分配
+参数二：size_t len ，申请的空间大小800*480*4
+参数三：int prot， PROT_READ | PROT_WRITE
+参数四：int flags，   MAP_SHARED
+参数五：int fildes，  lcd_fd
+参数六：off_t off，    0
+
+munmap(share_addr,800*480*4)
+
+
+====================图片显示=========
+主流图片格式：
+bmp，jpeg，png，gif等等。
+bmp格式：由原始数据组成，红绿蓝三原色
+jpeg图片：bmp格式进行压缩处理之后的格式
+png是由jpeg在网络上的透明格式
+gif是由连续的多张jpeg图片在添加时间轴以后的动态图片
+
+bmp图片的数据是由两个部分组成的
+一部分由头文件组成，一共有54个字节
+另外一部分由红绿蓝颜色数据组成
+
+================LCD设备文件=================
+framebuf  ---->fb设备驱动文件
+获取设备文件参数
+ioctl()
+参数一：需要被操作的设备文件的文件描述符
+参数二：设备文件中对应的宏定义（查找对应设备的.h文件）
+参数三：保存参数二结果的缓冲区
+
+gedit /usr/include/linux/fb.h
+
+#define FBIOGET_VSCREENINFO	0x4600 //获取LCD屏幕信息
+#define FBIOGET_FSCREENINFO	0x4602 //获取LCD屏幕对应的显存信息
+
+struct fb_fix_screeninfo {
+	unsigned long smem_start;//显存起始地址
+	__u32 smem_len;		//显存长度----字节
+}；
+struct fb_bitfield {
+	__u32 offset;//每次颜色在像素中的偏移量
+	__u32 length;//颜色的bit数
+};
+
+
+struct fb_var_screeninfo {
+	__u32 xres;		//可见区x轴上的长度
+	__u32 yres;		//可见区y轴上的长度
+	__u32 xres_virtual;	//虚拟区x轴上的长度
+	__u32 yres_virtual;	//虚拟区y轴上的长度
+	__u32 xoffset;	//可见区在虚拟区x轴上的偏移量
+	__u32 yoffset;	//可见区在虚拟区y轴上的偏移量
+	__u32 bits_per_pixel;   //像素位数
+	
+	struct fb_bitfield red;
+	struct fb_bitfield green;
+	struct fb_bitfield blue;
+	struct fb_bitfield transp;
+}
+
+
+
+
+练习：使用4种特效分别显示4张bmp图片
+
+
+练习：使用show_bmp.c实现图片切换，
+
+
+
+作业：将bmp.c   正倒  左右倒  解决掉
+
+
+
