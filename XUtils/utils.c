@@ -192,9 +192,9 @@ static int lcd_init(struct lcd_info *lcdinfo)
 
 	ioctl(lcdinfo->fd, FBIOGET_VSCREENINFO, &lcdvar);
 
-	printf("lcd屏幕宽度=%d\n", lcdvar.xres);
-	printf("lcd屏幕高度=%d\n", lcdvar.yres);
-	printf("lcd屏幕位数=%d\n", lcdvar.bits_per_pixel);
+	printf("lcd Width = %d\n", lcdvar.xres);
+	printf("lcd Height = %d\n", lcdvar.yres);
+	printf("lcd Bit = %d\n", lcdvar.bits_per_pixel);
 
 	lcdinfo->width = lcdvar.xres;
 	lcdinfo->high = lcdvar.yres;
@@ -233,9 +233,9 @@ void show_bmp(char *pathname, int x_begin, int y_begin, struct lcd_info *lcdinfo
 	struct bmphead bmphead_buf;
 	fread(&bmphead_buf, 54, 1, fp);
 
-	printf("图片的宽度:%d\n", bmphead_buf.Width);
-	printf("图片的高度:%d\n", bmphead_buf.Height);
-	printf("图片的位数:%d\n", bmphead_buf.biBitCount);
+	printf("Pic Width: %d\n", bmphead_buf.Width);
+	printf("Pic Height: %d\n", bmphead_buf.Height);
+	printf("Pic Bit: %d\n", bmphead_buf.biBitCount);
 
 	bmp_width = bmphead_buf.Width;
 	bmp_high = bmphead_buf.Height;
@@ -301,7 +301,7 @@ static void lcd_exit(struct lcd_info *lcdinfo)
 {
 	//释放了映射内存
 	munmap(lcdmem, lcdinfo->width * lcdinfo->high * lcdinfo->bits_per / 8);
-
+	lcdmem = NULL;
 	//关闭屏幕
 	close(lcdinfo->fd);
 
@@ -318,7 +318,7 @@ static void lcd_exit(struct lcd_info *lcdinfo)
 void showBMP(char *fileName, int x, int y)
 {
 	// 创建一个屏幕信息结构体指针
-	static struct lcd_info *lcdinfo;
+	static struct lcd_info *lcdinfo = NULL;
 	lcdinfo = malloc(sizeof(struct lcd_info));
 	if (lcdinfo == NULL && DEBUG)
 	{
