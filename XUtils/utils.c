@@ -1,5 +1,12 @@
 #include "myHeader.h"
 
+void setColor2(char *buff, int start, int r, int g, int b)
+{
+	buff[0 + start] = b; // B
+	buff[1 + start] = g; // G
+	buff[2 + start] = r; // R
+	buff[3 + start] = 0; // A
+}
 /**
  * @brief 设置某个像素的颜色
  * 
@@ -12,25 +19,34 @@
 void setColor(char *buff, int x, int y, int c)
 {
 	int start = 0 + 4 * x + 800 * 4 * y;
-
-	buff[0 + start] = 0;
-	buff[1 + start] = 0;
-	buff[2 + start] = 0;
-	buff[3 + start] = 0;
-
 	switch (c)
 	{
 	case RED:
-		buff[2 + start] = 0xFF;
+		setColor2(buff, start, 0xFF, 0, 0);
 		break;
 	case GREEN:
-		buff[1 + start] = 0xFF;
+		setColor2(buff, start, 0, 0xFF, 0);
 		break;
 	case BLUE:
-		buff[0 + start] = 0xFF;
+		setColor2(buff, start, 0, 0, 0xFF);
+		break;
+	case PINK:
+		setColor2(buff, start, 0xEF, 0x5B, 0x9C);
+		break;
+	case SAKURA:
+		setColor2(buff, start, 0xFE, 0xEE, 0xED);
+		break;
+	case ORANGE:
+		setColor2(buff, start, 0xFA, 0xA7, 0x55);
+		break;
+	case CYAN:
+		setColor2(buff, start, 0, 0x9A, 0xD6);
+		break;
+	case BLACK:
 		break;
 	}
 }
+
 /**
  * @brief 将 BMP 图片指定像素颜色设置到缓冲区
  * 
@@ -119,4 +135,25 @@ void cls(char *buff, int c)
 			setColor(buff, x, y, c);
 		}
 	}
+}
+/**
+ * @brief 生成随机范围的随机数
+ * 
+ * @param min 最小值 ( 包括 )
+ * @param max 最大值 ( 包括 )
+ * @return int 返回 [min, max] 范围的值
+ */
+int rad(int min, int max)
+{
+	srand((unsigned int)time(NULL));
+	return rand() % (max - min + 1) + min;
+}
+/**
+ * @brief 生成随机颜色的枚举
+ * 
+ * @return int 在 COLOR 枚举里定义的 随机颜色
+ */
+int radColor()
+{
+	return rad(0, 7);
 }

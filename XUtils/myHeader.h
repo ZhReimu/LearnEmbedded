@@ -1,7 +1,9 @@
 #ifndef _MYHEADER_H_
 #define _MYHEADER_H_
 
+#include <time.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <strings.h>
 /* 调用 open 函数的头文件 */
 #include <sys/types.h>
@@ -34,7 +36,12 @@ enum COLOR
 {
 	RED,
 	GREEN,
-	BLUE
+	BLUE,
+	BLACK,
+	PINK,
+	SAKURA,
+	ORANGE,
+	CYAN
 };
 /**
  * @brief 设置某个像素的颜色
@@ -78,5 +85,10 @@ int openLCD(char **buff);
  * @see COLOR
  */
 void cls(char *buff, int c);
-
+/**
+ * @brief 获取随机颜色
+ * 
+ * @return int 随机颜色 RED, GREEN, BLUE
+ */
+int radColor();
 #endif
