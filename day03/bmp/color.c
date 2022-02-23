@@ -15,12 +15,71 @@ void doAction(int lcdfd, char *buff)
 		return;
 	}
 	int x, y;
+	// 特效 1
 	for (y = 0; y < 480; y++)
 	{
 		for (x = 0; x < 800; x++)
 		{
 			setBMPColor(buff, BMP_24bit, x, y);
 		}
+		usleep(10);
+	}
+
+	sleep(2);
+	cls(buff, radColor());
+
+	// 特效 2
+	for (y = 0; y < 240; y++)
+	{
+		for (x = 0; x < 400; x++)
+		{
+			setBMPColor(buff, BMP_24bit, x, y);
+		}
+		usleep(10);
+	}
+
+	for (y = 240; y < 480; y++)
+	{
+		for (x = 400; x < 800; x++)
+		{
+			setBMPColor(buff, BMP_24bit, x, y);
+		}
+		usleep(10);
+	}
+
+	sleep(2);
+	cls(buff, radColor());
+
+	// 特效 3
+	for (y = 0; y < 480; y++)
+	{
+		for (x = 0; x < 400; x++)
+		{
+			setBMPColor(buff, BMP_24bit, x, y);
+		}
+		usleep(10);
+	}
+
+	for (y = 0; y < 480; y++)
+	{
+		for (x = 400; x < 800; x++)
+		{
+			setBMPColor(buff, BMP_24bit, x, y);
+		}
+		usleep(10);
+	}
+
+	sleep(2);
+	cls(buff, radColor());
+
+	// 特效 4
+	for (x = 0; x < 800; x++)
+	{
+		for (y = 0; y < 480; y++)
+		{
+			setBMPColor(buff, BMP_24bit, x, y);
+		}
+		usleep(10);
 	}
 }
 
@@ -34,7 +93,11 @@ int main()
 		return -1;
 	}
 
-	doAction(lcdfd, buff);
+	while (1)
+	{
+		doAction(lcdfd, buff);
+	}
+
 	//关闭驱动文件描述符
 	munmap(buff, BUFF_SIZE);
 	//关闭驱动文件描述符
