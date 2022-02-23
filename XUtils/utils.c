@@ -83,7 +83,7 @@ void setBMPColor(char *buff, char *bmpBuff, int x, int y)
 int readBMP(const char *fileName, char *bmp)
 {
 	//打开图片
-	int BMP_fd = open(fileName, O_RDWR);
+	int BMP_fd = open(fileName, O_RDONLY);
 	if (BMP_fd < 0 && DEBUG)
 	{
 		printf("Open Bmp Failed\n");
@@ -102,7 +102,7 @@ int readBMP(const char *fileName, char *bmp)
 		return -1;
 	}
 	if (DEBUG)
-		printf("Read Bmp OK\n");
+		printf("Read Bmp %s OK\n", fileName);
 	close(BMP_fd);
 	return read_ret;
 }

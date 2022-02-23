@@ -44,7 +44,6 @@
 
 # Kernel Module Compile Results
 *.mod*
-*.cmd
 .tmp_versions/
 modules.order
 Module.symvers
@@ -53,3 +52,4 @@ dkms.conf
 
 
 SecureCRT/
+岛市老八.zip

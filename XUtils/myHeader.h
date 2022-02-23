@@ -31,7 +31,7 @@
  */
 #define BMP_SIZE 800 * 480 * 3
 
-#define DEBUG 0
+#define DEBUG 1
 
 /**
  * @brief 颜色枚举

@@ -9,8 +9,9 @@
 void doAction(int lcdfd, char *buff)
 {
 	static int i = 1;
-
-	char path[] = "/1/001.bmp";
+	//把bmp图片24位颜色数据读取出来
+	char BMP_24bit[BMP_SIZE] = {};
+	char path[] = "./1/001.bmp";
 
 	if (i < 10)
 	{
@@ -28,7 +29,19 @@ void doAction(int lcdfd, char *buff)
 		path[6] = i % 10 + '0';
 	}
 
-	showBMP(path, 0, 0);
+	if (readBMP(path, BMP_24bit) < 0)
+	{
+		return;
+	}
+
+	int x, y;
+	for (y = 0; y < 480; y++)
+	{
+		for (x = 0; x < 800; x++)
+		{
+			setBMPColor(buff, BMP_24bit, x, y);
+		}
+	}
 	usleep(300000);
 	if (i++ == 31)
 		i = 1;
