@@ -13,6 +13,9 @@
 #include <unistd.h>
 /* 调用 mmap 的头文件 */
 #include <sys/mman.h>
+/* 获取屏幕信息的头文件 */
+#include <linux/fb.h>
+#include <sys/ioctl.h>
 
 #include "bmphead.h"
 
@@ -27,6 +30,8 @@
  * 
  */
 #define BMP_SIZE 800 * 480 * 3
+
+#define DEBUG 0
 
 /**
  * @brief 颜色枚举
@@ -43,6 +48,18 @@ enum COLOR
 	ORANGE,
 	CYAN
 };
+/**
+ * @brief LCD 信息结构体
+ * 
+ */
+struct lcd_info
+{
+	int fd;		  //屏幕文件描述符
+	int width;	  //屏幕宽度
+	int high;	  //屏幕高度
+	int bits_per; //屏幕像素位数
+};
+
 /**
  * @brief 设置某个像素的颜色
  * 
@@ -91,4 +108,12 @@ void cls(char *buff, int c);
  * @return int 随机颜色 RED, GREEN, BLUE
  */
 int radColor();
+/**
+ * @brief 在指定位置显示一个 bmp 图片
+ * 
+ * @param fileName 要显示的 bmp 文件路径
+ * @param x 显示坐标 x
+ * @param y 显示坐标 y
+ */
+void showBMP(char *fileName, int x, int y);
 #endif
