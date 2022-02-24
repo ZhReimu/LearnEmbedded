@@ -29,15 +29,18 @@ void onClick(int x, int y)
 		getPath(path, 7, i);
 		debugS("Change Pic To %s", path, INFO);
 	}
-	else
+	else if (inArea2(next, x, y))
 	{
 		if (i-- == 1)
 		{
 			i = 9;
 		}
 		getPath(path, 7, i);
-		debug("Not Hit", INFO);
 		debugS("Change Pic To %s", path, INFO);
+	}
+	else
+	{
+		debug("Not Hit", INFO);
 	}
 	showBMP(path, 0, 0);
 }
