@@ -25,7 +25,7 @@
 
 #define LCD_DEVICE "/dev/fb0" //---驱动工程师确定	应用开发工程师不管这些的
 
-#define EVENT_DEVICE "/dev/input/event/0" // 触摸设备
+#define EVENT_DEVICE "/dev/input/event0" // 触摸设备
 
 /**
  * @brief 像素个数
