@@ -1,7 +1,19 @@
 #include <myHeader.h>
 
-Rect prev, next;
-
+/**
+ * @brief 上一页 按钮区域
+ * 
+ */
+Rect prev;
+/**
+ * @brief 下一页 按钮区域
+ * 
+ */
+Rect next;
+/**
+ * @brief 相册图片路径
+ * 
+ */
 const char *pics[] = {
 	"./pic2/01.bmp",
 	"./pic2/02.bmp",
@@ -22,7 +34,7 @@ const char *pics[] = {
 void onClick(int x, int y)
 {
 	static int i = 0;
-	debug2D("OnClick in Main : %d, %d\n", x, y, INFO);
+	debug2D("OnClick in Main : %d, %d", x, y, INFO);
 
 	if (inArea2(prev, x, y))
 	{
@@ -62,6 +74,7 @@ void init()
 	next.endX = 204;
 	next.endY = 614;
 }
+
 int main()
 {
 	init();

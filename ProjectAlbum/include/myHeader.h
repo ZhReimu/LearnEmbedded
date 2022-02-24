@@ -23,9 +23,17 @@
 
 #include "bmphead.h"
 
-#define LCD_DEVICE "/dev/fb0" //---驱动工程师确定	应用开发工程师不管这些的
+/**
+ * @brief lcd 设备驱动文件路径
+ * 
+ */
+#define LCD_DEVICE "/dev/fb0"
 
-#define EVENT_DEVICE "/dev/input/event0" // 触摸设备
+/**
+ * @brief 触摸设备驱动文件路径
+ * 
+ */
+#define EVENT_DEVICE "/dev/input/event0"
 
 /**
  * @brief 像素个数
@@ -37,37 +45,84 @@
  * 
  */
 #define BMP_SIZE 800 * 480 * 3
-/**
- * @brief 日志等级枚举
- * 
- */
-enum LOG
-{
-	DEBUG,
-	INFO,
-	WARN,
-	ERROR
-};
 
 /**
  * @brief 当前日志等级
  * 
  */
 #define LOG_LEVEL INFO
-
+/**
+ * @brief 日志等级枚举
+ * 
+ */
+enum LOG
+{
+	/**
+	 * @brief DEBUG 、输出最多的日志，包含大量调试信息
+	 * 
+	 */
+	DEBUG,
+	/**
+	 * @brief INFO、输出需要注意的一些日志
+	 * 
+	 */
+	INFO,
+	/**
+	 * @brief WARN、输出可能会出问题的一些日志
+	 * 
+	 */
+	WARN,
+	/**
+	 * @brief ERROR、输出错误日志
+	 * 
+	 */
+	ERROR
+};
 /**
  * @brief 颜色枚举
  * 
  */
 enum COLOR
 {
+	/**
+	 * @brief 红色
+	 * 
+	 */
 	RED,
+	/**
+	 * @brief 绿色
+	 * 
+	 */
 	GREEN,
+	/**
+	 * @brief 蓝色
+	 * 
+	 */
 	BLUE,
+	/**
+	 * @brief 黑色
+	 * 
+	 */
 	BLACK,
+	/**
+	 * @brief 粉红色
+	 * 
+	 */
 	PINK,
+	/**
+	 * @brief 樱花色
+	 * 
+	 */
 	SAKURA,
+	/**
+	 * @brief 橙色
+	 * 
+	 */
 	ORANGE,
+	/**
+	 * @brief 青色
+	 * 
+	 */
 	CYAN
 };
 /**
@@ -76,10 +131,26 @@ enum COLOR
  */
 struct lcd_info
 {
-	int fd;		  //屏幕文件描述符
-	int width;	  //屏幕宽度
-	int high;	  //屏幕高度
-	int bits_per; //屏幕像素位数
+	/**
+	 * @brief 屏幕文件描述符
+	 * 
+	 */
+	int fd;
+	/**
+	 * @brief 屏幕宽度
+	 * 
+	 */
+	int width;
+	/**
+	 * @brief 屏幕高度
+	 * 
+	 */
+	int high;
+	/**
+	 * @brief 屏幕像素位数
+	 * 
+	 */
+	int bits_per;
 };
 /**
  * @brief 矩形 结构体
@@ -87,9 +158,25 @@ struct lcd_info
  */
 typedef struct rect
 {
+	/**
+	 * @brief 矩形左上角的 x 坐标
+	 * 
+	 */
 	int startX;
+	/**
+	 * @brief 矩形左上角的 y 坐标
+	 * 
+	 */
 	int startY;
+	/**
+	 * @brief 矩形右下角的 x 坐标
+	 * 
+	 */
 	int endX;
+	/**
+	 * @brief 矩形右下角的 y 坐标
+	 * 
+	 */
 	int endY;
 } Rect;
 
@@ -183,8 +270,36 @@ int inArea(int startX, int startY, int endX, int endY, int x, int y);
  * @return int 如果是, 返回 1 否则 返回 0
  */
 int inArea2(Rect rect, int x, int y);
+/**
+ * @brief 在控制台输出一条日志 ( 字符串 )
+ * 
+ * @param msg 日志消息
+ * @param logType 日志等级
+ */
 void debug(const char *msg, int logType);
+/**
+ * @brief 在控制台输出一条日志 ( 格式化字符串, 一个 int 类型的参数 )
+ * 
+ * @param format 带格式化字符串的日志消息
+ * @param arg 格式参数( int 类型 )
+ * @param logType 日志等级
+ */
 void debugD(const char *format, int arg, int logType);
+/**
+ * @brief 在控制台输出一条日志 ( 格式化字符串, 一个 char* 类型的参数 )
+ * 
+ * @param format 带格式化字符串的日志消息
+ * @param args 格式参数 ( char* 类型 )
+ * @param logType 日志等级
+ */
 void debugS(const char *format, const char *args, int logType);
+/**
+ * @brief 在控制台输出一条日志 ( 格式化字符串, 2 个 int 类型的参数 )
+ * 
+ * @param format 带格式化字符串的日志消息
+ * @param arg 格式参数 1 ( int 类型 )
+ * @param arg2 格式参数 2 ( int 类型 )
+ * @param logType 日志等级
+ */
 void debug2D(const char *format, int arg, int arg2, int logType);
 #endif
