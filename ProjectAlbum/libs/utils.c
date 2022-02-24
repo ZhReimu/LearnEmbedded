@@ -333,7 +333,7 @@ void showBMP(char *fileName, int x, int y)
 	lcd_exit(lcdinfo);
 }
 
-int get_xy(int input_fd, int *x, int *y)
+void get_xy(int input_fd, int *x, int *y)
 {
 	bool xflag = false;
 	bool yflag = false;
@@ -379,8 +379,9 @@ int get_xy(int input_fd, int *x, int *y)
  * 
  * @param x 当前点击的 x 坐标
  * @param y 当前点击的 y 坐标
+ * @param onClick 回调函数, 点击屏幕时调用
  */
-void getXY(int *x, int *y)
+void getXY(int *x, int *y, void (*onClick)(int, int))
 {
 	//1.打开触摸屏的驱动文件
 	static int input_fd = -1;
@@ -397,5 +398,73 @@ void getXY(int *x, int *y)
 	while (1)
 	{
 		get_xy(input_fd, x, y);
+		(*onClick)(*x, *y);
 	}
+}
+/**
+ * @brief 从 int* [] 中获取指定下标的 指针
+ * 
+ * @param arg 要取下标的 int 指针数组
+ * @param idx 下标
+ * @return int* 取出的 int*
+ */
+int *getIntP(int *arg[], int idx)
+{
+	return arg[idx];
+}
+/**
+ * @brief 从 thread 的 arg 中 获取 onClock 函数指针
+ * 
+ * @param arg thread 的参数
+ * @return void* onClick 的函数指针
+ */
+void *getOnClick(void *arg[])
+{
+	return arg[2];
+}
+
+void *thread(void *arg)
+{
+	int *x = getIntP(arg, 0);
+	int *y = getIntP(arg, 1);
+	getXY(x, y, getOnClick(arg));
+	return NULL;
+}
+/**
+ * @brief 启动点击事件线程
+ * 
+ * @param x 点击的 x 坐标
+ * @param y 点击的 y 坐标
+ */
+void startTouchThread(void (*onClick)(int x, int y))
+{
+	pthread_t th;
+	int ret;
+	int x = 0;
+	int y = 0;
+	void *arg[3] = {&x, &y, onClick};
+	int *thread_ret = NULL;
+	ret = pthread_create(&th, NULL, thread, &arg);
+	if (ret != 0)
+	{
+		printf("Create thread error!\n");
+		return;
+	}
+	puts("Touch Thread Started Successful");
+	pthread_join(th, (void **)&thread_ret);
+}
+/**
+ * @brief 判断点击位置是否在指定矩形范围内
+ * 
+ * @param startX 矩形左上角 x 坐标
+ * @param startY 矩形左上角 x 坐标
+ * @param endX 矩形右下角 x 坐标
+ * @param endY 矩形右下角 y 坐标
+ * @param x 点击的 x 坐标
+ * @param y 点击 的 y坐标
+ * @return int 如果是, 返回 1 否则 返回 0
+ */
+int inArea(int startX, int startY, int endX, int endY, int x, int y)
+{
+	return (x >= startX && x <= endX && y >= startY && y <= endY);
 }
