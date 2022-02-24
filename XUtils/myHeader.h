@@ -16,10 +16,17 @@
 /* 获取屏幕信息的头文件 */
 #include <linux/fb.h>
 #include <sys/ioctl.h>
+/* 按键事件头文件 */
+#include <linux/input.h>
+#include <stdbool.h>
+#include <pthread.h>
 
 #include "bmphead.h"
 
 #define LCD_DEVICE "/dev/fb0" //---驱动工程师确定	应用开发工程师不管这些的
+
+#define EVENT_DEVICE "/dev/input/event/0" // 触摸设备
+
 /**
  * @brief 像素个数
  * 
@@ -116,4 +123,12 @@ int radColor();
  * @param y 显示坐标 y
  */
 void showBMP(char *fileName, int x, int y);
+/**
+ * @brief 获取当前点击屏幕的 x,y 值
+ * 
+ * @param x 当前点击的 x 坐标
+ * @param y 当前点击的 y 坐标
+ */
+void getXY(int *x, int *y);
+
 #endif

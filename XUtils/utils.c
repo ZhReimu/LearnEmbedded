@@ -1,4 +1,4 @@
-#include "myHeader.h"
+#include <myHeader.h>
 
 /**
  * @brief 为指定的像素点设置颜色
@@ -331,4 +331,71 @@ void showBMP(char *fileName, int x, int y)
 	}
 	show_bmp(fileName, x, y, lcdinfo);
 	lcd_exit(lcdinfo);
+}
+
+int get_xy(int input_fd, int *x, int *y)
+{
+	bool xflag = false;
+	bool yflag = false;
+
+	//2.新建一个输入子系统模型的结构体
+	struct input_event ts;
+	bzero(&ts, sizeof(ts));
+
+	//3.循环从驱动中去读取触摸数据，放到输入子系统模型里面
+	//检测是否有触摸发生，如果没有触摸，代码会默认为阻塞状态
+	while (1)
+	{
+		//读取触摸操作信息
+		read(input_fd, &ts, sizeof(ts));
+
+		//4.分析输入子系统模型存放的数据，就可以得到触摸坐标等信息
+		if (ts.type == EV_ABS)
+		{
+			if (ts.code == ABS_X)
+			{
+				*x = ts.value;
+
+				xflag = true;
+			}
+			if (ts.code == ABS_Y)
+			{
+				*y = ts.value;
+
+				yflag = true;
+			}
+		}
+		// 点击屏幕后就会跳出循环
+		if (xflag == true && yflag == true)
+		{
+			break;
+		}
+	}
+
+	printf("<x = %d, y = %d>\n", *x, *y);
+}
+/**
+ * @brief 获取当前点击屏幕的 x,y 值
+ * 
+ * @param x 当前点击的 x 坐标
+ * @param y 当前点击的 y 坐标
+ */
+void getXY(int *x, int *y)
+{
+	//1.打开触摸屏的驱动文件
+	static int input_fd = -1;
+	if (input_fd == -1)
+	{
+		input_fd = open(EVENT_DEVICE, O_RDWR);
+		if (input_fd == -1)
+		{
+			printf("open EVENT_DEVICE failed\n");
+			return;
+		}
+		printf("open EVENT_DEVICE OK\n");
+	}
+	while (1)
+	{
+		get_xy(input_fd, x, y);
+	}
 }
