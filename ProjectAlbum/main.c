@@ -2,62 +2,69 @@
 
 Rect prev, next;
 
-void getPath(char *path, int firstZero, int id)
-{
-	if (id < 10)
-	{
-		path[firstZero + 1] = id + '0';
-	}
-	else if (id < 100)
-	{
-		path[firstZero] = id / 10 + '0';
-		path[firstZero + 1] = id % 10 + '0';
-	}
-}
+const char *pics[] = {
+	"./pic2/01.bmp",
+	"./pic2/02.bmp",
+	"./pic2/03.bmp",
+	"./pic2/04.bmp",
+	"./pic2/05.bmp",
+	"./pic2/06.bmp",
+	"./pic2/07.bmp",
+	"./pic2/08.bmp",
+	"./pic2/09.bmp",
+};
+/**
+ * @brief 点击事件, 屏幕被点击时触发
+ * 
+ * @param x 被点击的 x 坐标
+ * @param y 被点击的 y 坐标
+ */
 void onClick(int x, int y)
 {
-	static int i = 1;
-	char path[] = "./pic2/01.bmp";
-	getPath(path, 7, i);
+	static int i = 0;
 	debug2D("OnClick in Main : %d, %d\n", x, y, INFO);
+
 	if (inArea2(prev, x, y))
 	{
-		if (i++ == 9)
+		if (i++ == 8)
 		{
-			i = 1;
+			i = 0;
 		}
-		getPath(path, 7, i);
-		debugS("Change Pic To %s", path, INFO);
+		debugD("Prev -> Change Pic To %d", i, INFO);
 	}
 	else if (inArea2(next, x, y))
 	{
-		if (i-- == 1)
+		if (i-- == 0)
 		{
-			i = 9;
+			i = 8;
 		}
-		getPath(path, 7, i);
-		debugS("Change Pic To %s", path, INFO);
+		debugD("Next -> Change Pic To %d", i, INFO);
 	}
 	else
 	{
 		debug("Not Hit", INFO);
 	}
-	showBMP(path, 0, 0);
+	showBMP(pics[i], 0, 0);
 }
-int main()
+/**
+ * @brief 初始化 点击区域 矩阵
+ * 
+ */
+void init()
 {
 	prev.startX = 0;
 	prev.startY = 512;
-
 	prev.endX = 102;
 	prev.endY = 614;
 
 	next.startX = 102;
 	next.startY = 512;
-
 	next.endX = 204;
 	next.endY = 614;
-
+}
+int main()
+{
+	init();
 	showBMP("./pic2/01.bmp", 0, 0);
 	startTouchThread(onClick);
 	return 0;

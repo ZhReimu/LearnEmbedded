@@ -319,7 +319,7 @@ static int lcd_init(struct lcd_info *lcdinfo)
 }
 
 //功能函数
-void show_bmp(char *pathname, int x_begin, int y_begin, struct lcd_info *lcdinfo)
+void show_bmp(const char *pathname, int x_begin, int y_begin, struct lcd_info *lcdinfo)
 {
 	int bmp_width;
 	int bmp_high;
@@ -415,7 +415,7 @@ static void lcd_exit(struct lcd_info *lcdinfo)
  * @param x 显示坐标 x
  * @param y 显示坐标 y
  */
-void showBMP(char *fileName, int x, int y)
+void showBMP(const char *fileName, int x, int y)
 {
 	// 创建一个屏幕信息结构体指针
 	static struct lcd_info *lcdinfo = NULL;

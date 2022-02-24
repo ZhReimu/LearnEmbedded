@@ -148,7 +148,7 @@ int radColor();
  * @param x 显示坐标 x
  * @param y 显示坐标 y
  */
-void showBMP(char *fileName, int x, int y);
+void showBMP(const char *fileName, int x, int y);
 /**
  * @brief 获取当前点击屏幕的 x,y 值
  * 
