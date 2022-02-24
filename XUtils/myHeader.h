@@ -38,10 +38,22 @@
  */
 #define BMP_SIZE 800 * 480 * 3
 /**
- * @brief 是否显示多余输出
+ * @brief 日志等级枚举
  * 
  */
-#define DEBUG 1
+enum LOG
+{
+	DEBUG,
+	INFO,
+	WARN,
+	ERROR
+};
+
+/**
+ * @brief 当前日志等级
+ * 
+ */
+#define LOG_LEVEL INFO
 
 /**
  * @brief 颜色枚举
@@ -171,4 +183,8 @@ int inArea(int startX, int startY, int endX, int endY, int x, int y);
  * @return int 如果是, 返回 1 否则 返回 0
  */
 int inArea2(Rect rect, int x, int y);
+void debug(const char *msg, int logType);
+void debugD(const char *format, int arg, int logType);
+void debugS(const char *format, const char *args, int logType);
+void debug2D(const char *format, int arg, int arg2, int logType);
 #endif
