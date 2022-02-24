@@ -1,23 +1,9 @@
 CC = arm-linux-gcc
-CFLAGS = -s -O2
-INCLUDE = -I../include
+CFLAGS = -s -O2 -lpthread
+INCLUDE = -I./include
 
-# CC = arm-none-eabi-gcc
-# Flags For NoneUnix
-# CFLAGS = --specs=nosys.specs -O2 -s
-
-
-all:libs main
-
-
-.PHONY: libs main
-
-libs:
-	cd libs && make
-
-main:
-	cd src && make
+all:
+	$(CC) $(CFLAGS) $(INCLUDE) utils.c main.c -o color
 
 clean:
-	- rm ./libs/libutils.so
-	- rm ./src/color
+	rm color
