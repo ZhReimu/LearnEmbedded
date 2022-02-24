@@ -73,6 +73,114 @@ void setBMPColor(char *buff, char *bmpBuff, int x, int y)
 	buff[2 + start] = bmpBuff[2 + bStart];
 	buff[3 + start] = 0;
 }
+void debug(const char *msg, int logType)
+{
+	if (LOG_LEVEL <= DEBUG && logType == DEBUG)
+	{
+		printf("DEBUG: ");
+		puts(msg);
+		printf("\n");
+	}
+	else if (LOG_LEVEL <= INFO && logType == INFO)
+	{
+		printf("INFO: ");
+		puts(msg);
+		printf("\n");
+	}
+	else if (LOG_LEVEL <= WARN && logType == WARN)
+	{
+		printf("WARN: ");
+		puts(msg);
+		printf("\n");
+	}
+	else if (LOG_LEVEL <= ERROR && logType == ERROR)
+	{
+		printf("ERROR: ");
+		puts(msg);
+		printf("\n");
+	}
+}
+void debugS(const char *format, const char *args, int logType)
+{
+	if (LOG_LEVEL <= DEBUG && logType == DEBUG)
+	{
+		printf("DEBUG: ");
+		printf(format, args);
+		printf("\n");
+	}
+	else if (LOG_LEVEL <= INFO && logType == INFO)
+	{
+		printf("INFO: ");
+		printf(format, args);
+		printf("\n");
+	}
+	else if (LOG_LEVEL <= WARN && logType == WARN)
+	{
+		printf("WARN: ");
+		printf(format, args);
+		printf("\n");
+	}
+	else if (LOG_LEVEL <= ERROR && logType == ERROR)
+	{
+		printf("ERROR: ");
+		printf(format, args);
+		printf("\n");
+	}
+}
+void debugD(const char *format, int arg, int logType)
+{
+	if (LOG_LEVEL <= DEBUG && logType == DEBUG)
+	{
+		printf("DEBUG: ");
+		printf(format, arg);
+		printf("\n");
+	}
+	else if (LOG_LEVEL <= INFO && logType == INFO)
+	{
+		printf("INFO: ");
+		printf(format, arg);
+		printf("\n");
+	}
+	else if (LOG_LEVEL <= WARN && logType == WARN)
+	{
+		printf("WARN: ");
+		printf(format, arg);
+		printf("\n");
+	}
+	else if (LOG_LEVEL <= ERROR && logType == ERROR)
+	{
+		printf("ERROR: ");
+		printf(format, arg);
+		printf("\n");
+	}
+}
+void debug2D(const char *format, int arg, int arg2, int logType)
+{
+	if (LOG_LEVEL <= DEBUG && logType == DEBUG)
+	{
+		printf("DEBUG: ");
+		printf(format, arg, arg2);
+		printf("\n");
+	}
+	else if (LOG_LEVEL <= INFO && logType == INFO)
+	{
+		printf("INFO: ");
+		printf(format, arg, arg2);
+		printf("\n");
+	}
+	else if (LOG_LEVEL <= WARN && logType == WARN)
+	{
+		printf("WARN: ");
+		printf(format, arg, arg2);
+		printf("\n");
+	}
+	else if (LOG_LEVEL <= ERROR && logType == ERROR)
+	{
+		printf("ERROR: ");
+		printf(format, arg, arg2);
+		printf("\n");
+	}
+}
 /**
  * @brief 读取 BMP 文件
  * 
@@ -84,25 +192,23 @@ int readBMP(const char *fileName, char *bmp)
 {
 	//打开图片
 	int BMP_fd = open(fileName, O_RDONLY);
-	if (BMP_fd < 0 && DEBUG)
+	if (BMP_fd < 0)
 	{
-		printf("Open Bmp Failed\n");
+		debug("Open Bmp Failed", ERROR);
 		return -1;
 	}
-	if (DEBUG)
-		printf("Open Bmp OK\n");
+	debug("Open Bmp OK", DEBUG);
 
 	//偏移54个字节头信息
 	lseek(BMP_fd, 54, SEEK_SET);
 
 	int read_ret = read(BMP_fd, bmp, BMP_SIZE);
-	if (read_ret < 0 && DEBUG)
+	if (read_ret < 0)
 	{
-		printf("Read Bmp Failed\n");
+		debug("Read Bmp Failed", ERROR);
 		return -1;
 	}
-	if (DEBUG)
-		printf("Read Bmp %s OK\n", fileName);
+	debugS("Read Bmp %s OK", fileName, DEBUG);
 	close(BMP_fd);
 	return read_ret;
 }
@@ -116,18 +222,16 @@ int openLCD(char **buff)
 {
 	//打开lcd屏幕驱动文件
 	int lcdfd = open(LCD_DEVICE, O_RDWR);
-	if (lcdfd < 0 && DEBUG)
+	if (lcdfd < 0)
 	{
-		printf("Open LCD_FD Failed\n");
+		debug("Open LCD_FD Failed", ERROR);
 		return -1;
 	}
-	if (DEBUG)
-		printf("Open LCD_FD OK\n");
+	debug("Open LCD_FD OK", DEBUG);
 
 	*buff = mmap(NULL, BUFF_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, lcdfd, 0);
 	cls(*buff, GREEN);
-	if (DEBUG)
-		puts("Clear Screen OK!");
+	debug("Clear Screen OK!", DEBUG);
 	return lcdfd;
 }
 /**
@@ -179,22 +283,21 @@ static int lcd_init(struct lcd_info *lcdinfo)
 {
 	//1.打开lcd屏幕
 	lcdinfo->fd = open(LCD_DEVICE, O_RDWR);
-	if (lcdinfo->fd == -1 && DEBUG)
+	if (lcdinfo->fd == -1)
 	{
-		perror("open lcd failed");
+		debug("open lcd failed", ERROR);
 		return -1;
 	}
-	if (DEBUG)
-		printf("open lcd OK\n");
+	debug("open lcd OK", DEBUG);
 
 	//获取lcd屏幕信息
 	struct fb_var_screeninfo lcdvar;
 
 	ioctl(lcdinfo->fd, FBIOGET_VSCREENINFO, &lcdvar);
 
-	printf("lcd Width = %d\n", lcdvar.xres);
-	printf("lcd Height = %d\n", lcdvar.yres);
-	printf("lcd Bit = %d\n", lcdvar.bits_per_pixel);
+	debugD("lcd Width = %d", lcdvar.xres, DEBUG);
+	debugD("lcd Height = %d", lcdvar.yres, DEBUG);
+	debugD("lcd Bit = %d", lcdvar.bits_per_pixel, DEBUG);
 
 	lcdinfo->width = lcdvar.xres;
 	lcdinfo->high = lcdvar.yres;
@@ -208,9 +311,9 @@ static int lcd_init(struct lcd_info *lcdinfo)
 		MAP_SHARED,
 		lcdinfo->fd,
 		0);
-	if (lcdmem == MAP_FAILED && DEBUG)
+	if (lcdmem == MAP_FAILED)
 	{
-		perror("mmap lcd failed");
+		debug("mmap lcd failed", ERROR);
 		return -1;
 	}
 }
@@ -223,9 +326,9 @@ void show_bmp(char *pathname, int x_begin, int y_begin, struct lcd_info *lcdinfo
 	int bmp_bit;
 
 	FILE *fp = fopen(pathname, "r");
-	if (fp == NULL && DEBUG)
+	if (fp == NULL)
 	{
-		perror("fopen bmp failed");
+		debug("fopen bmp failed", ERROR);
 		return;
 	}
 
@@ -233,9 +336,9 @@ void show_bmp(char *pathname, int x_begin, int y_begin, struct lcd_info *lcdinfo
 	struct bmphead bmphead_buf;
 	fread(&bmphead_buf, 54, 1, fp);
 
-	printf("Pic Width: %d\n", bmphead_buf.Width);
-	printf("Pic Height: %d\n", bmphead_buf.Height);
-	printf("Pic Bit: %d\n", bmphead_buf.biBitCount);
+	debugD("Pic Width: %d\n", bmphead_buf.Width, DEBUG);
+	debugD("Pic Height: %d\n", bmphead_buf.Height, DEBUG);
+	debugD("Pic Bit: %d\n", bmphead_buf.biBitCount, DEBUG);
 
 	bmp_width = bmphead_buf.Width;
 	bmp_high = bmphead_buf.Height;
@@ -243,13 +346,12 @@ void show_bmp(char *pathname, int x_begin, int y_begin, struct lcd_info *lcdinfo
 
 	//设置bmp图片颜色的缓冲区
 	char *bmpbuf = malloc(bmp_width * bmp_high * bmp_bit / 8);
-	if (bmpbuf == NULL && DEBUG)
+	if (bmpbuf == NULL)
 	{
-		perror("malloc bmpbuf failed");
+		debug("malloc bmpbuf failed", ERROR);
 		exit(-1);
 	}
-	if (DEBUG)
-		printf("malloc bmpbuf OK\n");
+	debug("malloc bmpbuf OK", DEBUG);
 	//先计算是否有4字节补齐，如果有，求出补齐了多少个字节
 	int add_size = (4 - (bmp_width * bmp_bit / 8) % 4) % 4;
 
@@ -264,19 +366,17 @@ void show_bmp(char *pathname, int x_begin, int y_begin, struct lcd_info *lcdinfo
 
 	//以字节对齐的方式，将RGB颜色换成ARGB的颜色数据
 	int *bmpARGB = malloc(bmp_high * bmp_width * 4);
-	if (bmpARGB == NULL && DEBUG)
+	if (bmpARGB == NULL)
 	{
-		perror("malloc bmpARGB failed");
+		debug("malloc bmpARGB failed", ERROR);
 		exit(-1);
 	}
-	if (DEBUG)
-		printf("malloc bmpARGB OK\n");
+	debug("malloc bmpARGB OK", DEBUG);
 	for (i = 0; i < bmp_width * bmp_high; i++)
 	{
 		bmpARGB[i] = bmpbuf[3 * i + 2] << 16 | bmpbuf[3 * i + 1] << 8 | bmpbuf[3 * i];
 	}
-	if (DEBUG)
-		printf(" << OK\n");
+	debug(" << OK", DEBUG);
 	int x, y;
 	for (x = 0; x + x_begin < lcdinfo->width && x < bmp_width; x++)
 	{
@@ -320,9 +420,9 @@ void showBMP(char *fileName, int x, int y)
 	// 创建一个屏幕信息结构体指针
 	static struct lcd_info *lcdinfo = NULL;
 	lcdinfo = malloc(sizeof(struct lcd_info));
-	if (lcdinfo == NULL && DEBUG)
+	if (lcdinfo == NULL)
 	{
-		perror("malloc struct lcd_info failed");
+		debug("malloc struct lcd_info failed", ERROR);
 		return;
 	}
 	if (lcdmem == NULL)
@@ -372,7 +472,7 @@ void get_xy(int input_fd, int *x, int *y)
 		}
 	}
 
-	printf("<x = %d, y = %d>\n", *x, *y);
+	debug2D("<x = %d, y = %d>\n", *x, *y, DEBUG);
 }
 /**
  * @brief 获取当前点击屏幕的 x,y 值
@@ -390,10 +490,10 @@ void getXY(int *x, int *y, void (*onClick)(int, int))
 		input_fd = open(EVENT_DEVICE, O_RDWR);
 		if (input_fd == -1)
 		{
-			printf("open EVENT_DEVICE failed\n");
+			debug("open EVENT_DEVICE failed", ERROR);
 			return;
 		}
-		printf("open EVENT_DEVICE OK\n");
+		debug("open EVENT_DEVICE OK", DEBUG);
 	}
 	while (1)
 	{
@@ -447,10 +547,10 @@ void startTouchThread(void (*onClick)(int x, int y))
 	ret = pthread_create(&th, NULL, thread, &arg);
 	if (ret != 0)
 	{
-		printf("Create thread error!\n");
+		debug("Create thread error!", ERROR);
 		return;
 	}
-	puts("Touch Thread Started Successful");
+	debug("Touch Thread Started Successful", DEBUG);
 	pthread_join(th, (void **)&thread_ret);
 }
 /**
