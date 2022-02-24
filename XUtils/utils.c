@@ -73,6 +73,12 @@ void setBMPColor(char *buff, char *bmpBuff, int x, int y)
 	buff[2 + start] = bmpBuff[2 + bStart];
 	buff[3 + start] = 0;
 }
+/**
+ * @brief 在控制台输出一条日志 ( 字符串 )
+ * 
+ * @param msg 日志消息
+ * @param logType 日志等级
+ */
 void debug(const char *msg, int logType)
 {
 	if (LOG_LEVEL <= DEBUG && logType == DEBUG)
@@ -100,6 +106,13 @@ void debug(const char *msg, int logType)
 		printf("\n");
 	}
 }
+/**
+ * @brief 在控制台输出一条日志 ( 格式化字符串, 一个 char* 类型的参数 )
+ * 
+ * @param format 带格式化字符串的日志消息
+ * @param args 格式参数 ( char* 类型 )
+ * @param logType 日志等级
+ */
 void debugS(const char *format, const char *args, int logType)
 {
 	if (LOG_LEVEL <= DEBUG && logType == DEBUG)
@@ -127,6 +140,13 @@ void debugS(const char *format, const char *args, int logType)
 		printf("\n");
 	}
 }
+/**
+ * @brief 在控制台输出一条日志 ( 格式化字符串, 一个 int 类型的参数 )
+ * 
+ * @param format 带格式化字符串的日志消息
+ * @param arg 格式参数( int 类型 )
+ * @param logType 日志等级
+ */
 void debugD(const char *format, int arg, int logType)
 {
 	if (LOG_LEVEL <= DEBUG && logType == DEBUG)
@@ -154,6 +174,14 @@ void debugD(const char *format, int arg, int logType)
 		printf("\n");
 	}
 }
+/**
+ * @brief 在控制台输出一条日志 ( 格式化字符串, 2 个 int 类型的参数 )
+ * 
+ * @param format 带格式化字符串的日志消息
+ * @param arg 格式参数 1 ( int 类型 )
+ * @param arg2 格式参数 2 ( int 类型 )
+ * @param logType 日志等级
+ */
 void debug2D(const char *format, int arg, int arg2, int logType)
 {
 	if (LOG_LEVEL <= DEBUG && logType == DEBUG)
@@ -319,7 +347,7 @@ static int lcd_init(struct lcd_info *lcdinfo)
 }
 
 //功能函数
-void show_bmp(char *pathname, int x_begin, int y_begin, struct lcd_info *lcdinfo)
+void show_bmp(const char *pathname, int x_begin, int y_begin, struct lcd_info *lcdinfo)
 {
 	int bmp_width;
 	int bmp_high;
@@ -415,7 +443,7 @@ static void lcd_exit(struct lcd_info *lcdinfo)
  * @param x 显示坐标 x
  * @param y 显示坐标 y
  */
-void showBMP(char *fileName, int x, int y)
+void showBMP(const char *fileName, int x, int y)
 {
 	// 创建一个屏幕信息结构体指针
 	static struct lcd_info *lcdinfo = NULL;
