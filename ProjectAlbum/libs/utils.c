@@ -468,3 +468,16 @@ int inArea(int startX, int startY, int endX, int endY, int x, int y)
 {
 	return (x >= startX && x <= endX && y >= startY && y <= endY);
 }
+/**
+ * @brief 判断点击位置是否在指定矩形范围内
+ * 
+ * @param rect Rect 类型的 矩形区域变量
+ * @param x 点击的 x 坐标
+ * @param y 点击的 y 坐标
+ * @see inArea
+ * @return int 如果是, 返回 1 否则 返回 0
+ */
+int inArea2(Rect rect, int x, int y)
+{
+	return inArea(rect.startX, rect.startY, rect.endX, rect.endY, x, y);
+}

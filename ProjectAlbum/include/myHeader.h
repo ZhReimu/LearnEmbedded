@@ -69,6 +69,17 @@ struct lcd_info
 	int high;	  //屏幕高度
 	int bits_per; //屏幕像素位数
 };
+/**
+ * @brief 矩形 结构体
+ * 
+ */
+typedef struct rect
+{
+	int startX;
+	int startY;
+	int endX;
+	int endY;
+} Rect;
 
 /**
  * @brief 设置某个像素的颜色
@@ -150,4 +161,14 @@ void startTouchThread();
  * @return int 如果是, 返回 1 否则 返回 0
  */
 int inArea(int startX, int startY, int endX, int endY, int x, int y);
+/**
+ * @brief 判断点击位置是否在指定矩形范围内
+ * 
+ * @param rect Rect 类型的 矩形区域变量
+ * @param x 点击的 x 坐标
+ * @param y 点击的 y 坐标
+ * @see inArea
+ * @return int 如果是, 返回 1 否则 返回 0
+ */
+int inArea2(Rect rect, int x, int y);
 #endif
