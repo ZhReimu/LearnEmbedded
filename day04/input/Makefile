@@ -1,5 +1,5 @@
 CC = arm-linux-gcc
-CFLAGS = -s -O2
+CFLAGS = -s -O2 -lpthread
 
 # For Windows
 #CC = arm-none-eabi-gcc

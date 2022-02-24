@@ -128,7 +128,11 @@ void showBMP(char *fileName, int x, int y);
  * 
  * @param x 当前点击的 x 坐标
  * @param y 当前点击的 y 坐标
+ * @param onClick 回调函数, 点击屏幕时调用
  */
-void getXY(int *x, int *y);
-
+void getXY(int *x, int *y, void (*onClick)(int x, int y));
+/**
+ * @brief 启动点击事件线程
+*/
+void startTouchThread();
 #endif
