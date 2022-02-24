@@ -37,7 +37,10 @@
  * 
  */
 #define BMP_SIZE 800 * 480 * 3
-
+/**
+ * @brief 是否显示多余输出
+ * 
+ */
 #define DEBUG 1
 
 /**
@@ -135,4 +138,16 @@ void getXY(int *x, int *y, void (*onClick)(int x, int y));
  * @brief 启动点击事件线程
 */
 void startTouchThread();
+/**
+ * @brief 判断点击位置是否在指定矩形范围内
+ * 
+ * @param startX 矩形左上角 x 坐标
+ * @param startY 矩形左上角 x 坐标
+ * @param endX 矩形右下角 x 坐标
+ * @param endY 矩形右下角 y 坐标
+ * @param x 点击的 x 坐标
+ * @param y 点击 的 y坐标
+ * @return int 如果是, 返回 1 否则 返回 0
+ */
+int inArea(int startX, int startY, int endX, int endY, int x, int y);
 #endif
