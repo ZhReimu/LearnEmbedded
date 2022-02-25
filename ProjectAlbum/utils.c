@@ -348,85 +348,7 @@ int lcd_init(struct lcd_info *lcdinfo)
 }
 
 //功能函数
-void show_bmp(const char *pathname, int x_begin, int y_begin, struct lcd_info *lcdinfo)
-{
-	int bmp_width;
-	int bmp_high;
-	int bmp_bit;
-
-	FILE *fp = fopen(pathname, "r");
-	if (fp == NULL)
-	{
-		debug("fopen bmp failed", ERROR);
-		return;
-	}
-
-	//读取头文件信息
-	struct bmphead bmphead_buf;
-	fread(&bmphead_buf, 54, 1, fp);
-
-	debugD("Pic Width: %d\n", bmphead_buf.Width, DEBUG);
-	debugD("Pic Height: %d\n", bmphead_buf.Height, DEBUG);
-	debugD("Pic Bit: %d\n", bmphead_buf.biBitCount, DEBUG);
-
-	bmp_width = bmphead_buf.Width;
-	bmp_high = bmphead_buf.Height;
-	bmp_bit = bmphead_buf.biBitCount;
-
-	//设置bmp图片颜色的缓冲区
-	char *bmpbuf = malloc(bmp_width * bmp_high * bmp_bit / 8);
-	if (bmpbuf == NULL)
-	{
-		debug("malloc bmpbuf failed", ERROR);
-		exit(-1);
-	}
-	debug("malloc bmpbuf OK", DEBUG);
-	//先计算是否有4字节补齐，如果有，求出补齐了多少个字节
-	int add_size = (4 - (bmp_width * bmp_bit / 8) % 4) % 4;
-
-	//每次读取一行数据的时候就要偏移add_size个字节，循环次数，就是图片的高度
-	int i;
-	for (i = 0; i < bmp_high; i++)
-	{
-		//每次读取的时候，保存到bmpbuf缓冲区的位置应该进行偏移
-		fread(bmpbuf + (bmp_width * bmp_bit / 8) * i, bmp_width * bmp_bit / 8, 1, fp);
-		fseek(fp, add_size, SEEK_CUR);
-	}
-
-	//以字节对齐的方式，将RGB颜色换成ARGB的颜色数据
-	int *bmpARGB = malloc(bmp_high * bmp_width * 4);
-	if (bmpARGB == NULL)
-	{
-		debug("malloc bmpARGB failed", ERROR);
-		exit(-1);
-	}
-	debug("malloc bmpARGB OK", DEBUG);
-	for (i = 0; i < bmp_width * bmp_high; i++)
-	{
-		// 				B 						G							R
-		bmpARGB[i] = bmpbuf[3 * i + 2] << 16 | bmpbuf[3 * i + 1] << 8 | bmpbuf[3 * i];
-	}
-	debug(" << OK", DEBUG);
-	int x, y;
-	for (x = 0; x + x_begin < lcdinfo->width && x < bmp_width; x++)
-	{
-		for (y = 0; y + y_begin < lcdinfo->high && y < bmp_high; y++)
-		{
-			//对于x=0和y=0的坐标而言，lcd屏幕已经偏移了
-			int lcd_offset = x + x_begin + lcdinfo->width * (y + y_begin);
-			int bmp_offset = x + bmp_width * (bmp_high - y - 1);
-
-			*(lcdmem + lcd_offset) = bmpARGB[bmp_offset];
-		}
-	}
-
-	free(bmpbuf);
-	free(bmpARGB);
-
-	fclose(fp);
-}
-
-void showTansportBMP(const char *pathname, int x_begin, int y_begin, struct lcd_info *lcdinfo)
+void show_bmp(const char *pathname, int x_begin, int y_begin, struct lcd_info *lcdinfo, int isTransport)
 {
 	int bmp_width;
 	int bmp_high;
@@ -483,9 +405,12 @@ void showTansportBMP(const char *pathname, int x_begin, int y_begin, struct lcd_
 	{
 		// 				B 						G							R
 		int rgb = bmpbuf[3 * i + 2] << 16 | bmpbuf[3 * i + 1] << 8 | bmpbuf[3 * i];
-		if (rgb == 16777215)
+		if (isTransport)
 		{
-			rgb = rgb << 24 | 0x0;
+			if (rgb == 16777215)
+			{
+				rgb = rgb << 24 | 0x0;
+			}
 		}
 		bmpARGB[i] = rgb;
 	}
@@ -543,14 +468,7 @@ void showBMP(const char *fileName, int x, int y, int isTransport)
 	{
 		lcd_init(lcdinfo);
 	}
-	if (isTransport)
-	{
-		showTansportBMP(fileName, x, y, lcdinfo);
-	}
-	else
-	{
-		show_bmp(fileName, x, y, lcdinfo);
-	}
+	show_bmp(fileName, x, y, lcdinfo, isTransport);
 
 	lcd_exit(lcdinfo);
 }
