@@ -22,7 +22,6 @@
 #include <pthread.h>
 
 #include "bmphead.h"
-
 /**
  * @brief lcd 设备驱动文件路径
  * 
