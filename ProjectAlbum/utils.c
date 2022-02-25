@@ -214,7 +214,7 @@ void debug2D(const char *format, int arg, int arg2, int logType)
  * 
  * @param fileName 要读取的文件名
  * @param bmp 存放结果的指针
- * @return int 读取的结果
+ * @return int 读取的结果, -1 为失败, 成功返回读取字节数
  */
 int readBMP(const char *fileName, char *bmp)
 {
@@ -227,7 +227,8 @@ int readBMP(const char *fileName, char *bmp)
 	}
 	debug("Open Bmp OK", DEBUG);
 
-	//偏移54个字节头信息
+	// 偏移54个字节头信息, 只针对 24 位 或 32 位 位图格式
+	// 否则还需处理 调色板 偏移
 	lseek(BMP_fd, 54, SEEK_SET);
 
 	int read_ret = read(BMP_fd, bmp, BMP_SIZE);
@@ -249,7 +250,7 @@ int readBMP(const char *fileName, char *bmp)
 int openLCD(char **buff)
 {
 	//打开lcd屏幕驱动文件
-	int lcdfd = open(LCD_DEVICE, O_RDWR);
+	int lcdfd = open(LCD_DEVICE, O_RDONLY);
 	if (lcdfd < 0)
 	{
 		debug("Open LCD_FD Failed", ERROR);
@@ -303,11 +304,11 @@ int radColor()
 }
 
 //映射内存首地址
-static int *lcdmem = NULL;
+int *lcdmem = NULL;
 
 //初始化函数
 //lcd屏幕初始化
-static int lcd_init(struct lcd_info *lcdinfo)
+int lcd_init(struct lcd_info *lcdinfo)
 {
 	//1.打开lcd屏幕
 	lcdinfo->fd = open(LCD_DEVICE, O_RDWR);
@@ -425,7 +426,7 @@ void show_bmp(const char *pathname, int x_begin, int y_begin, struct lcd_info *l
 }
 
 //销毁函数
-static void lcd_exit(struct lcd_info *lcdinfo)
+void lcd_exit(struct lcd_info *lcdinfo)
 {
 	//释放了映射内存
 	munmap(lcdmem, lcdinfo->width * lcdinfo->high * lcdinfo->bits_per / 8);
@@ -446,7 +447,7 @@ static void lcd_exit(struct lcd_info *lcdinfo)
 void showBMP(const char *fileName, int x, int y)
 {
 	// 创建一个屏幕信息结构体指针
-	static struct lcd_info *lcdinfo = NULL;
+	struct lcd_info *lcdinfo = NULL;
 	lcdinfo = malloc(sizeof(struct lcd_info));
 	if (lcdinfo == NULL)
 	{
@@ -515,7 +516,7 @@ void getXY(int *x, int *y, void (*onClick)(int, int))
 	static int input_fd = -1;
 	if (input_fd == -1)
 	{
-		input_fd = open(EVENT_DEVICE, O_RDWR);
+		input_fd = open(EVENT_DEVICE, O_RDONLY);
 		if (input_fd == -1)
 		{
 			debug("open EVENT_DEVICE failed", ERROR);
@@ -579,6 +580,7 @@ void startTouchThread(void (*onClick)(int x, int y))
 		return;
 	}
 	debug("Touch Thread Started Successful", DEBUG);
+	// 阻塞线程, 使 main 函数不会退出
 	pthread_join(th, (void **)&thread_ret);
 }
 /**
