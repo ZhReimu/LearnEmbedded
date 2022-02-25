@@ -414,6 +414,7 @@ const char *videos[] = {
  * 
  */
 static char isPlaying = 0;
+static char canTap = 1;
 /**
  * @brief 自动播放线程函数
  * 
@@ -423,9 +424,15 @@ static char isPlaying = 0;
 void *autoPlayThread(void *arg)
 {
 	int *x = arg;
+	if (*x == 0)
+	{
+		*x = 1;
+	}
+
 	debugD("AutoPlay Thread idx is %d", *x, INFO);
 	while (isPlaying)
 	{
+		canTap = 0;
 		debugD("AutoPlay Thread Change Pic To %d", *x, INFO);
 		showBMP(picsPlaying[*x], 0, 0, 0);
 		if (*x == 8)
@@ -433,6 +440,7 @@ void *autoPlayThread(void *arg)
 			*x = 0;
 		}
 		sleep(1);
+		canTap = 1;
 		*x = *x + 1;
 	}
 	return NULL;
@@ -454,7 +462,6 @@ void startAutoPlayThread(int *i)
 		return;
 	}
 	debug("AutoPlay Thread Started Successful", DEBUG);
-	// pthread_join(th, (void **)&thread_ret);
 }
 /**
  * @brief 点击事件, 屏幕被点击时触发
@@ -465,24 +472,26 @@ void startAutoPlayThread(int *i)
 void onClick(int x, int y)
 {
 	static int i = 0;
-	debug2D("Touch Thread Callback OnClick in Main : %d, %d", x, y, INFO);
+	debug2D("Touch Thread Callback OnClick in Main : %d, %d", x, y, DEBUG);
 	// 如果点击了 上一页 按钮, 并且没有启用 自动播放
-	if (inArea2(btPrev, x, y) && !isPlaying)
+	if (inArea2(btPrev, x, y) && !isPlaying && canTap)
 	{
 		if (i++ == 8)
 		{
 			i = 0;
 		}
 		debugD("Touch Thread Callback Next -> Change Pic To %d", i, INFO);
+		showBMP(pics[i], 0, 0, 0);
 	}
 	// 如果点击了 下一页 按钮, 并且没有启用 自动播放
-	else if (inArea2(btNext, x, y) && !isPlaying)
+	else if (inArea2(btNext, x, y) && !isPlaying && canTap)
 	{
 		if (i-- == 0)
 		{
 			i = 8;
 		}
 		debugD("Prev -> Change Pic To %d", i, INFO);
+		showBMP(pics[i], 0, 0, 0);
 	}
 	// 如果点击了 暂停/继续 按钮, 并且启用了 自动播放
 	else if (inArea2(btPause, x, y))
@@ -490,9 +499,16 @@ void onClick(int x, int y)
 		// 如果没在自动播放, 那就开启自动播放
 		if (!isPlaying)
 		{
-			isPlaying = 1;
-			debug("AutoPlay Start", INFO);
-			startAutoPlayThread(&i);
+			if (canTap)
+			{
+				isPlaying = 1;
+				debug("AutoPlay Start", INFO);
+				startAutoPlayThread(&i);
+			}
+			else
+			{
+				debug("Filtered", INFO);
+			}
 			return;
 		}
 		// 如果正在自动播放, 那就暂停播放
@@ -500,13 +516,13 @@ void onClick(int x, int y)
 		{
 			isPlaying = 0;
 			debug("AutoPlay Paused", INFO);
+			showBMP(pics[i], 0, 0, 0);
 		}
 	}
 	else
 	{
 		debug("Not Hit", INFO);
 	}
-	showBMP(pics[i], 0, 0, 0);
 }
 /**
  * @brief 初始化 点击区域 矩阵
@@ -545,6 +561,7 @@ void playVideo()
 		showBMP(pb, (int)pid, 440, 1);
 		usleep(100000 / 60);
 	}
+	debug("Video End", INFO);
 }
 int main()
 {
@@ -552,6 +569,5 @@ int main()
 	playVideo();
 	showBMP(pics[0], 0, 0, 0);
 	startTouchThread(onClick);
-
 	return 0;
 }
