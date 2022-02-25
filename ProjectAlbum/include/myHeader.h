@@ -234,8 +234,9 @@ int radColor();
  * @param fileName 要显示的 bmp 文件路径
  * @param x 显示坐标 x
  * @param y 显示坐标 y
+ * @param isTransport 是否透明
  */
-void showBMP(const char *fileName, int x, int y);
+void showBMP(const char *fileName, int x, int y, int isTransport);
 /**
  * @brief 获取当前点击屏幕的 x,y 值
  * 
