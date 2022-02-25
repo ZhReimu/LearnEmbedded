@@ -25,15 +25,26 @@ Rect btPause;
  * 
  */
 const char *pics[] = {
-	"/mnt/udisk/pic2/01.bmp",
-	"/mnt/udisk/pic2/02.bmp",
-	"/mnt/udisk/pic2/03.bmp",
-	"/mnt/udisk/pic2/04.bmp",
-	"/mnt/udisk/pic2/05.bmp",
-	"/mnt/udisk/pic2/06.bmp",
-	"/mnt/udisk/pic2/07.bmp",
-	"/mnt/udisk/pic2/08.bmp",
-	"/mnt/udisk/pic2/09.bmp",
+	"/mnt/udisk/2/bmp2/01.bmp",
+	"/mnt/udisk/2/bmp2/02.bmp",
+	"/mnt/udisk/2/bmp2/03.bmp",
+	"/mnt/udisk/2/bmp2/04.bmp",
+	"/mnt/udisk/2/bmp2/05.bmp",
+	"/mnt/udisk/2/bmp2/06.bmp",
+	"/mnt/udisk/2/bmp2/07.bmp",
+	"/mnt/udisk/2/bmp2/08.bmp",
+	"/mnt/udisk/2/bmp2/09.bmp",
+};
+const char *picsPlaying[] = {
+	"/mnt/udisk/2/bmp1/01.bmp",
+	"/mnt/udisk/2/bmp1/02.bmp",
+	"/mnt/udisk/2/bmp1/03.bmp",
+	"/mnt/udisk/2/bmp1/04.bmp",
+	"/mnt/udisk/2/bmp1/05.bmp",
+	"/mnt/udisk/2/bmp1/06.bmp",
+	"/mnt/udisk/2/bmp1/07.bmp",
+	"/mnt/udisk/2/bmp1/08.bmp",
+	"/mnt/udisk/2/bmp1/09.bmp",
 };
 /**
  * @brief 开机动画 数组
@@ -412,7 +423,7 @@ void *autoPlayThread(void *arg)
 	while (isPlaying)
 	{
 		debugD("AutoPlay Thread Change Pic To %d", *x, INFO);
-		showBMP(pics[*x], 0, 0);
+		showBMP(picsPlaying[*x], 0, 0);
 		if (*x == 8)
 		{
 			*x = 0;
@@ -477,14 +488,23 @@ void onClick(int x, int y)
 		startAutoPlayThread(&i);
 		return;
 	}
-	// 如果点击了 暂停 按钮, 并且启用了 自动播放
-	else if (inArea2(btPause, x, y) && isPlaying)
+	// 如果点击了 暂停/继续 按钮, 并且启用了 自动播放
+	else if (inArea2(btPause, x, y))
 	{
-		debug("Pause", INFO);
-		if (isPlaying)
+		if (!isPlaying)
 		{
-			isPlaying = 0;
-			debug("AutoPlay Stop", INFO);
+			isPlaying = 1;
+			debug("AutoPlay Start", INFO);
+			startAutoPlayThread(&i);
+			return;
+		}
+		else
+		{
+			if (isPlaying)
+			{
+				isPlaying = 0;
+				debug("AutoPlay Stop", INFO);
+			}
 		}
 	}
 	else
@@ -497,7 +517,7 @@ void onClick(int x, int y)
  * @brief 初始化 点击区域 矩阵
  * 
  */
-void init()
+void initRect()
 {
 	btPrev.startX = 0;
 	btPrev.startY = 512;
@@ -525,18 +545,19 @@ void init()
  */
 void playVideo()
 {
+	debug("Playing Video", INFO);
 	int idx = 0;
 	for (idx = 0; idx < 352; idx++)
 	{
 		showBMP(videos[idx], 0, 0);
-		usleep(100000 / 48);
+		usleep(100000 / 60);
 	}
 }
 int main()
 {
-	init();
+	initRect();
 	playVideo();
-	showBMP("./pic2/01.bmp", 0, 0);
+	showBMP(pics[0], 0, 0);
 	startTouchThread(onClick);
 	return 0;
 }
