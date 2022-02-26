@@ -1,0 +1,1 @@
+./configure --host=arm-linux CC=arm-linux-gcc --enable-shared --disable-python --prefix=/mnt/hgfs/em/day06/compile/alsa-lib-1.2.6/build/mplayer

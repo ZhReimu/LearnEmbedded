@@ -1,0 +1,50 @@
+==============可编程音视频播放器============
+1.mplayer可编程播放器
+	1.下载mplayer到开发板
+	2.chmod 777 maplayer
+	3.mv mplayer /bin
+	4.测试    mplayer dream.avi
+
+U盘传输	U盘格式 FAT32
+	cd /mnt/udisk
+	ls
+	cp  mv
+	mv 文件名  /路径
+	mv mplayer /
+	mv dream.avi /	
+
+2.mplayer控制命令的使用
+mplayer -slave -quiet -input file=/pipe -geometry 0:0 -zoom -x 800 -y 480 dream.avi
+mplayer:播放工具
+-slave :开启
+-quiet :去除杂项信息
+-input file=/pipe:设置通信管道（命令的输入端）
+-geometry 0:0 设置播放的起点坐标
+-x 800 -y 480 视频窗体大小
+dream.avi	播放的视频
+
+3.控制命令 & 后台播放
+mplayer -slave -quiet -input file=/pipe -geometry 0:0 -zoom -x 800 -y 480 dream.avi &
+
+4.创建管道
+mkfifo /pipe
+chmod 777 pipe
+
+往管道里面去写控制命令
+
+echo pause >> /pipe	暂停
+echo seek +5 >> /pipe 	快进10
+echo seek -5 >> /pipe	快退10
+killall -kill mplayer   关闭播放器
+
+
+
+
+
+
+
+
+
+
+
+
