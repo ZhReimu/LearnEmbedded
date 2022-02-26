@@ -1,7 +1,15 @@
 #include "gif_lib.h"
+
+#include <stdio.h>
+#include <string.h>
 #include <stdint.h>
+#include <stdlib.h>
 
 GifRecordType gRecordType = UNDEFINED_RECORD_TYPE;
+void GifFreeFile(GifFileType *gpGifFile, GifRowType *gpScreenBuffer);
+void GifScreenBufferToRgb888(ColorMapObject *ColorMap, uint8_t *inRgb,
+                             GifRowType *ScreenBuffer, int32_t ScreenWidth, int32_t ScreenHeight);
+void FrameBufferDraw(uint8_t buff[]);
 /**
  * @brief 加载 gif 文件
  * 
@@ -16,101 +24,51 @@ int32_t loadGifFile(const char *gEffectGifFile, GifFileType *gpGifFile, GifRowTy
     int32_t size = 0;
     int32_t idx = 0;
     int32_t ret = 0;
-
-    do
+    if (NULL == gEffectGifFile)
     {
-        if (NULL == gEffectGifFile)
+        return -1;
+    }
+    gpGifFile = DGifOpenFileName(gEffectGifFile, &error);
+    if (NULL == gpGifFile)
+    {
+        return -2;
+    }
+    if ((gpGifFile->SHeight == 0) || (gpGifFile->SWidth == 0))
+    {
+        return -3;
+    }
+    gpScreenBuffer = (GifRowType *)malloc(gpGifFile->SHeight * sizeof(GifRowType));
+    if (NULL == gpScreenBuffer)
+    {
+        return -4;
+    }
+    /* Size in bytes one row */
+    size = gpGifFile->SWidth * sizeof(GifPixelType);
+    gpScreenBuffer[0] = (GifRowType)malloc(size);
+    if (NULL == gpScreenBuffer[0])
+    {
+        return -5;
+    }
+    /* Set its color to BackGround */
+    for (idx = 0; idx < gpGifFile->SWidth; idx++)
+    {
+        gpScreenBuffer[0][idx] = gpGifFile->SBackGroundColor;
+    }
+    /* Allocate the other rows, and set their color to background too */
+    for (idx = 1; idx < gpGifFile->SHeight; idx++)
+    {
+        gpScreenBuffer[idx] = (GifRowType)malloc(size);
+        if (NULL == gpScreenBuffer[idx])
         {
-            ret = -1;
-            break;
+            return -6;
         }
-
-        gpGifFile = DGifOpenFileName(gEffectGifFile, &error);
-        if (NULL == gpGifFile)
-        {
-            ret = -2;
-            break;
-        }
-
-        if ((gpGifFile->SHeight == 0) || (gpGifFile->SWidth == 0))
-        {
-            ret = -3;
-            break;
-        }
-
-        gpScreenBuffer = (GifRowType *)malloc(gpGifFile->SHeight * sizeof(GifRowType));
-        if (NULL == gpScreenBuffer)
-        {
-            ret = -4;
-            break;
-        }
-
-        /* Size in bytes one row */
-        size = gpGifFile->SWidth * sizeof(GifPixelType);
-        gpScreenBuffer[0] = (GifRowType)malloc(size);
-        if (NULL == gpScreenBuffer[0])
-        {
-            ret = -5;
-            break;
-        }
-
-        /* Set its color to BackGround */
-        for (idx = 0; idx < gpGifFile->SWidth; idx++)
-        {
-            gpScreenBuffer[0][idx] = gpGifFile->SBackGroundColor;
-        }
-
-        /* Allocate the other rows, and set their color to background too */
-        for (idx = 1; idx < gpGifFile->SHeight; idx++)
-        {
-            gpScreenBuffer[idx] = (GifRowType)malloc(size);
-            if (NULL == gpScreenBuffer[idx])
-            {
-                ret = -6;
-                break;
-            }
-            memcpy(gpScreenBuffer[idx], gpScreenBuffer[0], size);
-        }
-
-        if (0 > ret)
-        {
-            break;
-        }
-    } while (0);
-
+        memcpy(gpScreenBuffer[idx], gpScreenBuffer[0], size);
+    }
     if (0 > ret)
     {
-        GifFreeFile();
+        GifFreeFile(gpGifFile, gpScreenBuffer);
     }
-
     return ret;
-}
-
-void GifFreeFile(GifFileType *gpGifFile, GifRowType *gpScreenBuffer)
-{
-    int32_t idx = 0;
-    int32_t error = 0;
-
-    for (idx = 0; idx < gpGifFile->SHeight; idx++)
-    {
-        if (NULL != gpScreenBuffer[idx])
-        {
-            free(gpScreenBuffer[idx]);
-            gpScreenBuffer[idx] = NULL;
-        }
-    }
-
-    if (NULL != gpScreenBuffer)
-    {
-        free(gpScreenBuffer);
-        gpScreenBuffer = NULL;
-    }
-
-    if (NULL != gpGifFile)
-    {
-        DGifCloseFile(gpGifFile, &error);
-        gpGifFile = NULL;
-    }
 }
 
 int32_t GifFrameShow(GifFileType *gpGifFile, GifRowType *gpScreenBuffer)
@@ -130,7 +88,7 @@ int32_t GifFrameShow(GifFileType *gpGifFile, GifRowType *gpScreenBuffer)
     int32_t iW = 0;
     int32_t iH = 0;
     int32_t ret = 0;
-
+    puts("Test");
     do
     {
         if (DGifGetRecordType(gpGifFile, &gRecordType) == GIF_ERROR)
@@ -138,7 +96,7 @@ int32_t GifFrameShow(GifFileType *gpGifFile, GifRowType *gpScreenBuffer)
             ret = -1;
             break;
         }
-
+        puts("Test");
         switch (gRecordType)
         {
         case IMAGE_DESC_RECORD_TYPE:
@@ -170,7 +128,7 @@ int32_t GifFrameShow(GifFileType *gpGifFile, GifRowType *gpScreenBuffer)
                     DGifGetLine(gpGifFile, &gpScreenBuffer[row++][col], width);
                 }
             }
-
+            puts("Test2");
             colorMap = (gpGifFile->Image.ColorMap ? gpGifFile->Image.ColorMap : gpGifFile->SColorMap);
             if (colorMap == NULL)
             {
@@ -190,7 +148,7 @@ int32_t GifFrameShow(GifFileType *gpGifFile, GifRowType *gpScreenBuffer)
                 ret = -4;
                 break;
             }
-
+            puts("Test2");
             while (extension != NULL)
             {
                 if (DGifGetExtensionNext(gpGifFile, &extension) == GIF_ERROR)
@@ -212,6 +170,7 @@ int32_t GifFrameShow(GifFileType *gpGifFile, GifRowType *gpScreenBuffer)
         {
             break;
         }
+        puts("Test3");
     } while (gRecordType != TERMINATE_RECORD_TYPE);
 
     return ret;
@@ -241,11 +200,47 @@ void GifScreenBufferToRgb888(ColorMapObject *ColorMap, uint8_t *inRgb,
     }
 }
 
+void GifFreeFile(GifFileType *gpGifFile, GifRowType *gpScreenBuffer)
+{
+    int32_t idx = 0;
+    int32_t error = 0;
+
+    for (idx = 0; idx < gpGifFile->SHeight; idx++)
+    {
+        if (NULL != gpScreenBuffer[idx])
+        {
+            free(gpScreenBuffer[idx]);
+            gpScreenBuffer[idx] = NULL;
+        }
+    }
+
+    if (NULL != gpScreenBuffer)
+    {
+        free(gpScreenBuffer);
+        gpScreenBuffer = NULL;
+    }
+
+    if (NULL != gpGifFile)
+    {
+        DGifCloseFile(gpGifFile, &error);
+        gpGifFile = NULL;
+    }
+}
+
+void FrameBufferDraw(uint8_t buff[])
+{
+    puts("Test");
+    printf("%x\n", buff);
+}
+
 int main()
 {
-    const char *gEffectGifFile = "/home/yourDir/gifFile.gif";
+    const char *gifFile = "./1.gif";
     GifFileType *gpGifFile = NULL;
     GifRowType *gpScreenBuffer = NULL;
-
+    int32_t res = loadGifFile(gifFile, gpGifFile, gpScreenBuffer);
+    printf("Load Res -> %d\n", res);
+    GifFrameShow(gpGifFile, gpScreenBuffer);
+    GifFreeFile(gpGifFile, gpScreenBuffer);
     return 0;
 }
