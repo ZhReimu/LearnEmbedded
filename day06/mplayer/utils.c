@@ -469,7 +469,7 @@ void showBMP(const char *fileName, int x, int y, int isTransport)
 		lcd_init(lcdinfo);
 	}
 	show_bmp(fileName, x, y, lcdinfo, isTransport);
-
+	debugS("Showing Pic -> %s", fileName, INFO);
 	lcd_exit(lcdinfo);
 }
 
