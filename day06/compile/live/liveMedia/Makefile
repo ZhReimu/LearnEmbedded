@@ -1,4 +1,4 @@
-INCLUDES = -Iinclude -I../UsageEnvironment/include -I../groupsock/include
+INCLUDES = -Iinclude -I../UsageEnvironment/include -I../groupsock/include -I/mnt/hgfs/em/openssl/include
 PREFIX = /usr/local
 LIBDIR = $(PREFIX)/lib
 ##### Change the following for your environment:

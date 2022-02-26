@@ -1,6 +1,6 @@
 ##### Change the following for your environment:
 CROSS_COMPILE?=		arm-linux-
-COMPILE_OPTS =		$(INCLUDES) -I/usr/local/include -I. -O2 -DSOCKLEN_T=socklen_t -DNO_SSTREAM=1 -D_LARGEFILE_SOURCE=1 -D_FILE_OFFSET_BITS=64
+COMPILE_OPTS =		$(INCLUDES) -I/usr/local/include -I/mnt/hgfs/em/openssl/include -I. -O2 -DSOCKLEN_T=socklen_t -DNO_SSTREAM=1 -D_LARGEFILE_SOURCE=1 -D_FILE_OFFSET_BITS=64
 C =			c
 C_COMPILER =		$(CROSS_COMPILE)gcc
 C_FLAGS =		$(COMPILE_OPTS)
@@ -37,7 +37,7 @@ all:
 	cd $(GROUPSOCK_DIR) ; $(MAKE)
 	cd $(USAGE_ENVIRONMENT_DIR) ; $(MAKE)
 	cd $(BASIC_USAGE_ENVIRONMENT_DIR) ; $(MAKE)
-	cd $(TESTPROGS_DIR) ; $(MAKE)
+	# cd $(TESTPROGS_DIR) ; $(MAKE)
 	cd $(MEDIA_SERVER_DIR) ; $(MAKE)
 	cd $(PROXY_SERVER_DIR) ; $(MAKE)
 	cd $(HLS_PROXY_DIR) ; $(MAKE)

@@ -2,7 +2,7 @@ INCLUDES = -Iinclude -I../UsageEnvironment/include -I../groupsock/include
 PREFIX = /usr/local
 LIBDIR = $(PREFIX)/lib
 ##### Change the following for your environment:
-CROSS_COMPILE?=		arm-elf-
+CROSS_COMPILE?=		arm-linux-
 COMPILE_OPTS =		$(INCLUDES) -I/usr/local/include -I. -O2 -DSOCKLEN_T=socklen_t -DNO_SSTREAM=1 -D_LARGEFILE_SOURCE=1 -D_FILE_OFFSET_BITS=64
 C =			c
 C_COMPILER =		$(CROSS_COMPILE)gcc
