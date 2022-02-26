@@ -1,108 +1,95 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <pthread.h>
+#include <myHeader.h>
 
-#include <string.h>
-#include <strings.h>
-/*调用 open 函数的头文件 */
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-/*调用 write close 函数的头文件 */
-#include <unistd.h>
-#include <sys/mman.h>
-#include <linux/input.h>
-#include <stdbool.h>
+Rect btPlayAndPause;
 
-int ts_x, ts_y; //触摸坐标
+Rect btFastForward;
+Rect btBack;
 
-//定义的线程的任务函数	用于触摸
-void *fun(void *arg)
+enum SATTUS
 {
-	//1.打开触摸屏驱动文件
-	int ts_fd = open("/dev/input/event0", O_RDWR);
-	if (ts_fd < 0)
-	{
-		printf("open ts_fd failed\n");
-		exit(-1);
-	}
-	printf("open ts_fd OK\n");
+	PAUSED,
+	STARTED,
+	STOPED,
+};
 
-	//2.读取触摸操作数据放到输入子系统中
-	struct input_event ts;
-	while (1)
+static int playStatus = STOPED;
+/**
+ * @brief 点击事件, 屏幕被点击时触发
+ * 
+ * @param x 被点击的 x 坐标
+ * @param y 被点击的 y 坐标
+ */
+void onClick(int x, int y)
+{
+	static int i = 0;
+	debug2D("Touch Thread Callback OnClick in Main : %d, %d", x, y, INFO);
+	if (inArea2(btPlayAndPause, x, y))
 	{
-		while (1)
+		if (playStatus == STOPED)
 		{
-			read(ts_fd, &ts, sizeof(ts));
-			if (ts.type == EV_ABS)
-			{
-				if (ts.code == ABS_X)
-				{
-					ts_x = ts.value;
-				}
-				if (ts.code == ABS_Y)
-				{
-					ts_y = ts.value;
-				}
-			}
-			if (ts.type == EV_KEY && ts.code == BTN_TOUCH && ts.value == 0)
-			{
-				break;
-			}
+			debug("Play", INFO);
+			playStatus = STARTED;
+			system("mplayer -slave -quiet -input  file=/pipe  -geometry  0:0 -zoom -x 800 -y 480 -nosound /mnt/udisk/dream.avi &");
 		}
-
-		printf("x = %d\ny = %d\n", ts_x, ts_y);
+		else if (playStatus == STARTED)
+		{
+			playStatus = PAUSED;
+			system("echo pause >> /pipe");
+			debug("Paused", INFO);
+		}
+		else if (playStatus == PAUSED)
+		{
+			playStatus = STARTED;
+			system("echo pause >> /pipe");
+			debug("Resume", INFO);
+		}
+	}
+	else if (inArea2(btFastForward, x, y))
+	{
+		if (playStatus)
+		{
+			system("echo seek +5 >> /pipe");
+			debug("FastForward", INFO);
+		}
+	}
+	else if (inArea2(btBack, x, y))
+	{
+		if (playStatus)
+		{
+			system("echo seek -5 >> /pipe");
+			debug("Back", INFO);
+		}
+	}
+	else
+	{
+		debug("Not Hit", INFO);
 	}
 }
+void init()
+{
+	btPlayAndPause.startX = 342;
+	btPlayAndPause.startY = 550;
+	btPlayAndPause.endX = 684;
+	btPlayAndPause.endY = 614;
 
+	btFastForward.startX = 684;
+	btFastForward.startY = 550;
+	btFastForward.endX = 1024;
+	btFastForward.endY = 614;
+
+	btBack.startX = 0;
+	btBack.startY = 550;
+	btBack.endX = 341;
+	btBack.endY = 614;
+}
 int main()
 {
-	//1.先给线程取名字
-	pthread_t ts;
-	//2.创建线程
-	pthread_create(&ts, NULL, &fun, NULL);
-
-	int movie_flag = 0;
-
+	init();
+	// system("mplayer -slave -quiet -input  file=/pipe  -geometry  0:0 -zoom -x 800 -y 480  dream.avi &");
+	// system("echo pause >> /pipe");
 	system("rm /pipe");
-
 	system("mkfifo /pipe");
-
 	system("chmod 777 /pipe");
-
-	while (1)
-	{
-		//播放区域
-		if (0 < ts_x && ts_x <= 200 && 0 < ts_y && ts_y <= 200 && movie_flag == 0)
-		{
-			ts_x = 0;
-			ts_y = 0;
-
-			system("mplayer -slave -quiet -input  file=/pipe  -geometry  0:0 -zoom -x 800 -y 480  dream.avi &");
-			movie_flag = 1;
-		}
-		//暂停
-		else if (200 < ts_x && ts_x <= 400 && 0 < ts_y && ts_y <= 200 && movie_flag == 1)
-		{
-			ts_x = 0;
-			ts_y = 0;
-
-			system("echo pause >> /pipe");
-		}
-		//继续
-		/* if()
-		{
-			ts_x = 0;
-			ts_y = 0;
-			
-			system("echo pause >> /pipe");
-			
-		} */
-		//快进10
-
-		//快退10
-	}
-
+	startTouchThread(onClick);
 	return 0;
 }
