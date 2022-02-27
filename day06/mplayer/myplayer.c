@@ -172,7 +172,7 @@ int main()
     system("rm /pipe");
     system("mkfifo /pipe");
     system("chmod 777 /pipe");
-    showBMP("/mnt/udisk/2/video-ui-stop.bmp", 0, 0, 0);
+    showBMP(uiStopping, 0, 0, 0);
     startTouchThread(onClick);
     return 0;
 }

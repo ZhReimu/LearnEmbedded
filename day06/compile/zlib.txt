@@ -1,0 +1,2 @@
+export CC=arm-linux-gcc
+./configure --prefix=./build
