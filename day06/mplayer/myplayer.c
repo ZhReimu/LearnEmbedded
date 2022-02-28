@@ -71,7 +71,15 @@ void doHome();
  * 
  */
 static int playStatus = STOPPED;
+/**
+ * @brief 视频总数, [0, videos 数组长度)
+ * 
+ */
 static int videoNum = 2;
+/**
+ * @brief 视频路径数组
+ * 
+ */
 const char *videos[] = {
     "/mnt/udisk/videos/1.avi",
     "/mnt/udisk/videos/2.avi",
@@ -90,7 +98,7 @@ void getCmd(char *dst, int idx)
     debugS("cmd -> %s", dst, INFO);
 }
 /**
- * @brief 上一个视频
+ * @brief 播放 上一个视频
  * 
  */
 void doPrevVideo(int idx)
@@ -152,6 +160,11 @@ void doFF()
     debug("FastForward", INFO);
     system("echo seek +5 >> /pipe");
 }
+/**
+ * @brief 播放下一个视频
+ * 
+ * @param idx 
+ */
 void doNextVideo(int idx)
 {
     doHome();
@@ -229,13 +242,13 @@ void onClick(int x, int y)
     {
         if (idx-- == 0)
         {
-            idx = 2;
+            idx = videoNum;
         }
         doPrevVideo(idx);
     }
     else if (inArea2(btNextVideo, x, y))
     {
-        if (idx++ == 2)
+        if (idx++ == videoNum)
         {
             idx = 0;
         }
