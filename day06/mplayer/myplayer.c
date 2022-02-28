@@ -176,6 +176,7 @@ void doHome()
  */
 void onClick(int x, int y)
 {
+    static int idx = 0;
     debug2D("Touch Thread Callback OnClick in Main : %d, %d", x, y, INFO);
     // 如果点击了 播放 & 暂停区域
     if (inArea2(btPlayAndPause, x, y))
@@ -183,8 +184,7 @@ void onClick(int x, int y)
         // 如果当前播放状态是 已停止
         if (playStatus == STOPPED)
         {
-            // TODO: 修改 idx 实现切换视频
-            doPlay(0);
+            doPlay(idx);
         }
         // 如果当前播放状态是 播放中
         else if (playStatus == PLAYING)
@@ -227,11 +227,19 @@ void onClick(int x, int y)
     }
     else if (inArea2(btPrevVideo, x, y))
     {
-        doPrevVideo(1);
+        if (idx-- == 0)
+        {
+            idx = 2;
+        }
+        doPrevVideo(idx);
     }
     else if (inArea2(btNextVideo, x, y))
     {
-        doNextVideo(2);
+        if (idx++ == 2)
+        {
+            idx = 0;
+        }
+        doNextVideo(idx);
     }
     // 如果未 点击有效区域
     else
