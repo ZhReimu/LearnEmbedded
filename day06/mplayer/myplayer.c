@@ -103,7 +103,7 @@ void getCmd(char *dst, int idx)
  */
 void doPrevVideo(int idx)
 {
-    // 只有 正在播放其它视频 时, 才需要 先回到首页, 再 播放视频
+    // 只有 正在播放其它视频 或 暂停播放 时, 才需要 先回到首页, 再 播放视频
     if (playStatus == PLAYING || playStatus == PAUSED)
     {
         doHome();
@@ -171,7 +171,7 @@ void doFF()
  */
 void doNextVideo(int idx)
 {
-    // 只有 正在播放其它视频 时, 才需要 先回到首页, 再 播放视频
+    // 只有 正在播放其它视频 或 暂停播放 时, 才需要 先回到首页, 再 播放视频
     if (playStatus == PLAYING || playStatus == PAUSED)
     {
         doHome();
