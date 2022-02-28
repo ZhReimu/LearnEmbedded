@@ -64,6 +64,8 @@ const char *uiStarting = "/mnt/udisk/2/video-ui-start.bmp";
 const char *uiStopping = "/mnt/udisk/2/video-ui-stop.bmp";
 const char *cmdPrefix = "mplayer -slave -quiet -input  file=/pipe -zoom -x 800 -y 430 -nosound ";
 const char *cmdSuffix = " &";
+void doPlay(int idx);
+void doHome();
 /**
  * @brief 当前播放状态
  * 
@@ -75,6 +77,7 @@ const char *videos[] = {
     "/mnt/udisk/videos/2.avi",
     "/mnt/udisk/videos/3.avi",
 };
+
 /**
  * @brief 获取 命令 字符串
  * 
@@ -92,8 +95,8 @@ void getCmd(char *dst, int idx)
  */
 void doPrevVideo(int idx)
 {
-    char cmd[512] = {0};
-    getCmd(cmd, idx);
+    doHome();
+    doPlay(idx);
 }
 /**
  * @brief 快退 5s
@@ -107,7 +110,7 @@ void doFB()
 /**
  * @brief 开始播放
  * 
- * @param idx 
+ * @param idx 要播放的 视频 id
  */
 void doPlay(int idx)
 {
@@ -151,8 +154,8 @@ void doFF()
 }
 void doNextVideo(int idx)
 {
-    char cmd[512] = {0};
-    getCmd(cmd, idx);
+    doHome();
+    doPlay(idx);
 }
 /**
  * @brief 返回首页
