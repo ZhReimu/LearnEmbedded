@@ -62,7 +62,7 @@ const char *uiStarting = "/mnt/udisk/2/video-ui-start.bmp";
  * 
  */
 const char *uiStopping = "/mnt/udisk/2/video-ui-stop.bmp";
-const char *cmdPrefix = "mplayer -slave -quiet -input  file=/pipe -zoom -x 800 -y 430 -nosound ";
+const char *cmdPrefix = "mplayer -slave -quiet -input  file=/pipe -zoom -x 800 -y 430 -nosound -framedrop ";
 const char *cmdSuffix = " &";
 void doPlay(int idx);
 void doHome();
@@ -190,13 +190,7 @@ void doHome()
     debug("Home", INFO);
     usleep(500000);
 }
-/**
- * @brief 点击事件, 屏幕被点击时触发
- * 
- * @param x 被点击的 x 坐标
- * @param y 被点击的 y 坐标
- */
-void onClick(int x, int y)
+void playerHandler(int x, int y)
 {
     static int idx = 0;
     debug2D("Touch Thread Callback OnClick in Main : %d, %d", x, y, INFO);
@@ -267,6 +261,16 @@ void onClick(int x, int y)
     {
         debug("Not Hit", INFO);
     }
+}
+/**
+ * @brief 点击事件, 屏幕被点击时触发
+ * 
+ * @param x 被点击的 x 坐标
+ * @param y 被点击的 y 坐标
+ */
+void onClick(int x, int y)
+{
+    playerHandler(x, y);
 }
 
 void init()
