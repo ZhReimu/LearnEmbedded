@@ -94,7 +94,7 @@ static int playStatus = STOPPED;
  */
 static int videoNum = 5;
 /**
- * @brief 视频路径数组
+ * @brief 视频路径 数组
  * 
  */
 const char *videos[] = {
@@ -104,6 +104,19 @@ const char *videos[] = {
     "/mnt/udisk/videos/4.avi",
     "/mnt/udisk/videos/5.avi",
     "/mnt/udisk/videos/6.avi",
+};
+// TODO 使用 audios
+/**
+ * @brief 音乐路径 数组
+ * 
+ */
+const char *audios[] = {
+    "/mnt/udisk/audios/1.mp3",
+    "/mnt/udisk/audios/2.mp3",
+    "/mnt/udisk/audios/3.mp3",
+    "/mnt/udisk/audios/4.mp3",
+    "/mnt/udisk/audios/5.mp3",
+    "/mnt/udisk/audios/6.mp3",
 };
 
 /**
