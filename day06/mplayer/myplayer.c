@@ -167,6 +167,7 @@ void doHome()
     system("killall -kill mplayer");
     showBMP(uiStopping, 0, 0, 0);
     debug("Home", INFO);
+    usleep(500000);
 }
 /**
  * @brief 点击事件, 屏幕被点击时触发
@@ -218,7 +219,6 @@ void onClick(int x, int y)
     // 如果点击了 首页 区域
     else if (inArea2(btHome, x, y))
     {
-        // fixme: 主页 点击卡死
         // 如果当前播放状态是 播放中 或 暂停中
         if (playStatus == PLAYING || playStatus == PAUSED)
         {
