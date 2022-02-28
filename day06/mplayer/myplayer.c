@@ -62,9 +62,26 @@ const char *uiStarting = "/mnt/udisk/2/video-ui-start.bmp";
  * 
  */
 const char *uiStopping = "/mnt/udisk/2/video-ui-stop.bmp";
+/**
+ * @brief 命令前缀
+ * 
+ */
 const char *cmdPrefix = "mplayer -slave -quiet -input  file=/pipe -zoom -x 800 -y 430 -nosound -framedrop ";
+/**
+ * @brief 命令后缀
+ * 
+ */
 const char *cmdSuffix = " &";
+/**
+ * @brief 开始播放
+ * 
+ * @param idx 要播放的 视频 id
+ */
 void doPlay(int idx);
+/**
+ * @brief 返回首页
+ * 
+ */
 void doHome();
 /**
  * @brief 当前播放状态
