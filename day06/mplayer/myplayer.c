@@ -241,34 +241,34 @@ void init()
 {
     // 初始化 上一个视频 按钮区域
     btPrevVideo.startX = 0;
-    btPrevVideo.startY = 960;
+    btPrevVideo.startY = 550;
     btPrevVideo.endX = 326;
-    btPrevVideo.endY = 1024;
+    btPrevVideo.endY = 614;
     // 初始化 快退 按钮区域
     btBack.startX = 326;
-    btBack.startY = 960;
+    btBack.startY = 550;
     btBack.endX = 422;
-    btBack.endY = 1024;
+    btBack.endY = 614;
     // 初始化 暂停&播放 按钮区域
     btPlayAndPause.startX = 422;
-    btPlayAndPause.startY = 960;
+    btPlayAndPause.startY = 550;
     btPlayAndPause.endX = 601;
-    btPlayAndPause.endY = 1024;
+    btPlayAndPause.endY = 614;
     // 初始化 快进 按钮区域
     btFastForward.startX = 601;
-    btFastForward.startY = 960;
+    btFastForward.startY = 550;
     btFastForward.endX = 736;
-    btFastForward.endY = 1024;
+    btFastForward.endY = 614;
     // 初始化 下一个视频 按钮区域
     btNextVideo.startX = 736;
-    btNextVideo.startY = 960;
+    btNextVideo.startY = 550;
     btNextVideo.endX = 972;
-    btNextVideo.endY = 1024;
+    btNextVideo.endY = 614;
     // 初始化 首页 按钮区域
     btHome.startX = 972;
-    btHome.startY = 960;
+    btHome.startY = 550;
     btHome.endX = 1024;
-    btHome.endY = 1024;
+    btHome.endY = 614;
 }
 
 int main()
