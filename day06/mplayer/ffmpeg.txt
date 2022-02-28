@@ -1,1 +1,1 @@
-ffmpeg -i input.mp4 -vcodec libx264 -preset veryslow -crf 18 -acodec copy output.avi
+ffmpeg -i input.mp4 -vcodec libx264 -preset veryslow -crf 18 -r 24 -s 512*288 -b:v 200k -bufsize 200k -maxrate 250k -acodec copy output.avi
