@@ -3,7 +3,9 @@
 
 #include <time.h>
 #include <stdio.h>
+#include <stdarg.h>
 #include <stdlib.h>
+#include <string.h>
 #include <strings.h>
 /* 调用 open 函数的头文件 */
 #include <sys/types.h>
@@ -302,4 +304,12 @@ void debugS(const char *format, const char *args, int logType);
  * @param logType 日志等级
  */
 void debug2D(const char *format, int arg, int arg2, int logType);
+/**
+ * @brief 连接字符串
+ * 
+ * @param dst 结果数组
+ * @param arg_cnt 参数个数
+ * @param ... 要拼接的字符串
+ */
+void stringCat(char *dst, int arg_cnt, ...);
 #endif

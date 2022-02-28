@@ -612,3 +612,23 @@ int inArea2(Rect rect, int x, int y)
 {
 	return inArea(rect.startX, rect.startY, rect.endX, rect.endY, x, y);
 }
+/**
+ * @brief 连接字符串
+ * 
+ * @param dst 结果数组
+ * @param arg_cnt 参数个数
+ * @param ... 要拼接的字符串
+ */
+void stringCat(char *dst, int arg_cnt, ...)
+{
+	va_list p_args;
+	va_start(p_args, arg_cnt);
+	int idx;
+	char *val;
+	for (idx = 1; idx <= arg_cnt; ++idx)
+	{
+		val = va_arg(p_args, char *);
+		strcat(dst, val);
+	}
+	va_end(p_args);
+}
