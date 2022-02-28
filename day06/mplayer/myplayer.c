@@ -87,6 +87,24 @@ void getCmd(char *dst, int idx)
     debugS("cmd -> %s", dst, INFO);
 }
 /**
+ * @brief 上一个视频
+ * 
+ */
+void doPrevVideo(int idx)
+{
+    char cmd[512] = {0};
+    getCmd(cmd, idx);
+}
+/**
+ * @brief 快退 5s
+ * 
+ */
+void doFB()
+{
+    debug("Back", INFO);
+    system("echo seek -5 >> /pipe");
+}
+/**
  * @brief 开始播放
  * 
  * @param idx 
@@ -131,14 +149,10 @@ void doFF()
     debug("FastForward", INFO);
     system("echo seek +5 >> /pipe");
 }
-/**
- * @brief 快退 5s
- * 
- */
-void doFB()
+void doNextVideo(int idx)
 {
-    debug("Back", INFO);
-    system("echo seek -5 >> /pipe");
+    char cmd[512] = {0};
+    getCmd(cmd, idx);
 }
 /**
  * @brief 返回首页
@@ -210,9 +224,11 @@ void onClick(int x, int y)
     }
     else if (inArea2(btPrevVideo, x, y))
     {
+        doPrevVideo(1);
     }
     else if (inArea2(btNextVideo, x, y))
     {
+        doNextVideo(2);
     }
     // 如果未 点击有效区域
     else
