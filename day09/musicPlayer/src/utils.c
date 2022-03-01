@@ -334,9 +334,14 @@ void showBMP(const char *fileName, int x, int y, int isTransport)
 		lcd_init(lcdinfo);
 	}
 	show_bmp(fileName, x, y, lcdinfo, isTransport);
-	debugS("Showing Pic -> %s", fileName, INFO);
+	debugS("Showing Pic -> %s", fileName, DEBUG);
 	lcd_exit(lcdinfo);
 }
+/**
+ * @brief 在 0,0 的位置 显示一个 非透明的图片
+ * 
+ * @param fileName 图片文件名
+ */
 void showBMPOO(const char *fileName)
 {
 	showBMP(fileName, 0, 0, 0);
