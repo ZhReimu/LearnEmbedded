@@ -7,12 +7,12 @@
  */
 void onClick(int x, int y)
 {
-    playerHandler(x, y);
+    musicPlayerHandler(x, y);
 }
 
 int main()
 {
-    init();
+    initMusicPlayer();
     startTouchThread(onClick);
     return 0;
 }
