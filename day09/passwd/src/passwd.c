@@ -91,10 +91,32 @@ enum INPUT
     PASSWD,
 };
 /**
+ * @brief 密码状态 枚举
+ * 
+ */
+enum PASSWORD
+{
+    /**
+     * @brief 显示密码
+     * 
+     */
+    SHOW,
+    /**
+     * @brief 隐藏密码
+     * 
+     */
+    HIDE
+};
+/**
  * @brief 当前输入状态
  * 
  */
 static int INPUT_STATUS = ACCOUNT;
+/**
+ * @brief 密码状态
+ * 
+ */
+static int PASSWD_STATUS = HIDE;
 /**
  * @brief 当前 账号 文本框内文本个数
  * 
@@ -150,6 +172,43 @@ void changeArr(int num)
     }
 }
 /**
+ * @brief 刷新输入框
+ * 
+ */
+void refreshEdit()
+{
+    showBMPOO(bg);
+    for (int i = 0; i < accountIdx; i++)
+    {
+        showNum(account[i], edAccount[i]);
+    }
+    for (int i = 0; i < passwdIdx; i++)
+    {
+        if (PASSWD_STATUS == SHOW)
+        {
+            showNum(passwd[i], edPassword[i]);
+        }
+        else
+        {
+            showBMP(good, edPassword[i].startX, edPassword[i].startY, 0);
+        }
+    }
+}
+/**
+ * @brief Int 数组 转换 char 数组
+ * 
+ * @param iArr 要转换的 int 数组
+ * @param cArr 转换后的 char 数组
+ * @param length int 数组长度
+ */
+void ia2ca(const int iArr[], char cArr[], int length)
+{
+    for (int i = 0; i < length; i++)
+    {
+        cArr[i] = iArr[i] + '0';
+    }
+}
+/**
  * @brief 密码界面处理函数
  * 
  * @param x 点击的 x 坐标
@@ -158,57 +217,16 @@ void changeArr(int num)
 void passwdHandler(int x, int y)
 {
     debug2D("PasswdHandler %d, %d", x, y, INFO);
-    if (inArea2(btNums[0], x, y))
+    for (int i = 0; i < 10; i++)
     {
-        changeArr(0);
-        debug("Hit Num0", INFO);
+        if (inArea2(btNums[i], x, y))
+        {
+            changeArr(i);
+            refreshEdit();
+            return;
+        }
     }
-    else if (inArea2(btNums[1], x, y))
-    {
-        changeArr(1);
-        debug("Hit Num1", INFO);
-    }
-    else if (inArea2(btNums[2], x, y))
-    {
-        changeArr(2);
-        debug("Hit Num2", INFO);
-    }
-    else if (inArea2(btNums[3], x, y))
-    {
-        changeArr(3);
-        debug("Hit Num3", INFO);
-    }
-    else if (inArea2(btNums[4], x, y))
-    {
-        changeArr(4);
-        debug("Hit Num4", INFO);
-    }
-    else if (inArea2(btNums[5], x, y))
-    {
-        changeArr(5);
-        debug("Hit Num5", INFO);
-    }
-    else if (inArea2(btNums[6], x, y))
-    {
-        changeArr(6);
-        debug("Hit Num6", INFO);
-    }
-    else if (inArea2(btNums[7], x, y))
-    {
-        changeArr(7);
-        debug("Hit Num7", INFO);
-    }
-    else if (inArea2(btNums[8], x, y))
-    {
-        changeArr(8);
-        debug("Hit Num8", INFO);
-    }
-    else if (inArea2(btNums[9], x, y))
-    {
-        changeArr(9);
-        debug("Hit Num9", INFO);
-    }
-    else if (inArea2(btAccount, x, y))
+    if (inArea2(btAccount, x, y))
     {
         INPUT_STATUS = ACCOUNT;
         debug("Hit Account", INFO);
@@ -223,26 +241,45 @@ void passwdHandler(int x, int y)
     {
         if (INPUT_STATUS == ACCOUNT)
         {
-            showNum(9, btAccount[accountIdx++]);
+            accountIdx--;
         }
         else
         {
-            showNum(9, btPasswd[passwdIdx++]);
+            passwdIdx--;
         }
         debug("Hit Del", INFO);
     }
     else if (inArea2(btShowPass, x, y))
     {
+        if (PASSWD_STATUS == SHOW)
+        {
+            PASSWD_STATUS = HIDE;
+        }
+        else
+        {
+            PASSWD_STATUS = SHOW;
+        }
         debug("Hit ShowPass", INFO);
     }
     else if (inArea2(btYes, x, y))
     {
+        char temp[4] = {0};
+        ia2ca(passwd, temp, passwdIdx);
+        if (stringCmp(pwd, temp))
+        {
+            debug("Pass", INFO);
+        }
+        else
+        {
+            debug("Error", INFO);
+        }
         debug("Hit Yes", INFO);
     }
     else
     {
         debug("Not Hit", INFO);
     }
+    refreshEdit();
 }
 /**
  * @brief 初始化 点击区域
