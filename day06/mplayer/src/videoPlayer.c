@@ -1,4 +1,4 @@
-#include <myHeader.h>
+#include <player.h>
 
 /**
  * @brief 暂停, 继续 按钮
@@ -226,6 +226,12 @@ void doHome()
     debug("Home", INFO);
     usleep(500000);
 }
+/**
+ * @brief 播放器处理函数
+ * 
+ * @param x 点击的 x 坐标
+ * @param y 点击的 y 坐标
+ */
 void playerHandler(int x, int y)
 {
     static int idx = 0;
@@ -299,16 +305,9 @@ void playerHandler(int x, int y)
     }
 }
 /**
- * @brief 点击事件, 屏幕被点击时触发
+ * @brief 初始化 点击区域
  * 
- * @param x 被点击的 x 坐标
- * @param y 被点击的 y 坐标
  */
-void onClick(int x, int y)
-{
-    playerHandler(x, y);
-}
-
 void init()
 {
     // 初始化 上一个视频 按钮区域
@@ -341,17 +340,10 @@ void init()
     btHome.startY = 550;
     btHome.endX = 1024;
     btHome.endY = 614;
-}
-
-int main()
-{
-    init();
     // system("mplayer -slave -quiet -input  file=/pipe  -geometry  0:0 -zoom -x 800 -y 480  dream.avi &");
     // system("echo pause >> /pipe");
     system("rm /pipe");
     system("mkfifo /pipe");
     system("chmod 777 /pipe");
     showBMP(uiStopping, 0, 0, 0);
-    startTouchThread(onClick);
-    return 0;
 }
