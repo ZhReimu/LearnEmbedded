@@ -24,21 +24,21 @@
 #include <stdbool.h>
 /* pthread 头文件 */
 #include <pthread.h>
-/* bmp 文件结构 头文件 */
-#include "bmphead.h"
+
 /* 日志函数 头文件 */
 #include <log.h>
-/**
- * @brief lcd 设备驱动文件路径
- * 
- */
-#define LCD_DEVICE "/dev/fb0"
 
 /**
  * @brief 触摸设备驱动文件路径
  * 
  */
 #define EVENT_DEVICE "/dev/input/event0"
+
+/**
+ * @brief lcd 设备驱动文件路径
+ * 
+ */
+#define LCD_DEVICE "/dev/fb0"
 
 /**
  * @brief 像素个数
@@ -57,100 +57,74 @@
  */
 enum COLOR
 {
-    /**
+	/**
 	 * @brief 红色
 	 * 
 	 */
-    RED,
-    /**
+	RED,
+	/**
 	 * @brief 绿色
 	 * 
 	 */
-    GREEN,
-    /**
+	GREEN,
+	/**
 	 * @brief 蓝色
 	 * 
 	 */
-    BLUE,
-    /**
+	BLUE,
+	/**
 	 * @brief 黑色
 	 * 
 	 */
-    BLACK,
-    /**
+	BLACK,
+	/**
 	 * @brief 粉红色
 	 * 
 	 */
-    PINK,
-    /**
+	PINK,
+	/**
 	 * @brief 樱花色
 	 * 
 	 */
-    SAKURA,
-    /**
+	SAKURA,
+	/**
 	 * @brief 橙色
 	 * 
 	 */
-    ORANGE,
-    /**
+	ORANGE,
+	/**
 	 * @brief 青色
 	 * 
 	 */
-    CYAN
+	CYAN
 };
-/**
- * @brief LCD 信息结构体
- * 
- */
-struct lcd_info
-{
-    /**
-	 * @brief 屏幕文件描述符
-	 * 
-	 */
-    int fd;
-    /**
-	 * @brief 屏幕宽度
-	 * 
-	 */
-    int width;
-    /**
-	 * @brief 屏幕高度
-	 * 
-	 */
-    int high;
-    /**
-	 * @brief 屏幕像素位数
-	 * 
-	 */
-    int bits_per;
-};
+
 /**
  * @brief 矩形 结构体
  * 
  */
 typedef struct rect
 {
-    /**
+	/**
 	 * @brief 矩形左上角的 x 坐标
 	 * 
 	 */
-    int startX;
-    /**
+	int startX;
+	/**
 	 * @brief 矩形左上角的 y 坐标
 	 * 
 	 */
-    int startY;
-    /**
+	int startY;
+	/**
 	 * @brief 矩形右下角的 x 坐标
 	 * 
 	 */
-    int endX;
-    /**
+	int endX;
+	/**
 	 * @brief 矩形右下角的 y 坐标
 	 * 
 	 */
-    int endY;
+	int endY;
 } Rect;
 
 /**
@@ -201,15 +175,7 @@ void cls(char *buff, int c);
  * @return int 随机颜色 RED, GREEN, BLUE
  */
 int radColor();
-/**
- * @brief 在指定位置显示一个 bmp 图片
- * 
- * @param fileName 要显示的 bmp 文件路径
- * @param x 显示坐标 x
- * @param y 显示坐标 y
- * @param isTransport 是否透明
- */
-void showBMP(const char *fileName, int x, int y, int isTransport);
+
 /**
  * @brief 获取当前点击屏幕的 x,y 值
  * 
@@ -262,4 +228,10 @@ void stringCat(char *dst, int arg_cnt, ...);
  * @return false 不等就返回 false
  */
 bool stringCmp(const char *arg1, const char *arg2);
+
+/**
+ * @brief 初始化 /pipe 文件
+ * 
+ */
+void initPipe();
 #endif

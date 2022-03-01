@@ -1,4 +1,4 @@
-#include <videoPlayer.h>
+#include <passwd.h>
 /**
  * @brief 点击事件, 屏幕被点击时触发
  * 
@@ -7,12 +7,12 @@
  */
 void onClick(int x, int y)
 {
-    playerHandler(x, y);
+    passwdHandler(x, y);
 }
 
 int main()
 {
-    init();
+    initPasswd();
     startTouchThread(onClick);
     return 0;
 }
