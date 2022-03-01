@@ -2,6 +2,7 @@
 #define _VPLAYER_H_
 
 #include <log.h>
+#include <bmp.h>
 #include <utils.h>
 
 /**

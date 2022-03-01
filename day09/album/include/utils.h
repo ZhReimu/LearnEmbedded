@@ -1,5 +1,5 @@
-#ifndef _UTILS_H_
-#define _UTILS_H_
+#ifndef _MYHEADER_H_
+#define _MYHEADER_H_
 
 #include <time.h>
 #include <stdio.h>
@@ -24,21 +24,21 @@
 #include <stdbool.h>
 /* pthread 头文件 */
 #include <pthread.h>
-/* bmp 文件结构 头文件 */
-#include "bmphead.h"
+
 /* 日志函数 头文件 */
 #include <log.h>
-/**
- * @brief lcd 设备驱动文件路径
- * 
- */
-#define LCD_DEVICE "/dev/fb0"
 
 /**
  * @brief 触摸设备驱动文件路径
  * 
  */
 #define EVENT_DEVICE "/dev/input/event0"
+
+/**
+ * @brief lcd 设备驱动文件路径
+ * 
+ */
+#define LCD_DEVICE "/dev/fb0"
 
 /**
  * @brief 像素个数
@@ -98,33 +98,7 @@ enum COLOR
 	 */
 	CYAN
 };
-/**
- * @brief LCD 信息结构体
- * 
- */
-struct lcd_info
-{
-	/**
-	 * @brief 屏幕文件描述符
-	 * 
-	 */
-	int fd;
-	/**
-	 * @brief 屏幕宽度
-	 * 
-	 */
-	int width;
-	/**
-	 * @brief 屏幕高度
-	 * 
-	 */
-	int high;
-	/**
-	 * @brief 屏幕像素位数
-	 * 
-	 */
-	int bits_per;
-};
+
 /**
  * @brief 矩形 结构体
  * 
@@ -201,15 +175,7 @@ void cls(char *buff, int c);
  * @return int 随机颜色 RED, GREEN, BLUE
  */
 int radColor();
-/**
- * @brief 在指定位置显示一个 bmp 图片
- * 
- * @param fileName 要显示的 bmp 文件路径
- * @param x 显示坐标 x
- * @param y 显示坐标 y
- * @param isTransport 是否透明
- */
-void showBMP(const char *fileName, int x, int y, int isTransport);
+
 /**
  * @brief 获取当前点击屏幕的 x,y 值
  * 
@@ -262,5 +228,10 @@ void stringCat(char *dst, int arg_cnt, ...);
  * @return false 不等就返回 false
  */
 bool stringCmp(const char *arg1, const char *arg2);
-void showBMPOO(const char *fileName);
+
+/**
+ * @brief 初始化 /pipe 文件
+ * 
+ */
+void initPipe();
 #endif

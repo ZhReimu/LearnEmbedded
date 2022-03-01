@@ -2,6 +2,7 @@
 #define _BMPHEAD_H_
 
 #include <log.h>
+#include <bmp.h>
 #include <utils.h>
 
 void initAlbum();
