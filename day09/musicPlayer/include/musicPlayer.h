@@ -1,5 +1,5 @@
-#ifndef _PLAYER_H_
-#define _PLAYER_H_
+#ifndef _MPLAYER_H_
+#define _MPLAYER_H_
 
 #include <log.h>
 #include <utils.h>
