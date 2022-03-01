@@ -67,7 +67,7 @@ enum status
      * @brief 暂停中
      * 
      */
-    PAUSEING,
+    PAUSED,
     /**
      * @brief 停止播放
      * 
@@ -79,7 +79,11 @@ enum status
  * 
  */
 static int playStatus = STOPPED;
-
+/**
+ * @brief 当前播放歌曲 id
+ * 
+ */
+static int playingMusic = 0;
 /**
  * @brief 获取 命令 字符串
  * 
@@ -100,11 +104,35 @@ void getCmd(char *dst, int idx)
 void doPlay(int idx)
 {
     playStatus = PLAYING;
+    playingMusic = idx;
     debug("Start Play", INFO);
     char cmd[512] = {0};
     getCmd(cmd, idx);
     system(cmd);
     showBMPOO(musicBG[idx]);
+}
+/**
+ * @brief 暂停 & 继续播放
+ * 
+ */
+void doPause(int idx)
+{
+    // 如果 当前是暂停状态
+    if (playStatus == PAUSED)
+    {
+        // 那就将标志位修改为 播放中
+        playStatus = PLAYING;
+        debug("Resumed", INFO);
+    }
+    else
+    {
+        // 否则就将标志位修改为 暂停中
+        playStatus = PAUSED;
+        debug("Paused", INFO);
+    }
+    // 更新 当前播放歌曲 id
+    playingMusic = idx;
+    system("echo pause >> /pipe");
 }
 /**
  * @brief 暂停播放
@@ -136,7 +164,7 @@ void doHome()
  */
 void musicPlayerHandler(int x, int y)
 {
-    static int idx = 0;
+    int musicID = 0;
     debug2D("Touch Thread Callback OnClick in Main : %d, %d", x, y, INFO);
     if (inArea2(btHome, x, y))
     {
@@ -160,41 +188,58 @@ void musicPlayerHandler(int x, int y)
     }
     else if (inArea2(btMusic1, x, y))
     {
+        musicID = 0;
+        // 如果 没有开始播放, 那就开始播放
         if (playStatus == STOPPED)
         {
-            doPlay(0);
+            doPlay(musicID);
             debug("Play Music 1", INFO);
+        }
+        // 如果 正在播放, 并且正在播放的是这首歌, 那就暂停
+        else if ((playStatus == PLAYING || playStatus == PAUSED) && playingMusic == musicID)
+        {
+            doPause(musicID);
         }
         else
         {
             doStop();
-            doPlay(0);
+            doPlay(musicID);
         }
     }
     else if (inArea2(btMusic2, x, y))
     {
         if (playStatus == STOPPED)
         {
-            doPlay(1);
+            musicID = 1;
+            doPlay(musicID);
             debug("Play Music 2", INFO);
+        }
+        else if ((playStatus == PLAYING || playStatus == PAUSED) && playingMusic == musicID)
+        {
+            doPause(musicID);
         }
         else
         {
             doStop();
-            doPlay(1);
+            doPlay(musicID);
         }
     }
     else if (inArea2(btMusic3, x, y))
     {
+        musicID = 2;
         if (playStatus == STOPPED)
         {
-            doPlay(2);
+            doPlay(musicID);
             debug("Play Music 3", INFO);
+        }
+        else if ((playStatus == PLAYING || playStatus == PAUSED) && playingMusic == musicID)
+        {
+            doPause(musicID);
         }
         else
         {
             doStop();
-            doPlay(2);
+            doPlay(musicID);
         }
     }
     // 如果未 点击有效区域
