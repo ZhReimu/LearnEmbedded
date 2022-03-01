@@ -288,9 +288,6 @@ void initMusicPlayer()
     btMusic3.endX = 600 * 1.28;
     btMusic3.startY = 300 * 1.28;
     btMusic3.endY = 350 * 1.28;
-
-    system("rm /pipe");
-    system("mkfifo /pipe");
-    system("chmod 777 /pipe");
+    initPipe();
     showBMP(bg, 0, 0, 0);
 }
