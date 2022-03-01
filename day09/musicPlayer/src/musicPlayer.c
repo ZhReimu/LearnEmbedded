@@ -1,12 +1,41 @@
 #include <musicPlayer.h>
 
+/**
+ * @brief 首页 按钮区域
+ * 
+ */
 Rect btHome;
+/**
+ * @brief 相册 按钮区域
+ * 
+ */
 Rect btAlbum;
+/**
+ * @brief 视频播放器 按钮区域
+ * 
+ */
 Rect btVideoPlayer;
+/**
+ * @brief 停止播放 按钮区域
+ * 
+ */
 Rect btStop;
+/**
+ * @brief 第一首歌 按钮区域
+ * 
+ */
 Rect btMusic1;
+/**
+ * @brief 第二首歌 按钮区域
+ * 
+ */
 Rect btMusic2;
+/**
+ * @brief 第三首歌 按钮区域
+ * 
+ */
 Rect btMusic3;
+
 /**
  * @brief 播放器背景
  * 
@@ -31,6 +60,10 @@ static const char *music[] = {
     "/mnt/udisk/music/2.mp3",
     "/mnt/udisk/music/3.mp3",
 };
+/**
+ * @brief 背景图片 差分, 显示当前播放歌曲
+ * 
+ */
 static const char *musicBG[] = {
     "/mnt/udisk/music/music1.bmp",
     "/mnt/udisk/music/music2.bmp",
