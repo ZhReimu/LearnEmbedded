@@ -162,7 +162,7 @@ void doPlay(int idx)
 {
     playStatus = PLAYING;
     debug("Start Play", INFO);
-    showBMP(uiStarting, 0, 0, 0);
+    showBMPOO(uiStarting);
     char cmd[512] = {0};
     getCmd(cmd, idx);
     system(cmd);
@@ -177,7 +177,7 @@ void doStop()
 {
     playStatus = PAUSED;
     debug("Paused", INFO);
-    showBMP(uiStopping, 0, 0, 0);
+    showBMPOO(uiStopping);
     system("echo pause >> /pipe");
 }
 /**
@@ -188,7 +188,7 @@ void doResume()
 {
     playStatus = PLAYING;
     debug("Resume", INFO);
-    showBMP(uiStarting, 0, 0, 0);
+    showBMPOO(uiStarting);
     system("echo pause >> /pipe");
 }
 /**
@@ -222,7 +222,7 @@ void doHome()
 {
     playStatus = STOPPED;
     system("killall -kill mplayer");
-    showBMP(uiStopping, 0, 0, 0);
+    showBMPOO(uiStopping);
     debug("Home", INFO);
     usleep(500000);
 }
@@ -342,8 +342,6 @@ void initVideoPlayer()
     btHome.endY = 614;
     // system("mplayer -slave -quiet -input  file=/pipe  -geometry  0:0 -zoom -x 800 -y 480  dream.avi &");
     // system("echo pause >> /pipe");
-    system("rm /pipe");
-    system("mkfifo /pipe");
-    system("chmod 777 /pipe");
-    showBMP(uiStopping, 0, 0, 0);
+    initPipe();
+    showBMPOO(uiStopping);
 }

@@ -83,7 +83,7 @@ void albumHandler(int x, int y)
             i = 0;
         }
         debugD("Touch Thread Callback Next -> Change Pic To %d", i, INFO);
-        showBMP(pics[i], 0, 0, 0);
+        showBMPOO(pics[i]);
     }
     // 如果点击了 下一页 按钮, 并且没有启用 自动播放
     else if (inArea2(btNext, x, y) && !isPlaying && canTap)
@@ -93,7 +93,7 @@ void albumHandler(int x, int y)
             i = 8;
         }
         debugD("Prev -> Change Pic To %d", i, INFO);
-        showBMP(pics[i], 0, 0, 0);
+        showBMPOO(pics[i]);
     }
     // 如果点击了 暂停/继续 按钮, 并且启用了 自动播放
     else if (inArea2(btPause, x, y))
@@ -118,7 +118,7 @@ void albumHandler(int x, int y)
         {
             isPlaying = 0;
             debug("AutoPlay Paused", INFO);
-            showBMP(pics[i], 0, 0, 0);
+            showBMPOO(pics[i]);
         }
     }
     else
@@ -138,8 +138,10 @@ void playVideo()
     float pid = 1;
     for (idx = 0; idx < 352; idx++)
     {
-        showBMP(videos[idx], 0, 0, 0);
+        // 绘制一帧 图片
+        showBMPOO(videos[idx]);
         pid += 2.3;
+        // 绘制 进度条
         showBMP(pb, (int)pid, 440, 1);
         usleep(100000 / 60);
     }
@@ -168,5 +170,5 @@ void initAlbum()
     btPause.endY = 64;
 
     playVideo();
-    showBMP(pics[0], 0, 0, 0);
+    showBMPOO(pics[0]);
 }

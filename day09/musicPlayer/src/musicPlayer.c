@@ -289,5 +289,5 @@ void initMusicPlayer()
     btMusic3.startY = 300 * 1.28;
     btMusic3.endY = 350 * 1.28;
     initPipe();
-    showBMP(bg, 0, 0, 0);
+    showBMPOO(bg);
 }
