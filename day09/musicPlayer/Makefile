@@ -4,7 +4,7 @@ INCLUDE = -I./include
 SRC = ./src/
 
 all:
-	$(CC) $(CFLAGS) $(INCLUDE) $(SRC)log.c $(SRC)utils.c $(SRC)musicPlayer.c $(SRC)myplayer.c -o color
+	$(CC) $(CFLAGS) $(INCLUDE) $(SRC)log.c $(SRC)utils.c $(SRC)musicPlayer.c $(SRC)main.c -o color
 
 test:
 	$(CC) $(CFLAGS) $(INCLUDE) $(SRC)log.c $(SRC)utils.c $(SRC)test.c -o ./src/test.o
@@ -19,7 +19,7 @@ utils:
 	$(CC) $(CFLAGS) $(INCLUDE) $(SRC)utils.c -fPIC -shared -o ./src/utils.o
 
 clean:
-	rm color
-	rm log.o
-	rm player.o
-	rm utils.o
+	- rm color
+	- rm $(SRC)log.o
+	- rm $(SRC)album.o
+	- rm $(SRC)utils.o
