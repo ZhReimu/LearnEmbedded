@@ -156,7 +156,7 @@ void changeArr(int num)
 {
     if (INPUT_STATUS == ACCOUNT)
     {
-        if (accountIdx == 5)
+        if (accountIdx == 4)
         {
             return;
         }
@@ -164,7 +164,7 @@ void changeArr(int num)
     }
     else
     {
-        if (passwdIdx == 5)
+        if (passwdIdx == 4)
         {
             return;
         }
@@ -241,11 +241,17 @@ void passwdHandler(int x, int y)
     {
         if (INPUT_STATUS == ACCOUNT)
         {
-            accountIdx--;
+            if (accountIdx > 0)
+            {
+                accountIdx--;
+            }
         }
         else
         {
-            passwdIdx--;
+            if (passwdIdx > 0)
+            {
+                passwdIdx--;
+            }
         }
         debug("Hit Del", INFO);
     }
