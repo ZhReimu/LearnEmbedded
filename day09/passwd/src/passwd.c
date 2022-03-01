@@ -74,6 +74,48 @@ static const char *nums[] = {
  */
 static char pwd[4] = {0};
 /**
+ * @brief 输入状态 枚举
+ * 
+ */
+enum INPUT
+{
+    /**
+     * @brief 正在输入 账号
+     * 
+     */
+    ACCOUNT,
+    /**
+     * @brief 正在输入 密码
+     * 
+     */
+    PASSWD,
+};
+/**
+ * @brief 当前输入状态
+ * 
+ */
+static int INPUT_STATUS = ACCOUNT;
+/**
+ * @brief 当前 账号 文本框内文本个数
+ * 
+ */
+static int accountIdx = 0;
+/**
+ * @brief 当前 密码 文本框内文本个数
+ * 
+ */
+static int passwdIdx = 0;
+/**
+ * @brief 账号 内容
+ * 
+ */
+static int account[4] = {0};
+/**
+ * @brief 密码 内容
+ * 
+ */
+static int passwd[4] = {0};
+/**
  * @brief 数字上屏
  * 
  * @param num 要上屏的数字
@@ -81,7 +123,31 @@ static char pwd[4] = {0};
  */
 void showNum(int num, Rect target)
 {
-    showBMP(nums[num - 1], target.startX, target.startY, 0);
+    showBMP(nums[num], target.startX, target.startY, 0);
+}
+/**
+ * @brief 修改 账号 或 密码 数组
+ * 
+ * @param num 输入的数字
+ */
+void changeArr(int num)
+{
+    if (INPUT_STATUS == ACCOUNT)
+    {
+        if (accountIdx == 5)
+        {
+            return;
+        }
+        account[accountIdx++] = num;
+    }
+    else
+    {
+        if (passwdIdx == 5)
+        {
+            return;
+        }
+        passwd[passwdIdx++] = num;
+    }
 }
 /**
  * @brief 密码界面处理函数
@@ -92,57 +158,78 @@ void showNum(int num, Rect target)
 void passwdHandler(int x, int y)
 {
     debug2D("PasswdHandler %d, %d", x, y, INFO);
-    if (inArea2(btNum0, x, y))
+    if (inArea2(btNums[0], x, y))
     {
+        changeArr(0);
         debug("Hit Num0", INFO);
     }
     else if (inArea2(btNums[1], x, y))
     {
+        changeArr(1);
         debug("Hit Num1", INFO);
     }
     else if (inArea2(btNums[2], x, y))
     {
+        changeArr(2);
         debug("Hit Num2", INFO);
     }
     else if (inArea2(btNums[3], x, y))
     {
+        changeArr(3);
         debug("Hit Num3", INFO);
     }
     else if (inArea2(btNums[4], x, y))
     {
+        changeArr(4);
         debug("Hit Num4", INFO);
     }
     else if (inArea2(btNums[5], x, y))
     {
+        changeArr(5);
         debug("Hit Num5", INFO);
     }
     else if (inArea2(btNums[6], x, y))
     {
+        changeArr(6);
         debug("Hit Num6", INFO);
     }
     else if (inArea2(btNums[7], x, y))
     {
+        changeArr(7);
         debug("Hit Num7", INFO);
     }
     else if (inArea2(btNums[8], x, y))
     {
+        changeArr(8);
         debug("Hit Num8", INFO);
     }
     else if (inArea2(btNums[9], x, y))
     {
+        changeArr(9);
         debug("Hit Num9", INFO);
     }
     else if (inArea2(btAccount, x, y))
     {
+        INPUT_STATUS = ACCOUNT;
         debug("Hit Account", INFO);
-    }
-    else if (inArea2(btDel, x, y))
-    {
-        debug("Hit Del", INFO);
     }
     else if (inArea2(btPasswd, x, y))
     {
+        INPUT_STATUS = PASSWD;
         debug("Hit Passwd", INFO);
+    }
+    // 如果 点击了 删除 按钮
+    else if (inArea2(btDel, x, y))
+    {
+        if (INPUT_STATUS == ACCOUNT)
+        {
+            showNum(9, btAccount[accountIdx++]);
+        }
+        else
+        {
+            showNum(9, btPasswd[passwdIdx++]);
+        }
+        debug("Hit Del", INFO);
     }
     else if (inArea2(btShowPass, x, y))
     {
