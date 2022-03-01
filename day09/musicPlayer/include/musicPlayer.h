@@ -3,6 +3,7 @@
 
 #include <log.h>
 #include <utils.h>
+#include <bmp.h>
 /**
  * @brief 播放器处理函数
  * 
