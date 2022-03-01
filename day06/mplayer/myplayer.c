@@ -92,7 +92,7 @@ static int playStatus = STOPPED;
  * @brief 视频总数, [0, videos 数组长度)
  * 
  */
-static int videoNum = 5;
+static int videoNum = 6;
 /**
  * @brief 视频路径 数组
  * 
@@ -104,6 +104,7 @@ const char *videos[] = {
     "/mnt/udisk/videos/4.avi",
     "/mnt/udisk/videos/5.avi",
     "/mnt/udisk/videos/6.avi",
+    "/mnt/udisk/videos/7.avi",
 };
 // TODO 使用 audios
 /**
