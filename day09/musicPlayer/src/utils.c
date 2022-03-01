@@ -531,3 +531,13 @@ bool stringCmp(const char *arg1, const char *arg2)
 	}
 	return false;
 }
+/**
+ * @brief 初始化 /pipe 文件
+ * 
+ */
+void initPipe()
+{
+	system("rm /pipe");
+	system("mkfifo /pipe");
+	system("chmod 777 /pipe");
+}

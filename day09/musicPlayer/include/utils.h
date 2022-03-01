@@ -262,5 +262,15 @@ void stringCat(char *dst, int arg_cnt, ...);
  * @return false 不等就返回 false
  */
 bool stringCmp(const char *arg1, const char *arg2);
+/**
+ * @brief 在 0,0 的位置 显示一个 非透明的图片
+ * 
+ * @param fileName 图片文件名
+ */
 void showBMPOO(const char *fileName);
+/**
+ * @brief 初始化 /pipe 文件
+ * 
+ */
+void initPipe();
 #endif
