@@ -1,3 +1,6 @@
+#ifndef _PLAYER_
+#define _PLAYER_
+
 #include <myHeader.h>
 
 /**
@@ -12,3 +15,5 @@ void playerHandler(int x, int y);
  * 
  */
 void init();
+
+#endif
