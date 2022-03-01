@@ -20,10 +20,13 @@
 #include <sys/ioctl.h>
 /* 按键事件头文件 */
 #include <linux/input.h>
+/* bool 类型 头文件 */
 #include <stdbool.h>
+/* pthread 头文件 */
 #include <pthread.h>
-
+/* bmp 文件结构 头文件 */
 #include "bmphead.h"
+/* 日志函数 头文件 */
 #include <log.h>
 /**
  * @brief lcd 设备驱动文件路径
