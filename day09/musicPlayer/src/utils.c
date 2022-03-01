@@ -337,7 +337,10 @@ void showBMP(const char *fileName, int x, int y, int isTransport)
 	debugS("Showing Pic -> %s", fileName, INFO);
 	lcd_exit(lcdinfo);
 }
-
+void showBMPOO(const char *fileName)
+{
+	showBMP(fileName, 0, 0, 0);
+}
 void get_xy(int input_fd, int *x, int *y)
 {
 	bool xflag = false;

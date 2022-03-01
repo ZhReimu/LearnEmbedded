@@ -57,46 +57,46 @@
  */
 enum COLOR
 {
-    /**
+	/**
 	 * @brief 红色
 	 * 
 	 */
-    RED,
-    /**
+	RED,
+	/**
 	 * @brief 绿色
 	 * 
 	 */
-    GREEN,
-    /**
+	GREEN,
+	/**
 	 * @brief 蓝色
 	 * 
 	 */
-    BLUE,
-    /**
+	BLUE,
+	/**
 	 * @brief 黑色
 	 * 
 	 */
-    BLACK,
-    /**
+	BLACK,
+	/**
 	 * @brief 粉红色
 	 * 
 	 */
-    PINK,
-    /**
+	PINK,
+	/**
 	 * @brief 樱花色
 	 * 
 	 */
-    SAKURA,
-    /**
+	SAKURA,
+	/**
 	 * @brief 橙色
 	 * 
 	 */
-    ORANGE,
-    /**
+	ORANGE,
+	/**
 	 * @brief 青色
 	 * 
 	 */
-    CYAN
+	CYAN
 };
 /**
  * @brief LCD 信息结构体
@@ -104,26 +104,26 @@ enum COLOR
  */
 struct lcd_info
 {
-    /**
+	/**
 	 * @brief 屏幕文件描述符
 	 * 
 	 */
-    int fd;
-    /**
+	int fd;
+	/**
 	 * @brief 屏幕宽度
 	 * 
 	 */
-    int width;
-    /**
+	int width;
+	/**
 	 * @brief 屏幕高度
 	 * 
 	 */
-    int high;
-    /**
+	int high;
+	/**
 	 * @brief 屏幕像素位数
 	 * 
 	 */
-    int bits_per;
+	int bits_per;
 };
 /**
  * @brief 矩形 结构体
@@ -131,26 +131,26 @@ struct lcd_info
  */
 typedef struct rect
 {
-    /**
+	/**
 	 * @brief 矩形左上角的 x 坐标
 	 * 
 	 */
-    int startX;
-    /**
+	int startX;
+	/**
 	 * @brief 矩形左上角的 y 坐标
 	 * 
 	 */
-    int startY;
-    /**
+	int startY;
+	/**
 	 * @brief 矩形右下角的 x 坐标
 	 * 
 	 */
-    int endX;
-    /**
+	int endX;
+	/**
 	 * @brief 矩形右下角的 y 坐标
 	 * 
 	 */
-    int endY;
+	int endY;
 } Rect;
 
 /**
@@ -262,4 +262,5 @@ void stringCat(char *dst, int arg_cnt, ...);
  * @return false 不等就返回 false
  */
 bool stringCmp(const char *arg1, const char *arg2);
+void showBMPOO(const char *fileName);
 #endif
