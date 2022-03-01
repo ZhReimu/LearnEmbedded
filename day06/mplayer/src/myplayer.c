@@ -1,4 +1,4 @@
-#include <player.h>
+#include <videoPlayer.h>
 /**
  * @brief 点击事件, 屏幕被点击时触发
  * 
@@ -7,12 +7,12 @@
  */
 void onClick(int x, int y)
 {
-    playerHandler(x, y);
+    videoPlayerHandler(x, y);
 }
 
 int main()
 {
-    init();
+    initVideoPlayer();
     startTouchThread(onClick);
     return 0;
 }
