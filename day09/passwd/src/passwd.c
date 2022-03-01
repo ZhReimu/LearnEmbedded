@@ -76,15 +76,15 @@ Rect btPasswd;
  */
 Rect btShowPass;
 /**
- * @brief 账号输入框第一个显示矩形
+ * @brief 账号输入框矩形 数组
  * 
  */
-Rect edAccount1;
+Rect edAccount[4];
 /**
- * @brief 密码输入框第一个显示矩形
+ * @brief 密码输入框矩形 数组
  * 
  */
-Rect edPassword1;
+Rect edPassword[4];
 
 /**
  * @brief 密码文件 路径
@@ -122,7 +122,16 @@ static const char *nums[] = {
  * 
  */
 static char pwd[4] = {0};
-
+/**
+ * @brief 数字上屏
+ * 
+ * @param num 要上屏的数字
+ * @param target 显示在哪里
+ */
+void showNum(int num, Rect target)
+{
+    showBMP(nums[num - 1], target.startX, target.startY, 0);
+}
 /**
  * @brief 密码界面处理函数
  * 
@@ -287,11 +296,46 @@ void initPasswd()
     btShowPass.endX = 614;
     btShowPass.startY = 388;
     btShowPass.endY = 506;
+    // TODO: 修改坐标
+    edAccount[0].startX = 122;
+    edAccount[0].endX = 614;
+    edAccount[0].startY = 388;
+    edAccount[0].endY = 506;
 
-    edAccount1.startX = 122;
-    edAccount1.endX = 614;
-    edAccount1.startY = 388;
-    edAccount1.endY = 506;
+    edAccount[1].startX = 122;
+    edAccount[1].endX = 614;
+    edAccount[1].startY = 388;
+    edAccount[1].endY = 506;
+
+    edAccount[2].startX = 122;
+    edAccount[2].endX = 614;
+    edAccount[2].startY = 388;
+    edAccount[2].endY = 506;
+
+    edAccount[3].startX = 122;
+    edAccount[3].endX = 614;
+    edAccount[3].startY = 388;
+    edAccount[3].endY = 506;
+
+    edPassword[0].startX = 122;
+    edPassword[0].endX = 614;
+    edPassword[0].startY = 388;
+    edPassword[0].endY = 506;
+
+    edPassword[1].startX = 122;
+    edPassword[1].endX = 614;
+    edPassword[1].startY = 388;
+    edPassword[1].endY = 506;
+
+    edPassword[2].startX = 122;
+    edPassword[2].endX = 614;
+    edPassword[2].startY = 388;
+    edPassword[2].endY = 506;
+
+    edPassword[3].startX = 122;
+    edPassword[3].endX = 614;
+    edPassword[3].startY = 388;
+    edPassword[3].endY = 506;
 
     debug("Init Passwd", INFO);
 }
