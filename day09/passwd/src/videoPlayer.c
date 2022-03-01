@@ -1,4 +1,4 @@
-#include <player.h>
+#include <videoPlayer.h>
 
 /**
  * @brief 暂停, 继续 按钮

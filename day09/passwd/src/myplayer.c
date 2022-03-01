@@ -1,4 +1,4 @@
-#include <player.h>
+#include <videoPlayer.h>
 /**
  * @brief 点击事件, 屏幕被点击时触发
  * 
