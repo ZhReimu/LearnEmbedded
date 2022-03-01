@@ -66,7 +66,7 @@ const char *uiStopping = "/mnt/udisk/2/video-ui-stop.bmp";
  * @brief 命令前缀
  * 
  */
-const char *cmdPrefix = "mplayer -slave -quiet -input  file=/pipe -zoom -x 800 -y 430 -nosound -framedrop ";
+const char *cmdPrefix = "mplayer -slave -quiet -input  file=/pipe -zoom -x 800 -y 430 -framedrop ";
 /**
  * @brief 命令后缀
  * 
@@ -166,6 +166,8 @@ void doPlay(int idx)
     char cmd[512] = {0};
     getCmd(cmd, idx);
     system(cmd);
+    debug("Set Volume", INFO);
+    system("echo volume 0.1 >> /pipe");
 }
 /**
  * @brief 暂停播放
