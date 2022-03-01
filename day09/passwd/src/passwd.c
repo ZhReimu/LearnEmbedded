@@ -1,55 +1,6 @@
 #include <passwd.h>
 
-/**
- * @brief 数字 0 按钮区域
- * 
- */
-Rect btNum0;
-/**
- * @brief 数字 1 按钮区域
- * 
- */
-Rect btNum1;
-/**
- * @brief 数字 2 按钮区域
- * 
- */
-Rect btNum2;
-/**
- * @brief 数字 3 按钮区域
- * 
- */
-Rect btNum3;
-/**
- * @brief 数字 4 按钮区域
- * 
- */
-Rect btNum4;
-/**
- * @brief 数字 5 按钮区域
- * 
- */
-Rect btNum5;
-/**
- * @brief 数字 6 按钮区域
- * 
- */
-Rect btNum6;
-/**
- * @brief 数字 7 按钮区域
- * 
- */
-Rect btNum7;
-/**
- * @brief 数字 8 按钮区域
- * 
- */
-Rect btNum8;
-/**
- * @brief 数字 9 按钮区域
- * 
- */
-Rect btNum9;
+Rect btNums[10];
 /**
  * @brief 退格 按钮区域
  * 
@@ -145,39 +96,39 @@ void passwdHandler(int x, int y)
     {
         debug("Hit Num0", INFO);
     }
-    else if (inArea2(btNum1, x, y))
+    else if (inArea2(btNums[1], x, y))
     {
         debug("Hit Num1", INFO);
     }
-    else if (inArea2(btNum2, x, y))
+    else if (inArea2(btNums[2], x, y))
     {
         debug("Hit Num2", INFO);
     }
-    else if (inArea2(btNum3, x, y))
+    else if (inArea2(btNums[3], x, y))
     {
         debug("Hit Num3", INFO);
     }
-    else if (inArea2(btNum4, x, y))
+    else if (inArea2(btNums[4], x, y))
     {
         debug("Hit Num4", INFO);
     }
-    else if (inArea2(btNum5, x, y))
+    else if (inArea2(btNums[5], x, y))
     {
         debug("Hit Num5", INFO);
     }
-    else if (inArea2(btNum6, x, y))
+    else if (inArea2(btNums[6], x, y))
     {
         debug("Hit Num6", INFO);
     }
-    else if (inArea2(btNum7, x, y))
+    else if (inArea2(btNums[7], x, y))
     {
         debug("Hit Num7", INFO);
     }
-    else if (inArea2(btNum8, x, y))
+    else if (inArea2(btNums[8], x, y))
     {
         debug("Hit Num8", INFO);
     }
-    else if (inArea2(btNum9, x, y))
+    else if (inArea2(btNums[9], x, y))
     {
         debug("Hit Num9", INFO);
     }
@@ -222,55 +173,55 @@ void initPasswd()
     debugS("Correct PWD Is %s", pwd, INFO);
     showBMPOO(bg);
 
-    btNum0.startX = 892;
-    btNum0.endX = 975;
-    btNum0.startY = 378;
-    btNum0.endY = 506;
+    btNums[0].startX = 892;
+    btNums[0].endX = 975;
+    btNums[0].startY = 378;
+    btNums[0].endY = 506;
 
-    btNum1.startX = 643;
-    btNum1.endX = 726;
-    btNum1.startY = 150;
-    btNum1.endY = 267;
+    btNums[1].startX = 643;
+    btNums[1].endX = 726;
+    btNums[1].startY = 150;
+    btNums[1].endY = 267;
 
-    btNum2.startX = 726;
-    btNum2.endX = 809;
-    btNum2.startY = 150;
-    btNum2.endY = 267;
+    btNums[2].startX = 726;
+    btNums[2].endX = 809;
+    btNums[2].startY = 150;
+    btNums[2].endY = 267;
 
-    btNum3.startX = 809;
-    btNum3.endX = 892;
-    btNum3.startY = 150;
-    btNum3.endY = 267;
+    btNums[3].startX = 809;
+    btNums[3].endX = 892;
+    btNums[3].startY = 150;
+    btNums[3].endY = 267;
 
-    btNum4.startX = 643;
-    btNum4.endX = 726;
-    btNum4.startY = 267;
-    btNum4.endY = 387;
+    btNums[4].startX = 643;
+    btNums[4].endX = 726;
+    btNums[4].startY = 267;
+    btNums[4].endY = 387;
 
-    btNum5.startX = 726;
-    btNum5.endX = 809;
-    btNum5.startY = 267;
-    btNum5.endY = 387;
+    btNums[5].startX = 726;
+    btNums[5].endX = 809;
+    btNums[5].startY = 267;
+    btNums[5].endY = 387;
 
-    btNum6.startX = 809;
-    btNum6.endX = 892;
-    btNum6.startY = 267;
-    btNum6.endY = 387;
+    btNums[6].startX = 809;
+    btNums[6].endX = 892;
+    btNums[6].startY = 267;
+    btNums[6].endY = 387;
 
-    btNum7.startX = 643;
-    btNum7.endX = 726;
-    btNum7.startY = 378;
-    btNum7.endY = 506;
+    btNums[7].startX = 643;
+    btNums[7].endX = 726;
+    btNums[7].startY = 378;
+    btNums[7].endY = 506;
 
-    btNum8.startX = 726;
-    btNum8.endX = 809;
-    btNum8.startY = 378;
-    btNum8.endY = 506;
+    btNums[8].startX = 726;
+    btNums[8].endX = 809;
+    btNums[8].startY = 378;
+    btNums[8].endY = 506;
 
-    btNum9.startX = 809;
-    btNum9.endX = 892;
-    btNum9.startY = 378;
-    btNum9.endY = 506;
+    btNums[9].startX = 809;
+    btNums[9].endX = 892;
+    btNums[9].startY = 378;
+    btNums[9].endY = 506;
 
     btDel.startX = 892;
     btDel.endX = 975;
