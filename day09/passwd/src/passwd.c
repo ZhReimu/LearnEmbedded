@@ -1,32 +1,128 @@
 #include <passwd.h>
 
+/**
+ * @brief 数字 0 按钮区域
+ * 
+ */
 Rect btNum0;
+/**
+ * @brief 数字 1 按钮区域
+ * 
+ */
 Rect btNum1;
+/**
+ * @brief 数字 2 按钮区域
+ * 
+ */
 Rect btNum2;
+/**
+ * @brief 数字 3 按钮区域
+ * 
+ */
 Rect btNum3;
+/**
+ * @brief 数字 4 按钮区域
+ * 
+ */
 Rect btNum4;
+/**
+ * @brief 数字 5 按钮区域
+ * 
+ */
 Rect btNum5;
+/**
+ * @brief 数字 6 按钮区域
+ * 
+ */
 Rect btNum6;
+/**
+ * @brief 数字 7 按钮区域
+ * 
+ */
 Rect btNum7;
+/**
+ * @brief 数字 8 按钮区域
+ * 
+ */
 Rect btNum8;
+/**
+ * @brief 数字 9 按钮区域
+ * 
+ */
 Rect btNum9;
+/**
+ * @brief 退格 按钮区域
+ * 
+ */
 Rect btDel;
+/**
+ * @brief 登录 按钮区域
+ * 
+ */
 Rect btYes;
+/**
+ * @brief 账号输入 按钮区域
+ * 
+ */
 Rect btAccount;
+/**
+ * @brief 密码输入 按钮区域
+ * 
+ */
 Rect btPasswd;
+/**
+ * @brief 显示密码 按钮区域
+ * 
+ */
 Rect btShowPass;
+/**
+ * @brief 账号输入框第一个显示矩形
+ * 
+ */
+Rect edAccount1;
+/**
+ * @brief 密码输入框第一个显示矩形
+ * 
+ */
+Rect edPassword1;
 
 /**
  * @brief 密码文件 路径
  * 
  */
 static const char *pwdFile = "/mnt/udisk/passwd";
+/**
+ * @brief 锁屏界面 图片
+ * 
+ */
 static const char *bg = "/mnt/udisk/lock/lockbg.bmp";
+/**
+ * @brief ※ 号图片
+ * 
+ */
+static const char *good = "/mnt/udisk/lock/good.bmp";
+/**
+ * @brief 数字图片路径 数组
+ * 
+ */
+static const char *nums[] = {
+    "/mnt/udisk/lock/0.bmp",
+    "/mnt/udisk/lock/1.bmp",
+    "/mnt/udisk/lock/2.bmp",
+    "/mnt/udisk/lock/3.bmp",
+    "/mnt/udisk/lock/4.bmp",
+    "/mnt/udisk/lock/5.bmp",
+    "/mnt/udisk/lock/6.bmp",
+    "/mnt/udisk/lock/7.bmp",
+    "/mnt/udisk/lock/8.bmp",
+    "/mnt/udisk/lock/9.bmp",
+};
 /**
  * @brief 读取到的 密码内容
  * 
  */
 static char pwd[4] = {0};
+
 /**
  * @brief 密码界面处理函数
  * 
@@ -191,6 +287,11 @@ void initPasswd()
     btShowPass.endX = 614;
     btShowPass.startY = 388;
     btShowPass.endY = 506;
+
+    edAccount1.startX = 122;
+    edAccount1.endX = 614;
+    edAccount1.startY = 388;
+    edAccount1.endY = 506;
 
     debug("Init Passwd", INFO);
 }
