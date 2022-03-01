@@ -238,12 +238,13 @@ void musicPlayerHandler(int x, int y)
             doStop();
             doPlay(musicID);
         }
+        debug("Hit Music1", INFO);
     }
     else if (inArea2(btMusic2, x, y))
     {
+        musicID = 1;
         if (playStatus == STOPPED)
         {
-            musicID = 1;
             doPlay(musicID);
             debug("Play Music 2", INFO);
         }
@@ -256,6 +257,7 @@ void musicPlayerHandler(int x, int y)
             doStop();
             doPlay(musicID);
         }
+        debug("Hit Music2", INFO);
     }
     else if (inArea2(btMusic3, x, y))
     {
@@ -274,6 +276,7 @@ void musicPlayerHandler(int x, int y)
             doStop();
             doPlay(musicID);
         }
+        debug("Hit Music3", INFO);
     }
     // 如果未 点击有效区域
     else
@@ -287,40 +290,40 @@ void musicPlayerHandler(int x, int y)
  */
 void initMusicPlayer()
 {
-    btHome.startX = 10 * 1.28;
-    btHome.endX = 50 * 1.28;
-    btHome.startY = 435 * 1.28;
+    btHome.startX = 13;
+    btHome.endX = 64;
+    btHome.startY = 557;
     btHome.endY = 614;
 
-    btAlbum.startX = 70 * 1.28;
-    btAlbum.endX = 110 * 1.28;
-    btAlbum.startY = 435 * 1.28;
+    btAlbum.startX = 90;
+    btAlbum.endX = 141;
+    btAlbum.startY = 557;
     btAlbum.endY = 614;
 
-    btVideoPlayer.startX = 130 * 1.28;
-    btVideoPlayer.endX = 170 * 1.28;
-    btVideoPlayer.startY = 435 * 1.28;
+    btVideoPlayer.startX = 166;
+    btVideoPlayer.endX = 218;
+    btVideoPlayer.startY = 557;
     btVideoPlayer.endY = 614;
 
-    btStop.startX = 765 * 1.28;
+    btStop.startX = 979;
     btStop.endX = 1024;
-    btStop.startY = 445 * 1.28;
-    btStop.endY = 48 * 1.28;
+    btStop.startY = 570;
+    btStop.endY = 614;
 
-    btMusic1.startX = 200 * 1.28;
-    btMusic1.endX = 400 * 1.28;
-    btMusic1.startY = 100 * 1.28;
-    btMusic1.endY = 150 * 1.28;
+    btMusic1.startX = 256;
+    btMusic1.endX = 512;
+    btMusic1.startY = 128;
+    btMusic1.endY = 192;
 
-    btMusic2.startX = 300 * 1.28;
-    btMusic2.endX = 500 * 1.28;
-    btMusic2.startY = 200 * 1.28;
-    btMusic2.endY = 250 * 1.28;
+    btMusic2.startX = 384;
+    btMusic2.endX = 640;
+    btMusic2.startY = 256;
+    btMusic2.endY = 320;
 
-    btMusic3.startX = 400 * 1.28;
-    btMusic3.endX = 600 * 1.28;
-    btMusic3.startY = 300 * 1.28;
-    btMusic3.endY = 350 * 1.28;
+    btMusic3.startX = 512;
+    btMusic3.endX = 768;
+    btMusic3.startY = 384;
+    btMusic3.endY = 448;
     initPipe();
     showBMPOO(bg);
 }
