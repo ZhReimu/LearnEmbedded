@@ -72,7 +72,7 @@ static const char *nums[] = {
  * @brief 读取到的 密码内容
  * 
  */
-static char pwd[4] = {0};
+static char pwd[5] = {0};
 /**
  * @brief 输入状态 枚举
  * 
@@ -203,10 +203,12 @@ void refreshEdit()
  */
 void ia2ca(const int iArr[], char cArr[], int length)
 {
-    for (int i = 0; i < length; i++)
+    int i = 0;
+    for (i = 0; i < length; i++)
     {
         cArr[i] = iArr[i] + '0';
     }
+    cArr[i] = '\0';
 }
 /**
  * @brief 密码界面处理函数
@@ -269,8 +271,10 @@ void passwdHandler(int x, int y)
     }
     else if (inArea2(btYes, x, y))
     {
-        char temp[4] = {0};
+        char temp[5] = {0};
         ia2ca(passwd, temp, passwdIdx);
+        debug(temp, INFO);
+        debug(pwd, INFO);
         if (stringCmp(pwd, temp))
         {
             debug("Pass", INFO);
@@ -378,45 +382,45 @@ void initPasswd()
     btShowPass.startY = 388;
     btShowPass.endY = 506;
     // TODO: 修改坐标
-    edAccount[0].startX = 122;
-    edAccount[0].endX = 614;
-    edAccount[0].startY = 388;
-    edAccount[0].endY = 506;
+    edAccount[0].startX = 219;
+    edAccount[0].endX = 284;
+    edAccount[0].startY = 117;
+    edAccount[0].endY = 210;
 
-    edAccount[1].startX = 122;
-    edAccount[1].endX = 614;
-    edAccount[1].startY = 388;
-    edAccount[1].endY = 506;
+    edAccount[1].startX = 284;
+    edAccount[1].endX = 349;
+    edAccount[1].startY = 117;
+    edAccount[1].endY = 210;
 
-    edAccount[2].startX = 122;
-    edAccount[2].endX = 614;
-    edAccount[2].startY = 388;
-    edAccount[2].endY = 506;
+    edAccount[2].startX = 349;
+    edAccount[2].endX = 414;
+    edAccount[2].startY = 117;
+    edAccount[2].endY = 210;
 
-    edAccount[3].startX = 122;
-    edAccount[3].endX = 614;
-    edAccount[3].startY = 388;
-    edAccount[3].endY = 506;
+    edAccount[3].startX = 414;
+    edAccount[3].endX = 479;
+    edAccount[3].startY = 117;
+    edAccount[3].endY = 210;
 
-    edPassword[0].startX = 122;
-    edPassword[0].endX = 614;
-    edPassword[0].startY = 388;
-    edPassword[0].endY = 506;
+    edPassword[0].startX = 219;
+    edPassword[0].endX = 284;
+    edPassword[0].startY = 210;
+    edPassword[0].endY = 302;
 
-    edPassword[1].startX = 122;
-    edPassword[1].endX = 614;
-    edPassword[1].startY = 388;
-    edPassword[1].endY = 506;
+    edPassword[1].startX = 284;
+    edPassword[1].endX = 349;
+    edPassword[1].startY = 210;
+    edPassword[1].endY = 302;
 
-    edPassword[2].startX = 122;
-    edPassword[2].endX = 614;
-    edPassword[2].startY = 388;
-    edPassword[2].endY = 506;
+    edPassword[2].startX = 349;
+    edPassword[2].endX = 414;
+    edPassword[2].startY = 210;
+    edPassword[2].endY = 302;
 
-    edPassword[3].startX = 122;
-    edPassword[3].endX = 614;
-    edPassword[3].startY = 388;
-    edPassword[3].endY = 506;
+    edPassword[3].startX = 414;
+    edPassword[3].endX = 479;
+    edPassword[3].startY = 210;
+    edPassword[3].endY = 302;
 
     debug("Init Passwd", INFO);
 }
