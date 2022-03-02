@@ -1,5 +1,6 @@
 #include <musicPlayer.h>
 #include <picPaths.h>
+#include <global.h>
 
 /**
  * @brief 首页 按钮区域
@@ -297,5 +298,13 @@ void initMusicPlayer()
     btMusic3.startY = 384;
     btMusic3.endY = 448;
     initPipe();
+}
+/**
+ * @brief 显示 音乐播放器
+ * 
+ */
+void showMusicPlayer()
+{
+    CURRENT_MODULE = MPLAYER;
     showBMPOO(muusicPlayerBG);
 }

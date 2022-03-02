@@ -1,5 +1,7 @@
 #include <videoPlayer.h>
 #include <picPaths.h>
+#include <global.h>
+
 /**
  * @brief 暂停, 继续 按钮
  * 
@@ -296,5 +298,13 @@ void initVideoPlayer()
     // system("mplayer -slave -quiet -input  file=/pipe  -geometry  0:0 -zoom -x 800 -y 480  dream.avi &");
     // system("echo pause >> /pipe");
     initPipe();
+}
+/**
+ * @brief 显示 视频播放器
+ * 
+ */
+void showVideoPlayer()
+{
+    CURRENT_MODULE = VPLAYER;
     showBMPOO(uiStopping);
 }

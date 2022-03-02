@@ -16,5 +16,6 @@ void musicPlayerHandler(int x, int y);
  * 
  */
 void initMusicPlayer();
+void showMusicPlayer();
 
 #endif

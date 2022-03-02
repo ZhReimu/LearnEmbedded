@@ -17,5 +17,5 @@ void videoPlayerHandler(int x, int y);
  * 
  */
 void initVideoPlayer();
-
+void showVideoPlayer();
 #endif
