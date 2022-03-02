@@ -17,5 +17,9 @@ void passwdHandler(int x, int y);
  * 
  */
 void initPasswd();
-
+/**
+ * @brief 显示 密码模块
+ * 
+ */
+void showLockScreen();
 #endif

@@ -291,8 +291,8 @@ void initPasswd()
         exit(-1);
     }
     read(fd, pwd, 4);
+    close(fd);
     debugS("Correct PWD Is %s", pwd, INFO);
-    showBMPOO(closeBG[INPUT_STATUS]);
 
     btNums[0].startX = 892;
     btNums[0].endX = 975;
@@ -368,7 +368,7 @@ void initPasswd()
     btShowAndHide.endX = 975;
     btShowAndHide.startY = 269;
     btShowAndHide.endY = 387;
-    // TODO: 修改坐标
+
     edAccount[0].startX = 219;
     edAccount[0].endX = 284;
     edAccount[0].startY = 117;
@@ -410,4 +410,13 @@ void initPasswd()
     edPassword[3].endY = 302;
 
     debug("Init Passwd", INFO);
+}
+/**
+ * @brief 显示 密码模块
+ * 
+ */
+void showLockScreen()
+{
+    CURRENT_MODULE = PASSWORD;
+    showBMPOO(closeBG[INPUT_STATUS]);
 }
