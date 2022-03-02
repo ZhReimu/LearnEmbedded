@@ -1,4 +1,5 @@
 #include <passwd.h>
+#include <picPaths.h>
 
 Rect btNums[10];
 /**
@@ -37,34 +38,6 @@ Rect edAccount[4];
  */
 Rect edPassword[4];
 
-/**
- * @brief 密码文件 路径
- * 
- */
-static char *pwdFile = "/mnt/udisk/passwd";
-static char *closeBG = "/mnt/udisk/lock/close.bmp";
-static char *openBG = "/mnt/udisk/lock/open.bmp";
-/**
- * @brief ※ 号图片
- * 
- */
-static const char *good = "/mnt/udisk/lock/good.bmp";
-/**
- * @brief 数字图片路径 数组
- * 
- */
-static const char *nums[] = {
-    "/mnt/udisk/lock/0.bmp",
-    "/mnt/udisk/lock/1.bmp",
-    "/mnt/udisk/lock/2.bmp",
-    "/mnt/udisk/lock/3.bmp",
-    "/mnt/udisk/lock/4.bmp",
-    "/mnt/udisk/lock/5.bmp",
-    "/mnt/udisk/lock/6.bmp",
-    "/mnt/udisk/lock/7.bmp",
-    "/mnt/udisk/lock/8.bmp",
-    "/mnt/udisk/lock/9.bmp",
-};
 /**
  * @brief 读取到的 密码内容
  * 
@@ -152,11 +125,11 @@ void refreshEdit()
 {
     if (PASSWD_STATUS == SHOW)
     {
-        showBMPOO(openBG);
+        showBMPOO(openBG[INPUT_STATUS]);
     }
     else
     {
-        showBMPOO(closeBG);
+        showBMPOO(closeBG[INPUT_STATUS]);
     }
     for (int i = 0; i < accountIdx; i++)
     {
@@ -235,11 +208,13 @@ void passwdHandler(int x, int y)
     if (inArea2(btAccount, x, y))
     {
         INPUT_STATUS = ACCOUNT;
+        refreshEdit();
         debug("Hit Account", INFO);
     }
     else if (inArea2(btPasswd, x, y))
     {
         INPUT_STATUS = PASSWD;
+        refreshEdit();
         debug("Hit Passwd", INFO);
     }
     // 如果 点击了 删除 按钮
@@ -310,7 +285,7 @@ void initPasswd()
     }
     read(fd, pwd, 4);
     debugS("Correct PWD Is %s", pwd, INFO);
-    showBMPOO(closeBG);
+    showBMPOO(closeBG[INPUT_STATUS]);
 
     btNums[0].startX = 892;
     btNums[0].endX = 975;
