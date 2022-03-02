@@ -101,6 +101,10 @@ void startAutoPlayThread(int *i)
  */
 void albumHandler(int x, int y)
 {
+    if (CURRENT_MODULE != ALBUM)
+    {
+        return;
+    }
     static int i = 0;
     debug2D("Touch Thread Callback OnClick in Main : %d, %d", x, y, DEBUG);
     // 如果点击了 上一页 按钮, 并且没有启用 自动播放
@@ -240,12 +244,10 @@ void initAlbum()
     nPic2.startY = 307;
     nPic2.endX = 512;
     nPic2.endY = 460;
-    // TODO 恢复播放 视频
-    // playVideo();
     isInHome = true;
 }
 /**
- * @brief 显示 相册 首页
+ * @brief 显示 相册 模块
  * 
  */
 void showAlbum()
