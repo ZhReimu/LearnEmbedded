@@ -7,10 +7,10 @@ Rect btNums[10];
  */
 Rect btDel;
 /**
- * @brief 登录 按钮区域
+ * @brief 显示密码 按钮区域
  * 
  */
-Rect btYes;
+Rect btShowAndHide;
 /**
  * @brief 账号输入 按钮区域
  * 
@@ -22,10 +22,10 @@ Rect btAccount;
  */
 Rect btPasswd;
 /**
- * @brief 显示密码 按钮区域
+ * @brief 登录 按钮区域
  * 
  */
-Rect btShowPass;
+Rect btLogin;
 /**
  * @brief 账号输入框矩形 数组
  * 
@@ -41,12 +41,9 @@ Rect edPassword[4];
  * @brief 密码文件 路径
  * 
  */
-static const char *pwdFile = "/mnt/udisk/passwd";
-/**
- * @brief 锁屏界面 图片
- * 
- */
-static const char *bg = "/mnt/udisk/lock/lockbg.bmp";
+static char *pwdFile = "/mnt/udisk/passwd";
+static char *closeBG = "/mnt/udisk/lock/close.bmp";
+static char *openBG = "/mnt/udisk/lock/open.bmp";
 /**
  * @brief ※ 号图片
  * 
@@ -177,7 +174,14 @@ void changeArr(int num)
  */
 void refreshEdit()
 {
-    showBMPOO(bg);
+    if (PASSWD_STATUS == SHOW)
+    {
+        showBMPOO(openBG);
+    }
+    else
+    {
+        showBMPOO(closeBG);
+    }
     for (int i = 0; i < accountIdx; i++)
     {
         showNum(account[i], edAccount[i]);
@@ -257,7 +261,7 @@ void passwdHandler(int x, int y)
         }
         debug("Hit Del", INFO);
     }
-    else if (inArea2(btShowPass, x, y))
+    else if (inArea2(btShowAndHide, x, y))
     {
         if (PASSWD_STATUS == SHOW)
         {
@@ -267,9 +271,10 @@ void passwdHandler(int x, int y)
         {
             PASSWD_STATUS = SHOW;
         }
+        refreshEdit();
         debug("Hit ShowPass", INFO);
     }
-    else if (inArea2(btYes, x, y))
+    else if (inArea2(btLogin, x, y))
     {
         char temp[5] = {0};
         ia2ca(passwd, temp, passwdIdx);
@@ -305,7 +310,7 @@ void initPasswd()
     }
     read(fd, pwd, 4);
     debugS("Correct PWD Is %s", pwd, INFO);
-    showBMPOO(bg);
+    showBMPOO(closeBG);
 
     btNums[0].startX = 892;
     btNums[0].endX = 975;
@@ -362,10 +367,10 @@ void initPasswd()
     btDel.startY = 150;
     btDel.endY = 267;
 
-    btYes.startX = 892;
-    btYes.endX = 975;
-    btYes.startY = 269;
-    btYes.endY = 387;
+    btLogin.startX = 122;
+    btLogin.endX = 614;
+    btLogin.startY = 388;
+    btLogin.endY = 506;
 
     btAccount.startX = 120;
     btAccount.endX = 614;
@@ -377,10 +382,10 @@ void initPasswd()
     btPasswd.startY = 268;
     btPasswd.endY = 385;
 
-    btShowPass.startX = 122;
-    btShowPass.endX = 614;
-    btShowPass.startY = 388;
-    btShowPass.endY = 506;
+    btShowAndHide.startX = 892;
+    btShowAndHide.endX = 975;
+    btShowAndHide.startY = 269;
+    btShowAndHide.endY = 387;
     // TODO: 修改坐标
     edAccount[0].startX = 219;
     edAccount[0].endX = 284;
