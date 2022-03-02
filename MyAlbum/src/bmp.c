@@ -62,7 +62,7 @@ void show_bmp(const char *pathname, int x_begin, int y_begin, struct lcd_info *l
     FILE *fp = fopen(pathname, "r");
     if (fp == NULL)
     {
-        debug("fopen bmp failed", ERROR);
+        debugS("fopen bmp failed -> %s", pathname, ERROR);
         return;
     }
 
@@ -180,5 +180,6 @@ void showBMP(const char *fileName, int x, int y, int isTransport)
  */
 void showBMPOO(const char *fileName)
 {
+    debugS("Showing %s", fileName, INFO);
     showBMP(fileName, 0, 0, 0);
 }
