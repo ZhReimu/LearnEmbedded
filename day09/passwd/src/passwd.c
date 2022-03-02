@@ -142,7 +142,7 @@ static int passwd[4] = {0};
  */
 void showNum(int num, Rect target)
 {
-    showBMP(nums[num], target.startX, target.startY, 0);
+    showBMP(nums[num], target.startX, target.startY, 1);
 }
 /**
  * @brief 修改 账号 或 密码 数组
@@ -194,7 +194,7 @@ void refreshEdit()
         }
         else
         {
-            showBMP(good, edPassword[i].startX, edPassword[i].startY, 0);
+            showBMP(good, edPassword[i].startX, edPassword[i].startY, 1);
         }
     }
 }
@@ -294,7 +294,6 @@ void passwdHandler(int x, int y)
     {
         debug("Not Hit", INFO);
     }
-    refreshEdit();
 }
 /**
  * @brief 初始化 点击区域
