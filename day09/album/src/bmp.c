@@ -44,7 +44,15 @@ int lcd_init(struct lcd_info *lcdinfo)
     }
 }
 
-//功能函数
+/**
+ * @brief 在显示器上显示 bmp
+ * 
+ * @param pathname bmp 文件路径
+ * @param x_begin 要显示图片的左上角
+ * @param y_begin 亚农显示图片的右上角
+ * @param lcdinfo lcd 信息
+ * @param isTransport 是否透明
+ */
 void show_bmp(const char *pathname, int x_begin, int y_begin, struct lcd_info *lcdinfo, int isTransport)
 {
     int bmp_width;
@@ -100,15 +108,8 @@ void show_bmp(const char *pathname, int x_begin, int y_begin, struct lcd_info *l
     debug("malloc bmpARGB OK", DEBUG);
     for (i = 0; i < bmp_width * bmp_high; i++)
     {
-        // 				B 						G							R
+        // 				R						G							B
         int rgb = bmpbuf[3 * i + 2] << 16 | bmpbuf[3 * i + 1] << 8 | bmpbuf[3 * i];
-        if (isTransport)
-        {
-            if (rgb == 16777215)
-            {
-                rgb = rgb << 24 | 0x0;
-            }
-        }
         bmpARGB[i] = rgb;
     }
     debug(" << OK", DEBUG);
@@ -120,7 +121,10 @@ void show_bmp(const char *pathname, int x_begin, int y_begin, struct lcd_info *l
             //对于x=0和y=0的坐标而言，lcd屏幕已经偏移了
             int lcd_offset = x + x_begin + lcdinfo->width * (y + y_begin);
             int bmp_offset = x + bmp_width * (bmp_high - y - 1);
-
+            if (bmpARGB[bmp_offset] == 0x00FFFFFF && isTransport)
+            {
+                continue;
+            }
             *(lcdmem + lcd_offset) = bmpARGB[bmp_offset];
         }
     }
