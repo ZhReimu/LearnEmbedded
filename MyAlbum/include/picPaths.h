@@ -5,7 +5,7 @@
  * @brief 暂停自动播放时的 相册图片 数组
  * 
  */
-const char *pics[] = {
+static const char *pics[] = {
     "/mnt/udisk/ProjectAlbum/album/012.bmp",
     "/mnt/udisk/ProjectAlbum/album/022.bmp",
     "/mnt/udisk/ProjectAlbum/album/032.bmp",
@@ -19,7 +19,7 @@ const char *pics[] = {
  * @brief 自动播放时的 相册图片 数组
  * 
  */
-const char *picsPlaying[] = {
+static const char *picsPlaying[] = {
     "/mnt/udisk/ProjectAlbum/album/011.bmp",
     "/mnt/udisk/ProjectAlbum/album/021.bmp",
     "/mnt/udisk/ProjectAlbum/album/031.bmp",
@@ -33,22 +33,22 @@ const char *picsPlaying[] = {
  * @brief 进度条 图片
  * 
  */
-const char *pb = "/mnt/udisk/ProjectAlbum/anime/tiger.bmp";
+static const char *pb = "/mnt/udisk/ProjectAlbum/anime/tiger.bmp";
 /**
  * @brief 相册首页 图片
  * 
  */
-const char *bg = "/mnt/udisk/ProjectAlbum/album/bg.bmp";
+static const char *bg = "/mnt/udisk/ProjectAlbum/album/bg.bmp";
 /**
  * @brief 首页 图片
  * 
  */
-const char *home = "/mnt/udisk/ProjectAlbum/home.bmp";
+static const char *home = "/mnt/udisk/ProjectAlbum/home.bmp";
 /**
  * @brief 开机动画 数组
  * 
  */
-const char *videos[] = {
+static const char *videos[] = {
     "/mnt/udisk/ProjectAlbum/anime/001.bmp",
     "/mnt/udisk/ProjectAlbum/anime/002.bmp",
     "/mnt/udisk/ProjectAlbum/anime/003.bmp",
