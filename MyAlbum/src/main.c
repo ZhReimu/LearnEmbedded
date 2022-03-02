@@ -1,6 +1,8 @@
 #include <passwd.h>
 #include <album.h>
 #include <home.h>
+#include <videoPlayer.h>
+#include <musicPlayer.h>
 
 /**
  * @brief 点击事件, 屏幕被点击时触发
@@ -15,6 +17,10 @@ void onClick(int x, int y)
     debug("OnClick In Main After Password", INFO);
     homeHandler(x, y);
     debug("OnClick In Main After Home", INFO);
+    videoPlayerHandler(x, y);
+    debug("OnClick In Main After VideoPlayer", INFO);
+    musicPlayerHandler(x, y);
+    debug("OnClick In Main After MusicPlayer", INFO);
 }
 
 int main()
@@ -22,6 +28,8 @@ int main()
     // TODO 还原开机动画 playVideo();
     initPasswd();
     initHome();
+    initVideoPlayer();
+    initMusicPlayer();
     startTouchThread(onClick);
     return 0;
 }
