@@ -44,7 +44,15 @@ int lcd_init(struct lcd_info *lcdinfo)
     }
 }
 
-//功能函数
+/**
+ * @brief 在显示器上显示 bmp
+ * 
+ * @param pathname bmp 文件路径
+ * @param x_begin 要显示图片的左上角
+ * @param y_begin 亚农显示图片的右上角
+ * @param lcdinfo lcd 信息
+ * @param isTransport 是否透明
+ */
 void show_bmp(const char *pathname, int x_begin, int y_begin, struct lcd_info *lcdinfo, int isTransport)
 {
     int bmp_width;
