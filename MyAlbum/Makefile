@@ -7,6 +7,7 @@ all:
 	$(CC) $(CFLAGS) $(INCLUDE) \
 	$(SRC)log.c $(SRC)utils.c $(SRC)bmp.c \
 	$(SRC)album.c $(SRC)passwd.c $(SRC)home.c \
+	$(SRC)videoPlayer.c $(SRC)musicPlayer.c \
 	$(SRC)main.c -o color
 
 album:
