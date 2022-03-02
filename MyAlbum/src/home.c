@@ -4,12 +4,40 @@
 #include <videoPlayer.h>
 #include <musicPlayer.h>
 
+/**
+ * @brief 相册 缩略图 按钮
+ * 
+ */
 Rect btThumAlbum;
+/**
+ * @brief 相册 按钮
+ * 
+ */
 Rect btAlbum;
+/**
+ * @brief 视频播放器 缩略图 按钮
+ * 
+ */
 Rect btThumVideoPlayer;
+/**
+ * @brief 视频播放器 按钮
+ * 
+ */
 Rect btVideoPlayer;
+/**
+ * @brief 音乐播放器 缩略图 按钮
+ * 
+ */
 Rect btThumMusicPlayer;
+/**
+ * @brief 音乐播放器 按钮
+ * 
+ */
 Rect btMusicPlayer;
+/**
+ * @brief 锁屏 按钮
+ * 
+ */
 Rect btLockScreen;
 
 /**
@@ -68,6 +96,10 @@ void homeHandler(int x, int y)
     }
 }
 
+/**
+ * @brief 初始化 Home 模块有效点击区域
+ * 
+ */
 void initHome()
 {
     btThumAlbum.startX = 64;
