@@ -180,6 +180,6 @@ void showBMP(const char *fileName, int x, int y, int isTransport)
  */
 void showBMPOO(const char *fileName)
 {
-    debugS("Showing %s", fileName, INFO);
+    debugS("Showing %s", fileName, DEBUG);
     showBMP(fileName, 0, 0, 0);
 }
