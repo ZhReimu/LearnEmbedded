@@ -77,12 +77,12 @@ const char *cmdSuffix = " &";
  * 
  * @param idx 要播放的 视频 id
  */
-void doPlay(int idx);
+void doPlayVideo(int idx);
 /**
  * @brief 返回首页
  * 
  */
-void doHome();
+void doVideoHome();
 /**
  * @brief 当前播放状态
  * 
@@ -126,7 +126,7 @@ const char *audios[] = {
  * @param dst 结果数组
  * @param idx 视频 id
  */
-void getCmd(char *dst, int idx)
+void getVideoCmd(char *dst, int idx)
 {
     stringCat(dst, 3, cmdPrefix, videos[idx], cmdSuffix);
     debugS("cmd -> %s", dst, INFO);
@@ -140,9 +140,9 @@ void doPrevVideo(int idx)
     // 只有 正在播放其它视频 或 暂停播放 时, 才需要 先回到首页, 再 播放视频
     if (playStatus == PLAYING || playStatus == PAUSED)
     {
-        doHome();
+        doVideoHome();
     }
-    doPlay(idx);
+    doPlayVideo(idx);
 }
 /**
  * @brief 快退 5s
@@ -158,13 +158,13 @@ void doFB()
  * 
  * @param idx 要播放的 视频 id
  */
-void doPlay(int idx)
+void doPlayVideo(int idx)
 {
     playStatus = PLAYING;
     debug("Start Play", INFO);
     showBMPOO(uiStarting);
     char cmd[512] = {0};
-    getCmd(cmd, idx);
+    getVideoCmd(cmd, idx);
     system(cmd);
     debug("Set Volume", INFO);
     system("echo volume 0.1 >> /pipe");
@@ -173,7 +173,7 @@ void doPlay(int idx)
  * @brief 暂停播放
  * 
  */
-void doStop()
+void doStopVideo()
 {
     playStatus = PAUSED;
     debug("Paused", INFO);
@@ -210,15 +210,15 @@ void doNextVideo(int idx)
     // 只有 正在播放其它视频 或 暂停播放 时, 才需要 先回到首页, 再 播放视频
     if (playStatus == PLAYING || playStatus == PAUSED)
     {
-        doHome();
+        doVideoHome();
     }
-    doPlay(idx);
+    doPlayVideo(idx);
 }
 /**
  * @brief 返回首页
  * 
  */
-void doHome()
+void doVideoHome()
 {
     playStatus = STOPPED;
     system("killall -kill mplayer");
@@ -242,12 +242,12 @@ void videoPlayerHandler(int x, int y)
         // 如果当前播放状态是 已停止
         if (playStatus == STOPPED)
         {
-            doPlay(idx);
+            doPlayVideo(idx);
         }
         // 如果当前播放状态是 播放中
         else if (playStatus == PLAYING)
         {
-            doStop();
+            doStopVideo();
         }
         // 如果当前播放状态是 暂停中
         else if (playStatus == PAUSED)
@@ -279,7 +279,7 @@ void videoPlayerHandler(int x, int y)
         // 如果当前播放状态是 播放中 或 暂停中
         if (playStatus == PLAYING || playStatus == PAUSED)
         {
-            doHome();
+            doVideoHome();
         }
     }
     else if (inArea2(btPrevVideo, x, y))

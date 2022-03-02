@@ -74,17 +74,17 @@ static const char *musicBG[] = {
  * 
  * @param idx 要播放的 视频 id
  */
-void doPlay(int idx);
+void doPlayMusic(int idx);
 /**
  * @brief 返回首页
  * 
  */
-void doHome();
+void doMusicHome();
 /**
  * @brief 停止播放
  * 
  */
-void doStop();
+void doStopMusic();
 /**
  * @brief 播放状态 枚举
  * 
@@ -123,7 +123,7 @@ static int playingMusic = 0;
  * @param dst 结果数组
  * @param idx 视频 id
  */
-void getCmd(char *dst, int idx)
+void getMusicCmd(char *dst, int idx)
 {
     stringCat(dst, 3, cmdPrefix, music[idx], cmdSuffix);
     debugS("cmd -> %s", dst, INFO);
@@ -134,13 +134,13 @@ void getCmd(char *dst, int idx)
  * 
  * @param idx 要播放的 视频 id
  */
-void doPlay(int idx)
+void doPlayMusic(int idx)
 {
     playStatus = PLAYING;
     playingMusic = idx;
     debug("Start Play", INFO);
     char cmd[512] = {0};
-    getCmd(cmd, idx);
+    getMusicCmd(cmd, idx);
     system(cmd);
     showBMPOO(musicBG[idx]);
 }
@@ -171,7 +171,7 @@ void doPause(int idx)
  * @brief 暂停播放
  * 
  */
-void doStop()
+void doStopMusic()
 {
     playStatus = STOPPED;
     debug("Stopped", INFO);
@@ -183,7 +183,7 @@ void doStop()
  * @brief 返回首页
  * 
  */
-void doHome()
+void doMusicHome()
 {
     playStatus = STOPPED;
     system("killall -kill mplayer");
@@ -215,7 +215,7 @@ void musicPlayerHandler(int x, int y)
     {
         if (playStatus == PLAYING)
         {
-            doStop();
+            doStopMusic();
             debug("Stop Play", INFO);
         }
     }
@@ -225,7 +225,7 @@ void musicPlayerHandler(int x, int y)
         // 如果 没有开始播放, 那就开始播放
         if (playStatus == STOPPED)
         {
-            doPlay(musicID);
+            doPlayMusic(musicID);
             debug("Play Music 1", INFO);
         }
         // 如果 正在播放, 并且正在播放的是这首歌, 那就暂停
@@ -235,8 +235,8 @@ void musicPlayerHandler(int x, int y)
         }
         else
         {
-            doStop();
-            doPlay(musicID);
+            doStopMusic();
+            doPlayMusic(musicID);
         }
         debug("Hit Music1", INFO);
     }
@@ -245,7 +245,7 @@ void musicPlayerHandler(int x, int y)
         musicID = 1;
         if (playStatus == STOPPED)
         {
-            doPlay(musicID);
+            doPlayMusic(musicID);
             debug("Play Music 2", INFO);
         }
         else if ((playStatus == PLAYING || playStatus == PAUSED) && playingMusic == musicID)
@@ -254,8 +254,8 @@ void musicPlayerHandler(int x, int y)
         }
         else
         {
-            doStop();
-            doPlay(musicID);
+            doStopMusic();
+            doPlayMusic(musicID);
         }
         debug("Hit Music2", INFO);
     }
@@ -264,7 +264,7 @@ void musicPlayerHandler(int x, int y)
         musicID = 2;
         if (playStatus == STOPPED)
         {
-            doPlay(musicID);
+            doPlayMusic(musicID);
             debug("Play Music 3", INFO);
         }
         else if ((playStatus == PLAYING || playStatus == PAUSED) && playingMusic == musicID)
@@ -273,8 +273,8 @@ void musicPlayerHandler(int x, int y)
         }
         else
         {
-            doStop();
-            doPlay(musicID);
+            doStopMusic();
+            doPlayMusic(musicID);
         }
         debug("Hit Music3", INFO);
     }
