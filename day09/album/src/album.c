@@ -94,6 +94,12 @@ void startAutoPlayThread(int *i)
     }
     debug("AutoPlay Thread Started Successful", DEBUG);
 }
+/**
+ * @brief 相册 逻辑入口
+ * 
+ * @param x 点击的坐标的 x
+ * @param y 点击的坐标的 y
+ */
 void albumHandler(int x, int y)
 {
     static int i = 0;
