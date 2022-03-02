@@ -18,7 +18,7 @@ void initHome();
  */
 void showHome();
 /**
- * @brief Home 模块主要逻辑
+ * @brief Home 模块 逻辑入口
  * 
  * @param x 点击的坐标的 x
  * @param y 点击的坐标的 y

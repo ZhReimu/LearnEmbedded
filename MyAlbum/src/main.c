@@ -21,6 +21,8 @@ void onClick(int x, int y)
     debug("OnClick In Main After VideoPlayer", INFO);
     musicPlayerHandler(x, y);
     debug("OnClick In Main After MusicPlayer", INFO);
+    albumHandler(x, y);
+    debug("OnClick In Main After AlbumHandler", INFO);
 }
 
 int main()

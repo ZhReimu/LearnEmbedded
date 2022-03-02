@@ -182,7 +182,7 @@ void doVideoHome()
     usleep(500000);
 }
 /**
- * @brief 播放器处理函数
+ * @brief 视频播放器 逻辑入口
  * 
  * @param x 点击的 x 坐标
  * @param y 点击的 y 坐标
