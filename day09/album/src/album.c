@@ -16,6 +16,11 @@ Rect btNext;
  * 
  */
 Rect btPause;
+/**
+ * @brief 返回首页 按钮区域
+ * 
+ */
+Rect btHome;
 
 /**
  * @brief 是否正在播放 标志位
@@ -43,7 +48,7 @@ void *autoPlayThread(void *arg)
         canTap = 0;
         debugD("AutoPlay Thread Change Pic To %d", *x, INFO);
         showBMPOO(picsPlaying[*x]);
-        if (*x == 8)
+        if (*x == 7)
         {
             *x = 0;
         }
@@ -78,7 +83,7 @@ void albumHandler(int x, int y)
     // 如果点击了 上一页 按钮, 并且没有启用 自动播放
     if (inArea2(btPrev, x, y) && !isPlaying && canTap)
     {
-        if (i++ == 8)
+        if (i++ == 7)
         {
             i = 0;
         }
@@ -90,7 +95,7 @@ void albumHandler(int x, int y)
     {
         if (i-- == 0)
         {
-            i = 8;
+            i = 7;
         }
         debugD("Prev -> Change Pic To %d", i, INFO);
         showBMPOO(pics[i]);
@@ -120,6 +125,12 @@ void albumHandler(int x, int y)
             debug("AutoPlay Paused", INFO);
             showBMPOO(pics[i]);
         }
+    }
+    else if (inArea2(btHome, x, y))
+    {
+        isPlaying = 0;
+        showBMPOO(bg);
+        debug("Back Album Home", INFO);
     }
     else
     {
@@ -168,6 +179,11 @@ void initAlbum()
     btPause.startY = 0;
     btPause.endX = 1024;
     btPause.endY = 64;
+
+    btHome.startX = 972;
+    btHome.startY = 569;
+    btHome.endX = 1024;
+    btHome.endY = 614;
 
     playVideo();
     showBMPOO(pics[0]);
