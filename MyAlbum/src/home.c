@@ -1,5 +1,8 @@
-#include <home.h>
+#include <passwd.h>
 #include <album.h>
+#include <home.h>
+#include <videoPlayer.h>
+#include <musicPlayer.h>
 
 Rect btThumAlbum;
 Rect btAlbum;
@@ -9,13 +12,21 @@ Rect btThumMusicPlayer;
 Rect btMusicPlayer;
 Rect btLockScreen;
 
+/**
+ * @brief Home 模块主要逻辑
+ * 
+ * @param x 点击的坐标的 x
+ * @param y 点击的坐标的 y
+ */
 void homeHandler(int x, int y)
 {
+    // 如果 当前展示的模块不是 HOME, 那就不管
     if (CURRENT_MODULE != HOME)
     {
         return;
     }
     debug2D("HomeHandler %d, %d", x, y, INFO);
+    // 如果 点击了 缩略图的 相册 按钮
     if (inArea2(btThumAlbum, x, y))
     {
         showAlbum();
@@ -28,22 +39,27 @@ void homeHandler(int x, int y)
     }
     else if (inArea2(btThumVideoPlayer, x, y))
     {
+        showVideoPlayer();
         debug("Hit btThumVideoPlayer", INFO);
     }
     else if (inArea2(btVideoPlayer, x, y))
     {
+        showVideoPlayer();
         debug("Hit btVideoPlayer", INFO);
     }
     else if (inArea2(btThumMusicPlayer, x, y))
     {
+        showMusicPlayer();
         debug("Hit btThumMusicPlayer", INFO);
     }
     else if (inArea2(btMusicPlayer, x, y))
     {
+        showMusicPlayer();
         debug("Hit btMusicPlayer", INFO);
     }
     else if (inArea2(btLockScreen, x, y))
     {
+        showLockScreen();
         debug("Hit btLockScreen", INFO);
     }
     else
