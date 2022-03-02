@@ -403,4 +403,38 @@ const char *videos[] = {
     "/mnt/udisk/ProjectAlbum/anime/352.bmp",
 };
 
+/**
+ * @brief 密码文件 路径
+ * 
+ */
+static char *pwdFile = "/mnt/udisk/passwd";
+static char *closeBG[] = {
+    "/mnt/udisk/ProjectAlbum/lock/accClose.bmp",
+    "/mnt/udisk/ProjectAlbum/lock/pwdClose.bmp",
+};
+static char *openBG[] = {
+    "/mnt/udisk/ProjectAlbum/lock/accOpen.bmp",
+    "/mnt/udisk/ProjectAlbum/lock/pwdOpen.bmp",
+};
+/**
+ * @brief ※ 号图片
+ * 
+ */
+static const char *good = "/mnt/udisk/ProjectAlbum/lock/good.bmp";
+/**
+ * @brief 数字图片路径 数组
+ * 
+ */
+static const char *nums[] = {
+    "/mnt/udisk/ProjectAlbum/lock/0.bmp",
+    "/mnt/udisk/ProjectAlbum/lock/1.bmp",
+    "/mnt/udisk/ProjectAlbum/lock/2.bmp",
+    "/mnt/udisk/ProjectAlbum/lock/3.bmp",
+    "/mnt/udisk/ProjectAlbum/lock/4.bmp",
+    "/mnt/udisk/ProjectAlbum/lock/5.bmp",
+    "/mnt/udisk/ProjectAlbum/lock/6.bmp",
+    "/mnt/udisk/ProjectAlbum/lock/7.bmp",
+    "/mnt/udisk/ProjectAlbum/lock/8.bmp",
+    "/mnt/udisk/ProjectAlbum/lock/9.bmp",
+};
 #endif
