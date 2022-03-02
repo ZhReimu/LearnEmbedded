@@ -1,4 +1,7 @@
 #include <passwd.h>
+#include <album.h>
+#include <home.h>
+
 /**
  * @brief 点击事件, 屏幕被点击时触发
  * 
@@ -8,11 +11,14 @@
 void onClick(int x, int y)
 {
     passwdHandler(x, y);
+    homeHandler(x, y);
 }
 
 int main()
 {
+    // TODO 还原开机动画 playVideo();
     initPasswd();
+    initHome();
     startTouchThread(onClick);
     return 0;
 }

@@ -1,5 +1,6 @@
 #include <passwd.h>
 #include <picPaths.h>
+#include <global.h>
 
 Rect btNums[10];
 /**
@@ -196,6 +197,10 @@ void ia2ca(const int iArr[], char cArr[], int length)
  */
 void passwdHandler(int x, int y)
 {
+    if (CURRENT_MODULE != PASSWORD)
+    {
+        return;
+    }
     debug2D("PasswdHandler %d, %d", x, y, INFO);
     for (int i = 0; i < 10; i++)
     {
@@ -258,6 +263,8 @@ void passwdHandler(int x, int y)
         debug(pwd, INFO);
         if (stringCmp(pwd, temp))
         {
+            CURRENT_MODULE = HOME;
+            showBMPOO(home);
             debug("Pass", INFO);
         }
         else

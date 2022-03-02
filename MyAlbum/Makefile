@@ -3,8 +3,8 @@ CFLAGS = -s -O2 -lpthread
 INCLUDE = -I./include
 SRC = ./src/
 
-all: log.o utils.o bmp.o album.o passwd.o
-	$(CC) $(CFLAGS) $(INCLUDE) log.o utils.o bmp.o album.o passwd.o $(SRC)main.c -o color
+all: log.o utils.o bmp.o album.o passwd.o home.o
+	$(CC) $(CFLAGS) $(INCLUDE) log.o utils.o bmp.o album.o passwd.o home.o $(SRC)main.c -o color
 
 album:
 	$(CC) $(CFLAGS) -c $(INCLUDE) $(SRC)log.c $(SRC)utils.c $(SRC)bmp.c $(SRC)album.c

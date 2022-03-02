@@ -1,4 +1,6 @@
 #include <home.h>
+#include <global.h>
+#include <picPaths.h>
 
 Rect btThumAlbum;
 Rect btAlbum;
@@ -8,9 +10,13 @@ Rect btThumMusicPlayer;
 Rect btMusicPlayer;
 Rect btLockScreen;
 
-const char *home = "/mnt/udisk/ProjectAlbum/home.bmp";
 void homeHandler(int x, int y)
 {
+    if (CURRENT_MODULE != HOME)
+    {
+        return;
+    }
+    debug2D("HomeHandler %d, %d", x, y, INFO);
     if (inArea2(btThumAlbum, x, y))
     {
         debug("Hit btThumAlbum", INFO);
@@ -81,6 +87,4 @@ void initHome()
     btLockScreen.startY = 569;
     btLockScreen.endX = 1024;
     btLockScreen.endY = 614;
-
-    showBMPOO(home);
 }
