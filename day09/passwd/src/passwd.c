@@ -260,6 +260,7 @@ void passwdHandler(int x, int y)
             }
         }
         debug("Hit Del", INFO);
+        refreshEdit();
     }
     else if (inArea2(btShowAndHide, x, y))
     {
