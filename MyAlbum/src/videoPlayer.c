@@ -117,7 +117,7 @@ void doPlayVideo(int idx)
 {
     playStatus = PLAYING;
     debug("Start Play", INFO);
-    showBMPOO(uiStarting);
+    showBMPOO(videoPlayerStaringUI);
     char cmd[512] = {0};
     getVideoCmd(cmd, idx);
     system(cmd);
@@ -132,7 +132,7 @@ void doStopVideo()
 {
     playStatus = PAUSED;
     debug("Paused", INFO);
-    showBMPOO(uiStopping);
+    showBMPOO(videoPlayerStoppingUI);
     system("echo pause >> /pipe");
 }
 /**
@@ -143,7 +143,7 @@ void doResume()
 {
     playStatus = PLAYING;
     debug("Resume", INFO);
-    showBMPOO(uiStarting);
+    showBMPOO(videoPlayerStaringUI);
     system("echo pause >> /pipe");
 }
 /**
@@ -177,7 +177,7 @@ void doVideoHome()
 {
     playStatus = STOPPED;
     system("killall -kill mplayer");
-    showBMPOO(uiStopping);
+    showBMPOO(videoPlayerStoppingUI);
     debug("Home", INFO);
     usleep(500000);
 }
@@ -310,5 +310,5 @@ void initVideoPlayer()
 void showVideoPlayer()
 {
     CURRENT_MODULE = VPLAYER;
-    showBMPOO(uiStopping);
+    showBMPOO(videoPlayerStoppingUI);
 }

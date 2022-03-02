@@ -38,7 +38,7 @@ static const char *pb = "/mnt/udisk/ProjectAlbum/anime/tiger.bmp";
  * @brief 相册首页 图片
  * 
  */
-static const char *bg = "/mnt/udisk/ProjectAlbum/album/bg.bmp";
+static const char *albumBG = "/mnt/udisk/ProjectAlbum/album/bg.bmp";
 /**
  * @brief 首页 图片
  * 
@@ -443,12 +443,12 @@ static const char *nums[] = {
  * @brief 正在播放的 UI
  * 
  */
-static const char *uiStarting = "/mnt/udisk/2/video-ui-start.bmp";
+static const char *videoPlayerStaringUI = "/mnt/udisk/2/video-ui-start.bmp";
 /**
  * @brief 停止中的 UI
  * 
  */
-static const char *uiStopping = "/mnt/udisk/2/video-ui-stop.bmp";
+static const char *videoPlayerStoppingUI = "/mnt/udisk/2/video-ui-stop.bmp";
 /**
  * @brief 命令后缀
  * 

@@ -165,7 +165,7 @@ void albumHandler(int x, int y)
         {
             isPlaying = 0;
             isInHome = true;
-            showBMPOO(bg);
+            showBMPOO(albumBG);
             debug("Back To Album Home", INFO);
         }
     }
@@ -253,5 +253,5 @@ void initAlbum()
 void showAlbum()
 {
     CURRENT_MODULE = ALBUM;
-    showBMPOO(bg);
+    showBMPOO(albumBG);
 }
