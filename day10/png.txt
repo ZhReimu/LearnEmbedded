@@ -1,0 +1,1 @@
+./configure --prefix=/mnt/hgfs/em/day10/lpng1637/build --host=arm-linux CC=arm-linux-gcc CXX=arm-linux-g++ --with-zlib-prefix=/mnt/hgfs/em/day10/zlib-1.2.8 CFLAGS=-I/mnt/hgfs/em/day10/zlib-1.2.8 LDFLAGS=-L/mnt/hgfs/em/day10/zlib-1.2.8 LIBS=-lz LT_SYS_LIBRARY_PATH=/mnt/hgfs/em/day10/zlib-1.2.8 CPPFLAGS=-I/mnt/hgfs/em/day10/zlib-1.2.8 --disable-shared
