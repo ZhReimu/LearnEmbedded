@@ -473,4 +473,28 @@ static const char *aviVideos[] = {
     "/mnt/udisk/videos/7.avi",
 };
 
+// MusicPlayer
+/**
+ * @brief 播放器背景
+ * 
+ */
+static const char *muusicPlayerBG = "/mnt/udisk/music/bg.bmp";
+/**
+ * @brief 音乐路径数组
+ * 
+ */
+static const char *music[] = {
+    "/mnt/udisk/music/1.mp3",
+    "/mnt/udisk/music/2.mp3",
+    "/mnt/udisk/music/3.mp3",
+};
+/**
+ * @brief 背景图片 差分, 显示当前播放歌曲
+ * 
+ */
+static const char *musicBG[] = {
+    "/mnt/udisk/music/music1.bmp",
+    "/mnt/udisk/music/music2.bmp",
+    "/mnt/udisk/music/music3.bmp",
+};
 #endif

@@ -1,4 +1,5 @@
 #include <musicPlayer.h>
+#include <picPaths.h>
 
 /**
  * @brief 首页 按钮区域
@@ -35,40 +36,11 @@ Rect btMusic2;
  * 
  */
 Rect btMusic3;
-
-/**
- * @brief 播放器背景
- * 
- */
-static const char *bg = "/mnt/udisk/music/bg.bmp";
 /**
  * @brief 命令前缀
  * 
  */
 static const char *cmdPrefix = "mplayer -slave -quiet -input  file=/pipe -vo null ";
-/**
- * @brief 命令后缀
- * 
- */
-static const char *cmdSuffix = " &";
-/**
- * @brief 音乐路径数组
- * 
- */
-static const char *music[] = {
-    "/mnt/udisk/music/1.mp3",
-    "/mnt/udisk/music/2.mp3",
-    "/mnt/udisk/music/3.mp3",
-};
-/**
- * @brief 背景图片 差分, 显示当前播放歌曲
- * 
- */
-static const char *musicBG[] = {
-    "/mnt/udisk/music/music1.bmp",
-    "/mnt/udisk/music/music2.bmp",
-    "/mnt/udisk/music/music3.bmp",
-};
 /**
  * @brief 开始播放
  * 
@@ -176,7 +148,7 @@ void doStopMusic()
     playStatus = STOPPED;
     debug("Stopped", INFO);
     system("killall -kill mplayer");
-    showBMPOO(bg);
+    showBMPOO(muusicPlayerBG);
 }
 
 /**
@@ -325,5 +297,5 @@ void initMusicPlayer()
     btMusic3.startY = 384;
     btMusic3.endY = 448;
     initPipe();
-    showBMPOO(bg);
+    showBMPOO(muusicPlayerBG);
 }
