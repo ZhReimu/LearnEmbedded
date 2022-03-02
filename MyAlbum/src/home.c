@@ -53,7 +53,7 @@ void homeHandler(int x, int y)
     {
         return;
     }
-    debug2D("HomeHandler %d, %d", x, y, INFO);
+    debug2D("Home Handler %d, %d", x, y, INFO);
     // 如果 点击了 缩略图的 相册 按钮
     if (inArea2(btThumAlbum, x, y))
     {

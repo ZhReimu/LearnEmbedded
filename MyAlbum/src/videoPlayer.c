@@ -193,8 +193,8 @@ void videoPlayerHandler(int x, int y)
     {
         return;
     }
+    debug2D("VideoPlayer Handler %d, %d", x, y, INFO);
     static int idx = 0;
-    debug2D("Touch Thread Callback OnClick in Main : %d, %d", x, y, INFO);
     // 如果点击了 播放 & 暂停区域
     if (inArea2(btPlayAndPause, x, y))
     {

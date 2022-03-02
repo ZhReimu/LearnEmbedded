@@ -12,17 +12,22 @@
  */
 void onClick(int x, int y)
 {
-    debug("OnClick In Main Before Password", INFO);
+    debug("OnClick In Main Before Password Handler", INFO);
     passwdHandler(x, y);
-    debug("OnClick In Main After Password", INFO);
+
+    debug("OnClick In Main After Password Handler", INFO);
     homeHandler(x, y);
-    debug("OnClick In Main After Home", INFO);
+
+    debug("OnClick In Main After Home Handler", INFO);
     videoPlayerHandler(x, y);
-    debug("OnClick In Main After VideoPlayer", INFO);
+
+    debug("OnClick In Main After VideoPlayer Handler", INFO);
     musicPlayerHandler(x, y);
-    debug("OnClick In Main After MusicPlayer", INFO);
+
+    debug("OnClick In Main After MusicPlayer Handler", INFO);
     albumHandler(x, y);
-    debug("OnClick In Main After AlbumHandler", INFO);
+
+    debug("OnClick In Main After Album Handler", INFO);
 }
 
 int main()
@@ -32,6 +37,9 @@ int main()
     initHome();
     initVideoPlayer();
     initMusicPlayer();
+    initAlbum();
+
+    showLockScreen();
     startTouchThread(onClick);
     return 0;
 }

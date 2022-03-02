@@ -105,8 +105,8 @@ void albumHandler(int x, int y)
     {
         return;
     }
+    debug2D("Album Handler %d, %d", x, y, INFO);
     static int i = 0;
-    debug2D("Touch Thread Callback OnClick in Main : %d, %d", x, y, DEBUG);
     // 如果点击了 上一页 按钮, 并且没有启用 自动播放
     if (inArea2(btPrev, x, y) && !isPlaying && canTap)
     {

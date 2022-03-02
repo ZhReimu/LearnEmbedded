@@ -202,7 +202,7 @@ void passwdHandler(int x, int y)
     {
         return;
     }
-    debug2D("PasswdHandler %d, %d", x, y, INFO);
+    debug2D("Passwd Handler %d, %d", x, y, INFO);
     for (int i = 0; i < 10; i++)
     {
         if (inArea2(btNums[i], x, y))

@@ -174,8 +174,8 @@ void musicPlayerHandler(int x, int y)
     {
         return;
     }
+    debug2D("AudioPlayer Handler %d, %d", x, y, INFO);
     int musicID = 0;
-    debug2D("Touch Thread Callback OnClick in Main : %d, %d", x, y, INFO);
     if (inArea2(btHome, x, y))
     {
         debug("Back Home", INFO);
