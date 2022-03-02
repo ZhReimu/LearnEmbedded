@@ -71,7 +71,7 @@ void setBMPColor(char *buff, char *bmpBuff, int x, int y)
 	buff[0 + start] = bmpBuff[0 + bStart];
 	buff[1 + start] = bmpBuff[1 + bStart];
 	buff[2 + start] = bmpBuff[2 + bStart];
-	buff[3 + start] = 0;
+	buff[3 + start] = bmpBuff[3 + bStart];
 }
 
 /**
@@ -115,7 +115,7 @@ int readBMP(const char *fileName, char *bmp)
 int openLCD(char **buff)
 {
 	//打开lcd屏幕驱动文件
-	int lcdfd = open(LCD_DEVICE, O_RDONLY);
+	int lcdfd = open(LCD_DEVICE, O_RDWR);
 	if (lcdfd < 0)
 	{
 		debug("Open LCD_FD Failed", ERROR);
