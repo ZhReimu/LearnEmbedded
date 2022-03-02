@@ -145,30 +145,6 @@ void showNum(int num, Rect target)
     showBMP(nums[num], target.startX, target.startY, 1);
 }
 /**
- * @brief 修改 账号 或 密码 数组
- * 
- * @param num 输入的数字
- */
-void changeArr(int num)
-{
-    if (INPUT_STATUS == ACCOUNT)
-    {
-        if (accountIdx == 4)
-        {
-            return;
-        }
-        account[accountIdx++] = num;
-    }
-    else
-    {
-        if (passwdIdx == 4)
-        {
-            return;
-        }
-        passwd[passwdIdx++] = num;
-    }
-}
-/**
  * @brief 刷新输入框
  * 
  */
@@ -197,6 +173,31 @@ void refreshEdit()
             showBMP(good, edPassword[i].startX, edPassword[i].startY, 1);
         }
     }
+}
+/**
+ * @brief 修改 账号 或 密码 数组
+ * 
+ * @param num 输入的数字
+ */
+void changeArr(int num)
+{
+    if (INPUT_STATUS == ACCOUNT)
+    {
+        if (accountIdx == 4)
+        {
+            return;
+        }
+        account[accountIdx++] = num;
+    }
+    else
+    {
+        if (passwdIdx == 4)
+        {
+            return;
+        }
+        passwd[passwdIdx++] = num;
+    }
+    refreshEdit();
 }
 /**
  * @brief Int 数组 转换 char 数组
@@ -228,7 +229,6 @@ void passwdHandler(int x, int y)
         if (inArea2(btNums[i], x, y))
         {
             changeArr(i);
-            refreshEdit();
             return;
         }
     }
