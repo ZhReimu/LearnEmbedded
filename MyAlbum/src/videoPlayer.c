@@ -1,5 +1,5 @@
 #include <videoPlayer.h>
-
+#include <picPaths.h>
 /**
  * @brief 暂停, 继续 按钮
  * 
@@ -53,25 +53,10 @@ enum STATUS
     STOPPED,
 };
 /**
- * @brief 正在播放的 UI
- * 
- */
-const char *uiStarting = "/mnt/udisk/2/video-ui-start.bmp";
-/**
- * @brief 停止中的 UI
- * 
- */
-const char *uiStopping = "/mnt/udisk/2/video-ui-stop.bmp";
-/**
  * @brief 命令前缀
  * 
  */
 const char *cmdPrefix = "mplayer -slave -quiet -input  file=/pipe -zoom -x 800 -y 430 -framedrop ";
-/**
- * @brief 命令后缀
- * 
- */
-const char *cmdSuffix = " &";
 /**
  * @brief 开始播放
  * 
@@ -89,38 +74,6 @@ void doVideoHome();
  */
 static int playStatus = STOPPED;
 /**
- * @brief 视频总数, [0, videos 数组长度)
- * 
- */
-static int videoNum = 6;
-/**
- * @brief 视频路径 数组
- * 
- */
-const char *videos[] = {
-    "/mnt/udisk/videos/1.avi",
-    "/mnt/udisk/videos/2.avi",
-    "/mnt/udisk/videos/3.avi",
-    "/mnt/udisk/videos/4.avi",
-    "/mnt/udisk/videos/5.avi",
-    "/mnt/udisk/videos/6.avi",
-    "/mnt/udisk/videos/7.avi",
-};
-// TODO 使用 audios
-/**
- * @brief 音乐路径 数组
- * 
- */
-const char *audios[] = {
-    "/mnt/udisk/audios/1.mp3",
-    "/mnt/udisk/audios/2.mp3",
-    "/mnt/udisk/audios/3.mp3",
-    "/mnt/udisk/audios/4.mp3",
-    "/mnt/udisk/audios/5.mp3",
-    "/mnt/udisk/audios/6.mp3",
-};
-
-/**
  * @brief 获取 命令 字符串
  * 
  * @param dst 结果数组
@@ -128,7 +81,7 @@ const char *audios[] = {
  */
 void getVideoCmd(char *dst, int idx)
 {
-    stringCat(dst, 3, cmdPrefix, videos[idx], cmdSuffix);
+    stringCat(dst, 3, cmdPrefix, aviVideos[idx], cmdSuffix);
     debugS("cmd -> %s", dst, INFO);
 }
 /**

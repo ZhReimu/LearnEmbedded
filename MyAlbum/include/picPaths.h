@@ -437,4 +437,40 @@ static const char *nums[] = {
     "/mnt/udisk/ProjectAlbum/lock/8.bmp",
     "/mnt/udisk/ProjectAlbum/lock/9.bmp",
 };
+
+// VideoPlayer
+/**
+ * @brief 正在播放的 UI
+ * 
+ */
+static const char *uiStarting = "/mnt/udisk/2/video-ui-start.bmp";
+/**
+ * @brief 停止中的 UI
+ * 
+ */
+static const char *uiStopping = "/mnt/udisk/2/video-ui-stop.bmp";
+/**
+ * @brief 命令后缀
+ * 
+ */
+static const char *cmdSuffix = " &";
+/**
+ * @brief 视频总数, [0, videos 数组长度)
+ * 
+ */
+static int videoNum = 6;
+/**
+ * @brief 视频路径 数组
+ * 
+ */
+static const char *aviVideos[] = {
+    "/mnt/udisk/videos/1.avi",
+    "/mnt/udisk/videos/2.avi",
+    "/mnt/udisk/videos/3.avi",
+    "/mnt/udisk/videos/4.avi",
+    "/mnt/udisk/videos/5.avi",
+    "/mnt/udisk/videos/6.avi",
+    "/mnt/udisk/videos/7.avi",
+};
+
 #endif
