@@ -189,6 +189,10 @@ void doVideoHome()
  */
 void videoPlayerHandler(int x, int y)
 {
+    if (CURRENT_MODULE != VPLAYER)
+    {
+        return;
+    }
     static int idx = 0;
     debug2D("Touch Thread Callback OnClick in Main : %d, %d", x, y, INFO);
     // 如果点击了 播放 & 暂停区域

@@ -17,5 +17,9 @@ void videoPlayerHandler(int x, int y);
  * 
  */
 void initVideoPlayer();
+/**
+ * @brief 显示 视频播放器
+ * 
+ */
 void showVideoPlayer();
 #endif

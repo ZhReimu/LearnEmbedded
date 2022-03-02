@@ -16,6 +16,10 @@ void musicPlayerHandler(int x, int y);
  * 
  */
 void initMusicPlayer();
+/**
+ * @brief 显示 音乐播放器
+ * 
+ */
 void showMusicPlayer();
 
 #endif
