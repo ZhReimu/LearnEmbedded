@@ -1,6 +1,5 @@
 #include <home.h>
-#include <global.h>
-#include <picPaths.h>
+#include <album.h>
 
 Rect btThumAlbum;
 Rect btAlbum;
@@ -19,10 +18,12 @@ void homeHandler(int x, int y)
     debug2D("HomeHandler %d, %d", x, y, INFO);
     if (inArea2(btThumAlbum, x, y))
     {
+        showAlbum();
         debug("Hit btThumAlbum", INFO);
     }
     else if (inArea2(btAlbum, x, y))
     {
+        showAlbum();
         debug("Hit btAlbum", INFO);
     }
     else if (inArea2(btThumVideoPlayer, x, y))
@@ -87,4 +88,14 @@ void initHome()
     btLockScreen.startY = 569;
     btLockScreen.endX = 1024;
     btLockScreen.endY = 614;
+}
+
+/**
+ * @brief 显示 Home 模块
+ * 
+ */
+void showHome()
+{
+    CURRENT_MODULE = HOME;
+    showBMPOO(home);
 }

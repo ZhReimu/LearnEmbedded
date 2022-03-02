@@ -10,8 +10,11 @@
  */
 void onClick(int x, int y)
 {
+    debug("OnClick In Main Before Password", INFO);
     passwdHandler(x, y);
+    debug("OnClick In Main After Password", INFO);
     homeHandler(x, y);
+    debug("OnClick In Main After Home", INFO);
 }
 
 int main()

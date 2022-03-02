@@ -1,5 +1,4 @@
 #include <album.h>
-#include <picPaths.h>
 
 /**
  * @brief 上一页 按钮区域
@@ -244,5 +243,13 @@ void initAlbum()
     // TODO 恢复播放 视频
     // playVideo();
     isInHome = true;
+}
+/**
+ * @brief 显示 相册 首页
+ * 
+ */
+void showAlbum()
+{
+    CURRENT_MODULE = ALBUM;
     showBMPOO(bg);
 }

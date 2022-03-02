@@ -1,6 +1,7 @@
 #include <passwd.h>
 #include <picPaths.h>
 #include <global.h>
+#include <home.h>
 
 Rect btNums[10];
 /**
@@ -263,8 +264,7 @@ void passwdHandler(int x, int y)
         debug(pwd, INFO);
         if (stringCmp(pwd, temp))
         {
-            CURRENT_MODULE = HOME;
-            showBMPOO(home);
+            showHome();
             debug("Pass", INFO);
         }
         else
