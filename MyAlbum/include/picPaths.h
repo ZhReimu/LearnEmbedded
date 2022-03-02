@@ -443,12 +443,12 @@ static const char *nums[] = {
  * @brief 正在播放的 UI
  * 
  */
-static const char *videoPlayerStaringUI = "/mnt/udisk/2/video-ui-start.bmp";
+static const char *videoPlayerStaringUI = "/mnt/udisk/ProjectAlbum/videos/video-ui-start.bmp";
 /**
  * @brief 停止中的 UI
  * 
  */
-static const char *videoPlayerStoppingUI = "/mnt/udisk/2/video-ui-stop.bmp";
+static const char *videoPlayerStoppingUI = "/mnt/udisk/ProjectAlbum/videos/video-ui-stop.bmp";
 /**
  * @brief 命令后缀
  * 
@@ -464,13 +464,13 @@ static int videoNum = 6;
  * 
  */
 static const char *aviVideos[] = {
-    "/mnt/udisk/videos/1.avi",
-    "/mnt/udisk/videos/2.avi",
-    "/mnt/udisk/videos/3.avi",
-    "/mnt/udisk/videos/4.avi",
-    "/mnt/udisk/videos/5.avi",
-    "/mnt/udisk/videos/6.avi",
-    "/mnt/udisk/videos/7.avi",
+    "/mnt/udisk/ProjectAlbum/videos/1.avi",
+    "/mnt/udisk/ProjectAlbum/videos/2.avi",
+    "/mnt/udisk/ProjectAlbum/videos/3.avi",
+    "/mnt/udisk/ProjectAlbum/videos/4.avi",
+    "/mnt/udisk/ProjectAlbum/videos/5.avi",
+    "/mnt/udisk/ProjectAlbum/videos/6.avi",
+    "/mnt/udisk/ProjectAlbum/videos/7.avi",
 };
 
 // MusicPlayer
@@ -478,23 +478,23 @@ static const char *aviVideos[] = {
  * @brief 播放器背景
  * 
  */
-static const char *muusicPlayerBG = "/mnt/udisk/music/bg.bmp";
+static const char *muusicPlayerBG = "/mnt/udisk/ProjectAlbum/music/bg.bmp";
 /**
  * @brief 音乐路径数组
  * 
  */
 static const char *music[] = {
-    "/mnt/udisk/music/1.mp3",
-    "/mnt/udisk/music/2.mp3",
-    "/mnt/udisk/music/3.mp3",
+    "/mnt/udisk/ProjectAlbum/music/1.mp3",
+    "/mnt/udisk/ProjectAlbum/music/2.mp3",
+    "/mnt/udisk/ProjectAlbum/music/3.mp3",
 };
 /**
  * @brief 背景图片 差分, 显示当前播放歌曲
  * 
  */
 static const char *musicBG[] = {
-    "/mnt/udisk/music/music1.bmp",
-    "/mnt/udisk/music/music2.bmp",
-    "/mnt/udisk/music/music3.bmp",
+    "/mnt/udisk/ProjectAlbum/music/music1.bmp",
+    "/mnt/udisk/ProjectAlbum/music/music2.bmp",
+    "/mnt/udisk/ProjectAlbum/music/music3.bmp",
 };
 #endif
