@@ -6,7 +6,7 @@ LIBS = -l png16 -l z -l m
 SRC = ./src/
 
 all:
-	$(CC) $(CFLAGS) $(INCLUDE) $(LIBPATH) $(SRC)png.c $(LIBS)  -o color
+	$(CC) $(CFLAGS) $(INCLUDE) $(LIBPATH) $(SRC)utils.c $(SRC)log.c $(SRC)png.c $(LIBS)  -o color
 
 clean:
 	rm color

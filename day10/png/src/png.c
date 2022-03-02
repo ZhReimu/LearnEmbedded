@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include <png.h>
+#include <utils.h>
 #include <pngpriv.h>
 
 #define PNG_BYTES_TO_CHECK 4
@@ -14,7 +15,7 @@ arg[0]: filepath,文件名
 arg[1]: width,图像宽度
 arg[2]: height,图像高度
 */
-png_bytep load_png_image(const char *filepath, int *width, int *height)
+png_bytep load_png_image(const char *filepath, char *dst, int *width, int *height)
 {
     FILE *fp;
     png_structp png_ptr;
@@ -76,26 +77,24 @@ png_bytep load_png_image(const char *filepath, int *width, int *height)
 
     /* 获取图像的所有行像素数据，row_pointers里边就是rgba数据 */
     row_pointers = png_get_rows(png_ptr, info_ptr);
-
     /* 根据不同的色彩类型进行相应处理 */
     switch (color_type)
     {
     case PNG_COLOR_TYPE_RGB_ALPHA:
+        puts("RGBA");
         for (y = 0; y < h; ++y)
         {
             for (x = 0; x < w * 4;)
             {
-                ///* 以下是RGBA数据，需要自己补充代码，保存RGBA数据 */
-                ///* 目标内存 */ = row_pointers[y][x++]; // red
-                ///* 目标内存 */ = row_pointers[y][x++]; // green
-                ///* 目标内存 */ = row_pointers[y][x++]; // blue
-                ///* 目标内存 */ = row_pointers[y][x++]; // alpha
-                printf("处理RGBA\n");
+                ///* TODO 以下是RGBA数据，需要自己补充代码，保存RGBA数据 */
+                dst[y * x] = row_pointers[y][x++]; // red
+                dst[y * x] = row_pointers[y][x++]; // green
+                dst[y * x] = row_pointers[y][x++]; // blue
+                dst[y * x] = row_pointers[y][x++]; // alpha
             }
         }
-
+        puts("RGBA END");
         break;
-
     case PNG_COLOR_TYPE_RGB:
         for (y = 0; y < h; y++)
         {
@@ -104,13 +103,8 @@ png_bytep load_png_image(const char *filepath, int *width, int *height)
                 buff[y * w + 3 * x + 0] = row_pointers[y][3 * x + 0];
                 buff[y * w + 3 * x + 1] = row_pointers[y][3 * x + 1];
                 buff[y * w + 3 * x + 2] = row_pointers[y][3 * x + 2];
-                printf("%x,%x,%x  ", buff[y * w + 3 * x + 0], buff[y * w + 3 * x + 1], buff[y * w + 3 * x + 2]);
-                //printf("%x,%x,%x  ", buff[y*w + 3 * x + 0], buff[y*w + 3 * x + 1], buff[y*w + 3 * x + 2]);
-                /*printf("处理RGB\n");*/
             }
-            printf("\n");
         }
-        printf("\n");
         break;
         /* 其它色彩类型的图像就不读了 */
     default:
@@ -125,27 +119,38 @@ png_bytep load_png_image(const char *filepath, int *width, int *height)
 
 int main()
 {
-    char *path = "F://1.png";
+    char *path = "/mnt/udisk/1.png";
     int width = 0;
     int height = 0;
-    png_bytep buff = load_png_image(path, &width, &height);
+    char dst[804 * 1024 * 4] = {0};
+    png_bytep buff = load_png_image(path, dst, &width, &height);
     if (!buff)
     {
         printf("load_png_image(filepath) erro");
     }
     printf("width:%d, height:%d\n", width, height);
 
-    /*int i = 0, j = 0;
-    for (i = 0; i < height; i++)
-    {
-        for (j = 0; j < width; j++)
-        {
-            printf("%x,%x,%x  ", buff[i*width + 3 * j + 0], buff[i*width + 3 * j + 1], buff[i*width + 3 * j + 2]);
-        }
-        printf("\n");
-    }*/
+    int lcdfd = -1;
+    char *buffer = NULL;
 
-    system("pause");
+    if ((lcdfd = openLCD(&buffer)) < 0)
+    {
+        return -1;
+    }
+    int x, y;
+    // 特效 1
+    for (y = 0; y < 480; y++)
+    {
+        for (x = 0; x < 800; x++)
+        {
+            setBMPColor(buffer, dst, x, y);
+        }
+        usleep(10);
+    }
+    //关闭驱动文件描述符
+    munmap(buff, BUFF_SIZE);
+    //关闭驱动文件描述符
+    close(lcdfd);
 
     return 0;
 }
