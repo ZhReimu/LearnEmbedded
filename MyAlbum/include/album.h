@@ -6,5 +6,6 @@
 #include <utils.h>
 
 void initAlbum();
+void playVideo();
 void albumHandler(int x, int y);
 #endif
