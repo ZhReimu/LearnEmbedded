@@ -21,6 +21,15 @@ passwd:
 video:
 	$(CC) $(CFLAGS) -c $(INCLUDE) $(SRC)log.c $(SRC)utils.c $(SRC)bmp.c $(SRC)videoPlayer.c
 
+utils:
+	$(CC) $(CFLAGS) -c $(INCLUDE) $(SRC)log.c $(SRC)utils.c
+
+log:
+	$(CC) $(CFLAGS) -c $(INCLUDE) $(SRC)log.c
+
+bmp:
+	$(CC) $(CFLAGS) -c $(INCLUDE) $(SRC)log.c $(SRC)utils.c $(SRC)bmp.c
+
 test:
 	$(CC) $(CFLAGS) $(INCLUDE) $(SRC)utils.c $(SRC)test.c -o color
 
