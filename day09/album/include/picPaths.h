@@ -40,6 +40,11 @@ const char *pb = "/mnt/udisk/ProjectAlbum/anime/tiger.bmp";
  */
 const char *bg = "/mnt/udisk/ProjectAlbum/album/bg.bmp";
 /**
+ * @brief 首页 图片
+ * 
+ */
+const char *home = "/mnt/udisk/ProjectAlbum/home.bmp";
+/**
  * @brief 开机动画 数组
  * 
  */

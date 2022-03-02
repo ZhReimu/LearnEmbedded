@@ -21,13 +21,31 @@ Rect btPause;
  * 
  */
 Rect btHome;
-
+/**
+ * @brief 精选 图片 1
+ * 
+ */
+Rect nPic1;
+/**
+ * @brief 精选 图片 2
+ * 
+ */
+Rect nPic2;
 /**
  * @brief 是否正在播放 标志位
  * 
  */
 static char isPlaying = 0;
+/**
+ * @brief 是否能点击
+ * 
+ */
 static char canTap = 1;
+/**
+ * @brief 是否在首页
+ * 
+ */
+static bool isInHome = false;
 /**
  * @brief 自动播放线程函数
  * 
@@ -128,9 +146,32 @@ void albumHandler(int x, int y)
     }
     else if (inArea2(btHome, x, y))
     {
-        isPlaying = 0;
-        showBMPOO(bg);
-        debug("Back Album Home", INFO);
+        if (isInHome)
+        {
+            isInHome = false;
+            showBMPOO(home);
+            debug("Back To Home", INFO);
+        }
+        else
+        {
+            isPlaying = 0;
+            isInHome = true;
+            showBMPOO(bg);
+            debug("Back To Album Home", INFO);
+        }
+    }
+    else if (isInHome)
+    {
+        if (inArea2(nPic1, x, y))
+        {
+            showBMPOO(pics[0]);
+            isInHome = false;
+        }
+        else if (inArea2(nPic2, x, y))
+        {
+            showBMPOO(pics[1]);
+            isInHome = false;
+        }
     }
     else
     {
@@ -185,6 +226,17 @@ void initAlbum()
     btHome.endX = 1024;
     btHome.endY = 614;
 
-    playVideo();
-    showBMPOO(pics[0]);
+    nPic1.startX = 102;
+    nPic1.startY = 128;
+    nPic1.endX = 358;
+    nPic1.endY = 281;
+
+    nPic2.startX = 256;
+    nPic2.startY = 307;
+    nPic2.endX = 512;
+    nPic2.endY = 460;
+    // TODO 恢复播放 视频
+    // playVideo();
+    isInHome = true;
+    showBMPOO(bg);
 }
