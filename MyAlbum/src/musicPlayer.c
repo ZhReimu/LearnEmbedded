@@ -9,37 +9,37 @@
  * @brief 首页 按钮区域
  * 
  */
-Rect btHome;
+static Rect btHome;
 /**
  * @brief 相册 按钮区域
  * 
  */
-Rect btAlbum;
+static Rect btAlbum;
 /**
  * @brief 视频播放器 按钮区域
  * 
  */
-Rect btVideoPlayer;
+static Rect btVideoPlayer;
 /**
  * @brief 停止播放 按钮区域
  * 
  */
-Rect btStop;
+static Rect btStop;
 /**
  * @brief 第一首歌 按钮区域
  * 
  */
-Rect btMusic1;
+static Rect btMusic1;
 /**
  * @brief 第二首歌 按钮区域
  * 
  */
-Rect btMusic2;
+static Rect btMusic2;
 /**
  * @brief 第三首歌 按钮区域
  * 
  */
-Rect btMusic3;
+static Rect btMusic3;
 /**
  * @brief 命令前缀
  * 
@@ -193,10 +193,11 @@ void musicPlayerHandler(int x, int y)
         showCurrentModule("MusicPlayer");
         return;
     }
-    debug2D("AudioPlayer Handler %d, %d", x, y, INFO);
+    debug2D("MusicPlayer Handler %d, %d", x, y, INFO);
     int musicID = 0;
     if (inArea2(btHome, x, y))
     {
+        debug("Hit btHome", INFO);
         onDestroyed();
         showHome();
         debug("Back Home", INFO);
@@ -215,6 +216,7 @@ void musicPlayerHandler(int x, int y)
     }
     else if (inArea2(btStop, x, y))
     {
+        debug("Hit BtStop", INFO);
         if (playStatus == PLAYING)
         {
             doStopMusic();

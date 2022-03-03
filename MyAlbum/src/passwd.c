@@ -217,10 +217,9 @@ void passwdHandler(int x, int y)
     if (CURRENT_MODULE != PASSWORD)
     {
         showCurrentModule("Password");
-        onDestroyed();
         return;
     }
-    debug2D("Passwd Handler %d, %d", x, y, INFO);
+    debug2D("Passwd Handler %d, %d", x, y, DEBUG);
     for (int i = 0; i < 10; i++)
     {
         if (inArea2(btNums[i], x, y))
@@ -229,6 +228,7 @@ void passwdHandler(int x, int y)
             return;
         }
     }
+
     if (inArea2(btAccount, x, y))
     {
         INPUT_STATUS = ACCOUNT;
@@ -282,6 +282,7 @@ void passwdHandler(int x, int y)
         debug(pwd, INFO);
         if (stringCmp(pwd, temp))
         {
+            onDestroyed();
             showHome();
             debug("Pass", INFO);
         }

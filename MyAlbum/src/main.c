@@ -19,6 +19,7 @@ int CURRENT_MODULE = PASSWORD;
  */
 void onClick(int x, int y)
 {
+    debug2D("Main Handler %d, %d", x, y, INFO);
     passwdHandler(x, y);
     homeHandler(x, y);
     videoPlayerHandler(x, y);

@@ -8,37 +8,37 @@
  * @brief 相册 缩略图 按钮
  * 
  */
-Rect btThumAlbum;
+static Rect btThumAlbum;
 /**
  * @brief 相册 按钮
  * 
  */
-Rect btAlbum;
+static Rect btAlbum;
 /**
  * @brief 视频播放器 缩略图 按钮
  * 
  */
-Rect btThumVideoPlayer;
+static Rect btThumVideoPlayer;
 /**
  * @brief 视频播放器 按钮
  * 
  */
-Rect btVideoPlayer;
+static Rect btVideoPlayer;
 /**
  * @brief 音乐播放器 缩略图 按钮
  * 
  */
-Rect btThumMusicPlayer;
+static Rect btThumMusicPlayer;
 /**
  * @brief 音乐播放器 按钮
  * 
  */
-Rect btMusicPlayer;
+static Rect btMusicPlayer;
 /**
  * @brief 锁屏 按钮
  * 
  */
-Rect btLockScreen;
+static Rect btLockScreen;
 /**
  * @brief 项目全局变量, 当前模块
  * 
