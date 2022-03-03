@@ -34,7 +34,7 @@ void onClick(int x, int y)
  */
 int main()
 {
-    // TODO 还原开机动画 playVideo();
+    playVideo();
     initPasswd();
     initHome();
     initVideoPlayer();
