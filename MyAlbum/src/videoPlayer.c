@@ -7,32 +7,32 @@
  * @brief 暂停, 继续 按钮
  * 
  */
-Rect btPlayAndPause;
+static Rect btPlayAndPause;
 /**
  * @brief 快进 按钮
  * 
  */
-Rect btFastForward;
+static Rect btFastForward;
 /**
  * @brief 快退 按钮
  * 
  */
-Rect btBack;
+static Rect btBack;
 /**
  * @brief 首页 按钮
  * 
  */
-Rect btHome;
+static Rect btHome;
 /**
  * @brief 上一个视频 按钮
  * 
  */
-Rect btPrevVideo;
+static Rect btPrevVideo;
 /**
  * @brief 下一个视频 按钮
  * 
  */
-Rect btNextVideo;
+static Rect btNextVideo;
 /**
  * @brief 播放状态 枚举
  * 

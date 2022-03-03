@@ -5,32 +5,32 @@
  * @brief 上一页 按钮区域
  * 
  */
-Rect btPrev;
+static Rect btPrev;
 /**
  * @brief 下一页 按钮区域
  * 
  */
-Rect btNext;
+static Rect btNext;
 /**
  * @brief 暂停播放 按钮区域
  * 
  */
-Rect btPause;
+static Rect btPause;
 /**
  * @brief 返回首页 按钮区域
  * 
  */
-Rect btHome;
+static Rect btHome;
 /**
  * @brief 精选 图片 1
  * 
  */
-Rect nPic1;
+static Rect nPic1;
 /**
  * @brief 精选 图片 2
  * 
  */
-Rect nPic2;
+static Rect nPic2;
 /**
  * @brief 是否正在播放 标志位
  * 

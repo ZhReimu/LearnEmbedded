@@ -3,42 +3,42 @@
 #include <global.h>
 #include <home.h>
 
-Rect btNums[10];
+static Rect btNums[10];
 /**
  * @brief 退格 按钮区域
  * 
  */
-Rect btDel;
+static Rect btDel;
 /**
  * @brief 显示密码 按钮区域
  * 
  */
-Rect btShowAndHide;
+static Rect btShowAndHide;
 /**
  * @brief 账号输入 按钮区域
  * 
  */
-Rect btAccount;
+static Rect btAccount;
 /**
  * @brief 密码输入 按钮区域
  * 
  */
-Rect btPasswd;
+static Rect btPasswd;
 /**
  * @brief 登录 按钮区域
  * 
  */
-Rect btLogin;
+static Rect btLogin;
 /**
  * @brief 账号输入框矩形 数组
  * 
  */
-Rect edAccount[4];
+static Rect edAccount[4];
 /**
  * @brief 密码输入框矩形 数组
  * 
  */
-Rect edPassword[4];
+static Rect edPassword[4];
 
 /**
  * @brief 读取到的 密码内容
