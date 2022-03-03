@@ -1,11 +1,14 @@
 #include <beep.h>
 #include <log.h>
-
+/**
+ * @brief 蜂鸣器 驱动文件描述符
+ * 
+ */
 static int fd;
-static int ret;
-
-static int isBeeping = 0;
-
+/**
+ * @brief 初始化 蜂鸣器
+ * 
+ */
 void initBeep()
 {
 	//1.打开蜂鸣器驱动
@@ -16,15 +19,21 @@ void initBeep()
 		exit(-1);
 	}
 }
-
+/**
+ * @brief 销毁 蜂鸣器
+ * 
+ */
 void destroyBeep()
 {
 	close(fd);
 }
-
+/**
+ * @brief 停止 蜂鸣器
+ * 
+ */
 void beepStop()
 {
-	ret = ioctl(fd, 1, 1);
+	int ret = ioctl(fd, 1, 1);
 	if (ret < 0)
 	{
 		debug("ioctl failed", ERROR);
@@ -32,10 +41,14 @@ void beepStop()
 	}
 	debug("Beep Off", INFO);
 }
-
+/**
+ * @brief 启动蜂鸣器
+ * 
+ * @param delay 延时 delay 秒后 关闭蜂鸣器
+ */
 void beepStart(int delay)
 {
-	ret = ioctl(fd, 0, 1);
+	int ret = ioctl(fd, 0, 1);
 	if (ret < 0)
 	{
 		debug("ioctl failed", ERROR);
