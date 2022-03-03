@@ -99,6 +99,17 @@ void startAutoPlayThread(int *i)
     }
     debug("AutoPlay Thread Started Successful", DEBUG);
 }
+
+/**
+ * @brief 销毁界面时调用
+ * 
+ */
+void onDestroyed()
+{
+    isPlaying = 0;
+    canTap = 1;
+    isInHome = false;
+}
 /**
  * @brief 相册 逻辑入口
  * 
@@ -164,7 +175,7 @@ bool albumHandler(int x, int y)
     {
         if (isInHome)
         {
-            isInHome = false;
+            onDestroyed();
             showHome();
             debug("Back To Home", INFO);
         }
@@ -262,5 +273,6 @@ void showAlbum()
 {
     debug("Show Album", INFO);
     CURRENT_MODULE = ALBUM;
+    isInHome = true;
     showBMPOO(albumBG);
 }
