@@ -407,7 +407,7 @@ static const char *videos[] = {
  * @brief 密码文件 路径
  * 
  */
-static char *pwdFile = "/mnt/udisk/passwd";
+static char *pwdFile = "/mnt/udisk/ProjectAlbum/passwd";
 /**
  * @brief 锁屏界面差分图
  * 
