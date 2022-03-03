@@ -408,10 +408,18 @@ static const char *videos[] = {
  * 
  */
 static char *pwdFile = "/mnt/udisk/passwd";
+/**
+ * @brief 锁屏界面差分图
+ * 
+ */
 static char *closeBG[] = {
     "/mnt/udisk/ProjectAlbum/lock/accClose.bmp",
     "/mnt/udisk/ProjectAlbum/lock/pwdClose.bmp",
 };
+/**
+ * @brief 锁屏界面差分图
+ * 
+ */
 static char *openBG[] = {
     "/mnt/udisk/ProjectAlbum/lock/accOpen.bmp",
     "/mnt/udisk/ProjectAlbum/lock/pwdOpen.bmp",

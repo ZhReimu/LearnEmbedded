@@ -39,7 +39,10 @@ Rect btMusicPlayer;
  * 
  */
 Rect btLockScreen;
-
+/**
+ * @brief 项目全局变量, 当前模块
+ * 
+ */
 extern int CURRENT_MODULE;
 /**
  * @brief Home 模块 逻辑入口
@@ -94,7 +97,7 @@ void homeHandler(int x, int y)
     }
     else
     {
-        debug("Not Hit", INFO);
+        debug("Home Handler Not Hit", INFO);
     }
 }
 

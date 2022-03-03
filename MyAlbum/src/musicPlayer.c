@@ -1,6 +1,9 @@
 #include <musicPlayer.h>
 #include <picPaths.h>
 #include <global.h>
+#include <home.h>
+#include <album.h>
+#include <videoPlayer.h>
 
 /**
  * @brief 首页 按钮区域
@@ -91,6 +94,11 @@ static int playStatus = STOPPED;
  */
 static int playingMusic = 0;
 /**
+ * @brief 项目全局变量, 当前模块
+ * 
+ */
+extern int CURRENT_MODULE;
+/**
  * @brief 获取 命令 字符串
  * 
  * @param dst 结果数组
@@ -160,7 +168,17 @@ void doMusicHome()
 {
     playStatus = STOPPED;
     system("killall -kill mplayer");
-    debug("Home", INFO);
+    debug("Back Music Home", INFO);
+    showBMPOO(muusicPlayerBG);
+}
+/**
+ * @brief 销毁界面时调用
+ * 
+ */
+static void onDestroyed()
+{
+    playingMusic = 0;
+    doMusicHome();
 }
 /**
  * @brief 音乐播放器 逻辑入口
@@ -179,14 +197,20 @@ void musicPlayerHandler(int x, int y)
     int musicID = 0;
     if (inArea2(btHome, x, y))
     {
+        onDestroyed();
+        showHome();
         debug("Back Home", INFO);
     }
     else if (inArea2(btAlbum, x, y))
     {
+        onDestroyed();
+        showAlbum();
         debug("GO Album", INFO);
     }
     else if (inArea2(btVideoPlayer, x, y))
     {
+        onDestroyed();
+        showVideoPlayer();
         debug("GO VideoPlayer", INFO);
     }
     else if (inArea2(btStop, x, y))
@@ -259,7 +283,7 @@ void musicPlayerHandler(int x, int y)
     // 如果未 点击有效区域
     else
     {
-        debug("Not Hit", INFO);
+        debug("MusicPlayer Handler Not Hit", INFO);
     }
 }
 /**

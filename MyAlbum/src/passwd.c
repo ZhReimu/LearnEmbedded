@@ -109,9 +109,16 @@ static int account[4] = {0};
  * 
  */
 static int passwd[4] = {0};
-
+/**
+ * @brief 项目全局变量, 当前模块
+ * 
+ */
 extern int CURRENT_MODULE;
-void init()
+/**
+ * @brief 销毁界面时调用
+ * 
+ */
+static void onDestroyed()
 {
     INPUT_STATUS = ACCOUNT;
     PASSWD_STATUS = HIDE;
@@ -210,7 +217,7 @@ void passwdHandler(int x, int y)
     if (CURRENT_MODULE != PASSWORD)
     {
         showCurrentModule("Password");
-        init();
+        onDestroyed();
         return;
     }
     debug2D("Passwd Handler %d, %d", x, y, INFO);
@@ -286,7 +293,7 @@ void passwdHandler(int x, int y)
     }
     else
     {
-        debug("Not Hit", INFO);
+        debug("Password Handler Not Hit", INFO);
     }
 }
 /**

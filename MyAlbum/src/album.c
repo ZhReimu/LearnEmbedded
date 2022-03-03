@@ -42,11 +42,14 @@ static char isPlaying = 0;
  */
 static char canTap = 1;
 /**
- * @brief 是否在首页
+ * @brief 是否在相册首页
  * 
  */
 static bool isInHome = false;
-
+/**
+ * @brief 项目全局变量, 当前模块
+ * 
+ */
 extern int CURRENT_MODULE;
 /**
  * @brief 自动播放线程函数
@@ -188,7 +191,7 @@ void albumHandler(int x, int y)
     }
     else
     {
-        debug("Not Hit", INFO);
+        debug("Album Handler Not Hit", INFO);
     }
 }
 

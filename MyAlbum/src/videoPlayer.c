@@ -55,6 +55,10 @@ enum STATUS
      */
     STOPPED,
 };
+/**
+ * @brief 是否在 视频播放器首页
+ * 
+ */
 static bool isInVideoHome = true;
 /**
  * @brief 命令前缀
@@ -77,6 +81,11 @@ void doVideoHome();
  * 
  */
 static int playStatus = STOPPED;
+/**
+ * @brief 项目全局变量, 当前模块
+ * 
+ */
+extern int CURRENT_MODULE;
 /**
  * @brief 获取 命令 字符串
  * 
@@ -180,7 +189,7 @@ void doNextVideo(int idx)
  * @brief 退出界面时调用
  * 
  */
-void onDestroyed()
+static void onDestroyed()
 {
     isInVideoHome = true;
     playStatus = STOPPED;
@@ -270,6 +279,12 @@ void videoPlayerHandler(int x, int y)
         {
             doVideoHome();
         }
+        // 否则就说明, 当前是在 视频播放器首页
+        else
+        {
+            onDestroyed();
+            showHome();
+        }
     }
     else if (inArea2(btPrevVideo, x, y))
     {
@@ -290,7 +305,7 @@ void videoPlayerHandler(int x, int y)
     // 如果未 点击有效区域
     else
     {
-        debug("Not Hit", INFO);
+        debug("VideoPlayer Handler Not Hit", INFO);
     }
 }
 /**
