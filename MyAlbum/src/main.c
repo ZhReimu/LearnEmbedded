@@ -4,6 +4,7 @@
 #include <videoPlayer.h>
 #include <musicPlayer.h>
 #include <global.h>
+#include <beep.h>
 
 /**
  * @brief 项目全局变量, 当前模块
@@ -35,6 +36,7 @@ int main()
     initVideoPlayer();
     initMusicPlayer();
     initAlbum();
+    initBeep();
 
     showLockScreen();
     startTouchThread(onClick);

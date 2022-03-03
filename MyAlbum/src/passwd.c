@@ -2,6 +2,7 @@
 #include <picPaths.h>
 #include <global.h>
 #include <home.h>
+#include <beep.h>
 
 static Rect btNums[10];
 /**
@@ -176,6 +177,7 @@ void changeArr(int num)
     {
         if (accountIdx == 4)
         {
+            beepStart(100000);
             return;
         }
         account[accountIdx++] = num;
@@ -184,6 +186,7 @@ void changeArr(int num)
     {
         if (passwdIdx == 4)
         {
+            beepStart(100000);
             return;
         }
         passwd[passwdIdx++] = num;
