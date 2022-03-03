@@ -185,6 +185,8 @@ static void onDestroyed()
  * 
  * @param x 点击的 x 坐标
  * @param y 点击的 y 坐标
+ * @return true 事件已被消费
+ * @return false 事件未被消费
  */
 bool musicPlayerHandler(int x, int y)
 {
