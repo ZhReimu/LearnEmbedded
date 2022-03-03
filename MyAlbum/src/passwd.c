@@ -291,6 +291,7 @@ void passwdHandler(int x, int y)
         }
         else
         {
+            beepStart(1500000);
             debug("Error", INFO);
         }
         debug("Hit Yes", INFO);
