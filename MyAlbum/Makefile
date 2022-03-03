@@ -34,6 +34,9 @@ log:
 bmp:
 	$(CC) $(CFLAGS) -c $(INCLUDE) $(SRC)log.c $(SRC)utils.c $(SRC)bmp.c
 
+beep:
+	$(CC) $(CFLAGS) -c $(INCLUDE) $(SRC)log.c $(SRC)beep.c
+
 test:
 	$(CC) $(CFLAGS) $(INCLUDE) $(SRC)utils.c $(SRC)test.c -o color
 
