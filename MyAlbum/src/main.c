@@ -11,7 +11,11 @@
  * 
  */
 int CURRENT_MODULE = PASSWORD;
-
+/**
+ * @brief 版本号
+ * 
+ */
+static const char *VERSION = "1.1";
 /**
  * @brief 点击事件, 屏幕被点击时触发
  * 
@@ -46,6 +50,7 @@ void onClick(int x, int y)
  */
 int main()
 {
+    debugS("WHERE TO MY ALBUM V %s", VERSION, WARN);
     playVideo();
     initPasswd();
     initHome();

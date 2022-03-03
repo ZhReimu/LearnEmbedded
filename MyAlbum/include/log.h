@@ -6,7 +6,7 @@
  * @brief 当前日志等级
  * 
  */
-#define LOG_LEVEL INFO
+#define LOG_LEVEL WARN
 /**
  * @brief 日志等级枚举
  * 
