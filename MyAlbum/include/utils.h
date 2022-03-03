@@ -1,5 +1,5 @@
-#ifndef _MYHEADER_H_
-#define _MYHEADER_H_
+#ifndef _UTILS_H
+#define _UTILS_H
 
 #include <time.h>
 #include <stdio.h>
@@ -186,8 +186,10 @@ int radColor();
 void getXY(int *x, int *y, void (*onClick)(int x, int y));
 /**
  * @brief 启动点击事件线程
-*/
-void startTouchThread();
+ * 
+ * @param onClick 回调函数, 参数为 当前屏幕点击的坐标
+ */
+void startTouchThread(void (*onClick)(int x, int y));
 /**
  * @brief 判断点击位置是否在指定矩形范围内
  * 

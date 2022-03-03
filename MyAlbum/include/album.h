@@ -1,5 +1,5 @@
-#ifndef _BMPHEAD_H_
-#define _BMPHEAD_H_
+#ifndef _ALBUM_H_
+#define _ALBUM_H_
 
 #include <log.h>
 #include <bmp.h>

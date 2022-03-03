@@ -258,8 +258,7 @@ void *thread(void *arg)
 /**
  * @brief 启动点击事件线程
  * 
- * @param x 点击的 x 坐标
- * @param y 点击的 y 坐标
+ * @param onClick 回调函数, 参数为 当前屏幕点击的坐标
  */
 void startTouchThread(void (*onClick)(int x, int y))
 {
