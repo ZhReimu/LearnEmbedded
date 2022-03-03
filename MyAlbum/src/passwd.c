@@ -109,6 +109,15 @@ static int account[4] = {0};
  * 
  */
 static int passwd[4] = {0};
+
+extern int CURRENT_MODULE;
+void init()
+{
+    INPUT_STATUS = ACCOUNT;
+    PASSWD_STATUS = HIDE;
+    accountIdx = 0;
+    passwdIdx = 0;
+}
 /**
  * @brief 数字上屏
  * 
@@ -200,6 +209,8 @@ void passwdHandler(int x, int y)
 {
     if (CURRENT_MODULE != PASSWORD)
     {
+        showCurrentModule("Password");
+        init();
         return;
     }
     debug2D("Passwd Handler %d, %d", x, y, INFO);
@@ -417,6 +428,7 @@ void initPasswd()
  */
 void showLockScreen()
 {
+    debug("Show LockScreen", INFO);
     CURRENT_MODULE = PASSWORD;
     showBMPOO(closeBG[INPUT_STATUS]);
 }

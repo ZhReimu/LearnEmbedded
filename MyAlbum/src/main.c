@@ -3,6 +3,13 @@
 #include <home.h>
 #include <videoPlayer.h>
 #include <musicPlayer.h>
+#include <global.h>
+
+/**
+ * @brief 项目全局变量, 当前模块
+ * 
+ */
+int CURRENT_MODULE = PASSWORD;
 
 /**
  * @brief 点击事件, 屏幕被点击时触发
@@ -12,22 +19,11 @@
  */
 void onClick(int x, int y)
 {
-    debug("OnClick In Main Before Password Handler", INFO);
     passwdHandler(x, y);
-
-    debug("OnClick In Main After Password Handler", INFO);
     homeHandler(x, y);
-
-    debug("OnClick In Main After Home Handler", INFO);
     videoPlayerHandler(x, y);
-
-    debug("OnClick In Main After VideoPlayer Handler", INFO);
     musicPlayerHandler(x, y);
-
-    debug("OnClick In Main After MusicPlayer Handler", INFO);
     albumHandler(x, y);
-
-    debug("OnClick In Main After Album Handler", INFO);
 }
 
 int main()

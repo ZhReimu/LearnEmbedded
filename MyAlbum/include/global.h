@@ -1,6 +1,6 @@
 #ifndef _GLOBAL_H
 #define _GLOBAL_H
-
+#include <log.h>
 /**
  * @brief 模块 枚举
  * 
@@ -33,10 +33,27 @@ enum MODULE
      */
     MPLAYER
 };
-/**
- * @brief 项目全局变量, 当前模块
- * 
- */
-static int CURRENT_MODULE = PASSWORD;
+extern int CURRENT_MODULE;
 
+static void showCurrentModule(const char *from)
+{
+    switch (CURRENT_MODULE)
+    {
+    case PASSWORD:
+        debugS("%s : 现在是 密码", from, DEBUG);
+        break;
+    case HOME:
+        debugS("%s : 现在是 主页", from, DEBUG);
+        break;
+    case ALBUM:
+        debugS("%s : 现在是 相册", from, DEBUG);
+        break;
+    case VPLAYER:
+        debugS("%s : 现在是 视频播放器", from, DEBUG);
+        break;
+    case MPLAYER:
+        debugS("%s : 现在是 音乐播放器", from, DEBUG);
+        break;
+    }
+}
 #endif

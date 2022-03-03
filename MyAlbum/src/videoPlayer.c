@@ -1,6 +1,7 @@
 #include <videoPlayer.h>
 #include <picPaths.h>
 #include <global.h>
+#include <home.h>
 
 /**
  * @brief 暂停, 继续 按钮
@@ -54,6 +55,7 @@ enum STATUS
      */
     STOPPED,
 };
+static bool isInVideoHome = true;
 /**
  * @brief 命令前缀
  * 
@@ -92,6 +94,7 @@ void getVideoCmd(char *dst, int idx)
  */
 void doPrevVideo(int idx)
 {
+    isInVideoHome = false;
     // 只有 正在播放其它视频 或 暂停播放 时, 才需要 先回到首页, 再 播放视频
     if (playStatus == PLAYING || playStatus == PAUSED)
     {
@@ -115,6 +118,7 @@ void doFB()
  */
 void doPlayVideo(int idx)
 {
+    isInVideoHome = false;
     playStatus = PLAYING;
     debug("Start Play", INFO);
     showBMPOO(videoPlayerStaringUI);
@@ -130,6 +134,7 @@ void doPlayVideo(int idx)
  */
 void doStopVideo()
 {
+    isInVideoHome = false;
     playStatus = PAUSED;
     debug("Paused", INFO);
     showBMPOO(videoPlayerStoppingUI);
@@ -141,6 +146,7 @@ void doStopVideo()
  */
 void doResume()
 {
+    isInVideoHome = false;
     playStatus = PLAYING;
     debug("Resume", INFO);
     showBMPOO(videoPlayerStaringUI);
@@ -162,12 +168,22 @@ void doFF()
  */
 void doNextVideo(int idx)
 {
+    isInVideoHome = false;
     // 只有 正在播放其它视频 或 暂停播放 时, 才需要 先回到首页, 再 播放视频
     if (playStatus == PLAYING || playStatus == PAUSED)
     {
         doVideoHome();
     }
     doPlayVideo(idx);
+}
+/**
+ * @brief 退出界面时调用
+ * 
+ */
+void onDestroyed()
+{
+    isInVideoHome = true;
+    playStatus = STOPPED;
 }
 /**
  * @brief 返回首页
@@ -177,6 +193,19 @@ void doVideoHome()
 {
     playStatus = STOPPED;
     system("killall -kill mplayer");
+    // 如果已经在 视频播放器首页了
+    if (isInVideoHome)
+    {
+        // 那就销毁界面, 其实是重新初始化变量
+        onDestroyed();
+        // 显示 首页
+        showHome();
+    }
+    // 否则就返回 视频播放器首页
+    else
+    {
+        isInVideoHome = true;
+    }
     showBMPOO(videoPlayerStoppingUI);
     debug("Home", INFO);
     usleep(500000);
@@ -191,6 +220,7 @@ void videoPlayerHandler(int x, int y)
 {
     if (CURRENT_MODULE != VPLAYER)
     {
+        showCurrentModule("VideoPlayer");
         return;
     }
     debug2D("VideoPlayer Handler %d, %d", x, y, INFO);
@@ -309,6 +339,7 @@ void initVideoPlayer()
  */
 void showVideoPlayer()
 {
+    debug("Show VideoPlayer", INFO);
     CURRENT_MODULE = VPLAYER;
     showBMPOO(videoPlayerStoppingUI);
 }

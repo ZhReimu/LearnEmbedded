@@ -172,6 +172,7 @@ void musicPlayerHandler(int x, int y)
 {
     if (CURRENT_MODULE != MPLAYER)
     {
+        showCurrentModule("MusicPlayer");
         return;
     }
     debug2D("AudioPlayer Handler %d, %d", x, y, INFO);
@@ -309,6 +310,7 @@ void initMusicPlayer()
  */
 void showMusicPlayer()
 {
+    debug("Show MusicPlayer", INFO);
     CURRENT_MODULE = MPLAYER;
     showBMPOO(muusicPlayerBG);
 }

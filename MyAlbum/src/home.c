@@ -40,6 +40,7 @@ Rect btMusicPlayer;
  */
 Rect btLockScreen;
 
+extern int CURRENT_MODULE;
 /**
  * @brief Home 模块 逻辑入口
  * 
@@ -51,6 +52,7 @@ void homeHandler(int x, int y)
     // 如果 当前展示的模块不是 HOME, 那就不管
     if (CURRENT_MODULE != HOME)
     {
+        showCurrentModule("Home");
         return;
     }
     debug2D("Home Handler %d, %d", x, y, INFO);
@@ -144,6 +146,7 @@ void initHome()
  */
 void showHome()
 {
+    debug("Show Home", INFO);
     CURRENT_MODULE = HOME;
     showBMPOO(home);
 }

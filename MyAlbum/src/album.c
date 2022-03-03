@@ -1,4 +1,5 @@
 #include <album.h>
+#include <home.h>
 
 /**
  * @brief 上一页 按钮区域
@@ -45,6 +46,8 @@ static char canTap = 1;
  * 
  */
 static bool isInHome = false;
+
+extern int CURRENT_MODULE;
 /**
  * @brief 自动播放线程函数
  * 
@@ -103,6 +106,7 @@ void albumHandler(int x, int y)
 {
     if (CURRENT_MODULE != ALBUM)
     {
+        showCurrentModule("Album");
         return;
     }
     debug2D("Album Handler %d, %d", x, y, INFO);
@@ -158,7 +162,7 @@ void albumHandler(int x, int y)
         if (isInHome)
         {
             isInHome = false;
-            showBMPOO(home);
+            showHome();
             debug("Back To Home", INFO);
         }
         else
@@ -252,6 +256,7 @@ void initAlbum()
  */
 void showAlbum()
 {
+    debug("Show Album", INFO);
     CURRENT_MODULE = ALBUM;
     showBMPOO(albumBG);
 }
