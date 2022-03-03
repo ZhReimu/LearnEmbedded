@@ -27,7 +27,11 @@ void onClick(int x, int y)
     musicPlayerHandler(x, y);
     albumHandler(x, y);
 }
-
+/**
+ * @brief 项目入口
+ * 
+ * @return int 
+ */
 int main()
 {
     // TODO 还原开机动画 playVideo();
