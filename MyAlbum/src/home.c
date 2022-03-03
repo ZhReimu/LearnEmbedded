@@ -50,13 +50,13 @@ extern int CURRENT_MODULE;
  * @param x 点击的坐标的 x
  * @param y 点击的坐标的 y
  */
-void homeHandler(int x, int y)
+bool homeHandler(int x, int y)
 {
     // 如果 当前展示的模块不是 HOME, 那就不管
     if (CURRENT_MODULE != HOME)
     {
         showCurrentModule("Home");
-        return;
+        return false;
     }
     debug2D("Home Handler %d, %d", x, y, INFO);
     // 如果 点击了 缩略图的 相册 按钮
@@ -99,6 +99,7 @@ void homeHandler(int x, int y)
     {
         debug("Home Handler Not Hit", INFO);
     }
+    return true;
 }
 
 /**

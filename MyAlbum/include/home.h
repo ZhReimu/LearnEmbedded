@@ -22,6 +22,7 @@ void showHome();
  * 
  * @param x 点击的坐标的 x
  * @param y 点击的坐标的 y
+ * @return int 返回 
  */
-void homeHandler(int x, int y);
+bool homeHandler(int x, int y);
 #endif

@@ -186,12 +186,12 @@ static void onDestroyed()
  * @param x 点击的 x 坐标
  * @param y 点击的 y 坐标
  */
-void musicPlayerHandler(int x, int y)
+bool musicPlayerHandler(int x, int y)
 {
     if (CURRENT_MODULE != MPLAYER)
     {
         showCurrentModule("MusicPlayer");
-        return;
+        return false;
     }
     debug2D("MusicPlayer Handler %d, %d", x, y, INFO);
     int musicID = 0;
@@ -287,6 +287,7 @@ void musicPlayerHandler(int x, int y)
     {
         debug("MusicPlayer Handler Not Hit", INFO);
     }
+    return true;
 }
 /**
  * @brief 初始化 点击区域

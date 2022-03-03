@@ -215,12 +215,12 @@ void ia2ca(const int iArr[], char cArr[], int length)
  * @param x 点击的 x 坐标
  * @param y 点击的 y 坐标
  */
-void passwdHandler(int x, int y)
+bool passwdHandler(int x, int y)
 {
     if (CURRENT_MODULE != PASSWORD)
     {
         showCurrentModule("Password");
-        return;
+        return false;
     }
     debug2D("Passwd Handler %d, %d", x, y, DEBUG);
     for (int i = 0; i < 10; i++)
@@ -228,7 +228,7 @@ void passwdHandler(int x, int y)
         if (inArea2(btNums[i], x, y))
         {
             changeArr(i);
-            return;
+            return true;
         }
     }
 
@@ -300,6 +300,7 @@ void passwdHandler(int x, int y)
     {
         debug("Password Handler Not Hit", INFO);
     }
+    return true;
 }
 /**
  * @brief 初始化 点击区域

@@ -105,12 +105,12 @@ void startAutoPlayThread(int *i)
  * @param x 点击的坐标的 x
  * @param y 点击的坐标的 y
  */
-void albumHandler(int x, int y)
+bool albumHandler(int x, int y)
 {
     if (CURRENT_MODULE != ALBUM)
     {
         showCurrentModule("Album");
-        return;
+        return false;
     }
     debug2D("Album Handler %d, %d", x, y, INFO);
     static int i = 0;
@@ -150,7 +150,7 @@ void albumHandler(int x, int y)
             {
                 debug("Filtered", INFO);
             }
-            return;
+            return true;
         }
         // 如果正在自动播放, 那就暂停播放
         else if (isPlaying)
@@ -193,6 +193,7 @@ void albumHandler(int x, int y)
     {
         debug("Album Handler Not Hit", INFO);
     }
+    return true;
 }
 
 /**

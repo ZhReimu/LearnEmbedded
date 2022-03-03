@@ -28,5 +28,5 @@ void showAlbum();
  * @param x 点击的坐标的 x
  * @param y 点击的坐标的 y
  */
-void albumHandler(int x, int y);
+bool albumHandler(int x, int y);
 #endif

@@ -225,12 +225,12 @@ void doVideoHome()
  * @param x 点击的 x 坐标
  * @param y 点击的 y 坐标
  */
-void videoPlayerHandler(int x, int y)
+bool videoPlayerHandler(int x, int y)
 {
     if (CURRENT_MODULE != VPLAYER)
     {
         showCurrentModule("VideoPlayer");
-        return;
+        return false;
     }
     debug2D("VideoPlayer Handler %d, %d", x, y, INFO);
     static int idx = 0;
@@ -307,6 +307,7 @@ void videoPlayerHandler(int x, int y)
     {
         debug("VideoPlayer Handler Not Hit", INFO);
     }
+    return true;
 }
 /**
  * @brief 初始化 点击区域
