@@ -219,7 +219,7 @@ bool musicPlayerHandler(int x, int y)
     else if (inArea2(btStop, x, y))
     {
         debug("Hit BtStop", INFO);
-        if (playStatus == PLAYING)
+        if (playStatus == PLAYING || playStatus == PAUSED)
         {
             doStopMusic();
             debug("Stop Play", INFO);
