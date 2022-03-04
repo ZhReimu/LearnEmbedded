@@ -255,12 +255,20 @@ bool passwdHandler(int x, int y)
             {
                 accountIdx--;
             }
+            else
+            {
+                beepStart(100000);
+            }
         }
         else
         {
             if (passwdIdx > 0)
             {
                 passwdIdx--;
+            }
+            else
+            {
+                beepStart(100000);
             }
         }
         debug("Hit Del", INFO);
