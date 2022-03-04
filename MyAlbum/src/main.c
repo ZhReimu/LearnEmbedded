@@ -15,7 +15,7 @@ int CURRENT_MODULE = PASSWORD;
  * @brief 版本号
  * 
  */
-static const char *VERSION = "1.1";
+static const char *VERSION = "1.2";
 /**
  * @brief 点击事件, 屏幕被点击时触发
  * 
