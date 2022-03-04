@@ -2,28 +2,29 @@ CC = arm-linux-gcc
 CFLAGS = -s -O2 -lpthread
 INCLUDE = -I./include
 SRC = ./src/
+MODULE = $(SRC)module/
 
 all: 
 	$(CC) $(CFLAGS) $(INCLUDE) \
 	$(SRC)log.c $(SRC)utils.c $(SRC)bmp.c \
-	$(SRC)album.c $(SRC)passwd.c $(SRC)home.c \
-	$(SRC)videoPlayer.c $(SRC)musicPlayer.c $(SRC)beep.c \
+	$(MODULE)album.c $(MODULE)passwd.c $(MODULE)home.c \
+	$(MODULE)videoPlayer.c $(MODULE)musicPlayer.c $(SRC)beep.c \
 	$(SRC)main.c -o color
 
 album:
-	$(CC) $(CFLAGS) -c $(INCLUDE) $(SRC)log.c $(SRC)utils.c $(SRC)bmp.c $(SRC)album.c
+	$(CC) $(CFLAGS) -c $(INCLUDE) $(SRC)log.c $(SRC)utils.c $(SRC)bmp.c $(MODULE)album.c
 
 home:
-	$(CC) $(CFLAGS) -c $(INCLUDE) $(SRC)log.c $(SRC)utils.c $(SRC)bmp.c $(SRC)home.c
+	$(CC) $(CFLAGS) -c $(INCLUDE) $(SRC)log.c $(SRC)utils.c $(SRC)bmp.c $(MODULE)home.c
 
 music:
-	$(CC) $(CFLAGS) -c $(INCLUDE) $(SRC)log.c $(SRC)utils.c $(SRC)bmp.c $(SRC)musicPlayer.c
+	$(CC) $(CFLAGS) -c $(INCLUDE) $(SRC)log.c $(SRC)utils.c $(SRC)bmp.c $(MODULE)musicPlayer.c
 
 passwd:
-	$(CC) $(CFLAGS) -c $(INCLUDE) $(SRC)log.c $(SRC)utils.c $(SRC)bmp.c $(SRC)passwd.c
+	$(CC) $(CFLAGS) -c $(INCLUDE) $(SRC)log.c $(SRC)utils.c $(SRC)bmp.c $(MODULE)passwd.c
 
 video:
-	$(CC) $(CFLAGS) -c $(INCLUDE) $(SRC)log.c $(SRC)utils.c $(SRC)bmp.c $(SRC)videoPlayer.c
+	$(CC) $(CFLAGS) -c $(INCLUDE) $(SRC)log.c $(SRC)utils.c $(SRC)bmp.c $(MODULE)videoPlayer.c
 
 utils:
 	$(CC) $(CFLAGS) -c $(INCLUDE) $(SRC)log.c $(SRC)utils.c
