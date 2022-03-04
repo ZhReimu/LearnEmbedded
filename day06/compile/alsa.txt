@@ -1,1 +1,0 @@
-./configure --host=arm-linux CC=arm-linux-gcc --enable-shared --disable-python --prefix=/home/gec/alsa/build/mplayer

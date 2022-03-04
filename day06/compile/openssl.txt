@@ -1,1 +1,0 @@
-./Configure linux-generic32 no-asm shared no-async --prefix=/home/gec/openssl/build cross_compile_prefix=arm-linux-

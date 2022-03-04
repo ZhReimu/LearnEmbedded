@@ -1,3 +1,0 @@
-仓库地址
-https://github.com/ZhReimu/LearnEmbedded
-https://gitee.com/zhReimu/LearnEmbedded

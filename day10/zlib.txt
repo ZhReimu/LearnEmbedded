@@ -1,4 +1,0 @@
-export CC=arm-linux-gcc
-export AR=arm-linux-ar
-export RC=arm-linux-rc
-./configure --prefix=./build
