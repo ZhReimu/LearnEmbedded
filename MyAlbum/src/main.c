@@ -50,7 +50,7 @@ void onClick(int x, int y)
  */
 int main()
 {
-    debugS("WHERE TO MY ALBUM V %s", VERSION, WARN);
+    debugS("WELCOME TO MY ALBUM V %s", VERSION, WARN);
     playVideo();
     initPasswd();
     initHome();
